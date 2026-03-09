@@ -1,0 +1,57 @@
+# PHP upload limits – fix "The file failed to upload" (3MB+ images)
+
+PHP’s default upload_max_filesize is 2M. A 3MB (or larger) image will fail until
+you increase the limits in the php.ini that your backend actually uses.
+
+Set in php.ini:
+
+  upload_max_filesize = 50M
+  post_max_size = 52M
+
+Then restart the process that runs PHP (see below). Changes do not apply until restart.
+
+---
+
+## You run the backend with: php artisan serve (no WAMP/Apache)
+
+When you run `php artisan serve`, PHP uses the **CLI php.ini**, not WAMP’s Apache php.ini.
+So editing WAMP → PHP → php.ini has no effect if WAMP is off and you use artisan.
+
+1. Find which php.ini is used:
+
+   cd backend
+   php --ini
+
+   Note the path under "Loaded Configuration File" (e.g. C:\wamp64\bin\php\php8.x.x\php.ini).
+
+2. Open that file in an editor (as Administrator if it’s in Program Files).
+
+3. Search for upload_max_filesize and post_max_size. Set:
+
+   upload_max_filesize = 50M
+   post_max_size = 52M
+
+4. Save the file.
+
+5. Stop the backend (Ctrl+C in the terminal where php artisan serve is running),
+   then start it again:
+
+   php artisan serve
+
+6. Try the upload again (e.g. 3MB image in admin media).
+
+---
+
+## You run the backend with WAMP/Apache
+
+1. Left-click WAMP tray icon → PHP → php.ini
+2. Set upload_max_filesize = 50M and post_max_size = 52M
+3. Save, then WAMP icon → Restart All Services
+4. Try the upload again
+
+---
+
+## Summary
+
+- WAMP off + `php artisan serve` → edit the php.ini shown by `php --ini`, then restart artisan.
+- WAMP on + Apache serving Laravel → edit WAMP’s php.ini, then restart Apache.

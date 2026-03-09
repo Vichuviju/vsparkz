@@ -1,0 +1,22 @@
+Vsparkz Backend - Start the API server
+======================================
+
+1. Open a terminal (Command Prompt or PowerShell).
+
+2. Go to this folder:
+   cd c:\wamp64\www\vsparkz\backend
+
+3. Start the server:
+   php artisan serve
+
+4. Leave this terminal open. You should see:
+   "Server running on [http://127.0.0.1:8000]"
+
+5. Then open the admin in the browser: http://localhost:5173
+   The login page will show "Backend connected" when the API is reachable.
+
+First time only - set up the database:
+   php artisan migrate
+   php artisan db:seed
+
+Login: admin@vsparkzdigital.com / password

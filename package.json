@@ -1,0 +1,16 @@
+{
+  "name": "vsparkz",
+  "private": true,
+  "description": "Vsparkz Digital – Backend, Admin, Public Website",
+  "scripts": {
+    "dev": "concurrently -n admin,website -c blue,green \"npm run dev:admin\" \"npm run dev:website\"",
+    "dev:admin": "cd admin && npm run dev",
+    "dev:website": "cd website && npm run dev",
+    "build:admin": "cd admin && npm run build",
+    "build:website": "cd website && npm run build",
+    "install:all": "npm install && cd admin && npm install && cd ../website && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}

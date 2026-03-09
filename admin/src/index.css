@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: linear-gradient(180deg, #0B1F2A 0%, #132F42 40%, #1A252E 100%);
+  color: #EAF2F8;
+}
+.dark body {
+  background: linear-gradient(180deg, #0B1F2A 0%, #132F42 40%, #1A252E 100%);
+  color: #EAF2F8;
+}
+.light body {
+  background: #F9FAFB;
+  color: #111827;
+}
+
+/* Force theme-aware text in light mode so white text doesn't persist */
+.light .text-text-primary,
+.light [class*="text-text-primary"] {
+  color: #111827 !important;
+}
+.light .text-text-muted,
+.light [class*="text-text-muted"] {
+  color: #4b5563 !important;
+}
+.light .text-accent-bright {
+  color: #0d9488 !important;
+}
+
+/* Light mode: table headers, form inputs, borders (fixes pages that use dark-only navy classes) */
+.light [class*="bg-navy-800"] {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+}
+.light input[class*="bg-navy"],
+.light select[class*="bg-navy"],
+.light textarea[class*="bg-navy"] {
+  background-color: #fff !important;
+  color: #111827 !important;
+}
+.light [class*="border-navy-600"] {
+  border-color: #e5e7eb !important;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.glass {
+  background: rgba(14, 42, 59, 0.6);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(31, 162, 255, 0.12);
+}
+.dark .glass {
+  background: rgba(14, 42, 59, 0.6);
+  border: 1px solid rgba(31, 162, 255, 0.12);
+}
+.light .glass {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.glass-card {
+  background: rgba(19, 47, 66, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(31, 162, 255, 0.1);
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+.dark .glass-card {
+  background: rgba(19, 47, 66, 0.7);
+  border: 1px solid rgba(31, 162, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+.light .glass-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.btn-primary {
+  background: var(--tenant-primary-color, linear-gradient(135deg, #1FA2FF 0%, #00E5FF 100%));
+  color: white;
+  font-weight: 500;
+  padding: 0.5rem 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(31, 162, 255, 0.35);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+/* When tenant primary color is set, use it for primary buttons */
+:root:has([data-tenant-brand-name]) .btn-primary {
+  background: var(--tenant-primary-color);
+}
+.btn-primary:hover:not(:disabled) {
+  box-shadow: 0 6px 24px rgba(31, 162, 255, 0.45);
+  transform: translateY(-1px);
+}

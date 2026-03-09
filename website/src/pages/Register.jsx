@@ -1,0 +1,119 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+
+const API_BASE = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api';
+
+export default function Register() {
+  const { register } = useAuth();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [password_confirmation, setPasswordConfirmation] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    if (password !== password_confirmation) {
+      setError('Passwords do not match');
+      return;
+    }
+    setLoading(true);
+    try {
+      await register({ name, email, password, password_confirmation, role: 'client' });
+    } catch (err) {
+      setError(err.response?.data?.message || err.response?.data?.errors?.email?.[0] || 'Registration failed');
+      setLoading(false);
+    }
+  };
+
+  const googleUrl = `${API_BASE}/auth/google?redirect_uri=${encodeURIComponent(window.location.origin + '/dashboard')}`;
+  const facebookUrl = `${API_BASE}/auth/facebook?redirect_uri=${encodeURIComponent(window.location.origin + '/dashboard')}`;
+
+  return (
+    <div className="min-h-screen flex items-center justify-center px-4 py-12 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-navy" />
+      <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-accent/10 rounded-full blur-3xl" />
+      <div className="w-full max-w-md relative z-10">
+        <div className="glass-card p-8 animate-fade-in">
+          <div className="flex justify-center mb-6">
+            <img src="/logo/logo1.png" alt="V-Sparkz Digital" className="h-32 w-32 object-contain" />
+          </div>
+          <h1 className="text-2xl font-bold text-text-primary text-center mb-1">Create account</h1>
+          <p className="text-text-muted text-sm text-center mb-6">Join V-Sparkz as a client</p>
+          {error && (
+            <div className="mb-4 p-3 rounded-vsparkz bg-accent-muted/20 border border-accent-muted/40 text-accent-bright text-sm">{error}</div>
+          )}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-text-muted mb-1.5">Name</label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full rounded-vsparkz border border-surface-border bg-navy-800/80 px-4 py-2.5 text-text-primary placeholder-text-secondary focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all"
+                placeholder="Your name"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-text-muted mb-1.5">Email</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full rounded-vsparkz border border-surface-border bg-navy-800/80 px-4 py-2.5 text-text-primary placeholder-text-secondary focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all"
+                placeholder="you@example.com"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-text-muted mb-1.5">Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full rounded-vsparkz border border-surface-border bg-navy-800/80 px-4 py-2.5 text-text-primary placeholder-text-secondary focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all"
+                required
+                minLength={8}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-text-muted mb-1.5">Confirm password</label>
+              <input
+                type="password"
+                value={password_confirmation}
+                onChange={(e) => setPasswordConfirmation(e.target.value)}
+                className="w-full rounded-vsparkz border border-surface-border bg-navy-800/80 px-4 py-2.5 text-text-primary placeholder-text-secondary focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn-primary w-full py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? 'Creating account...' : 'Sign up'}
+            </button>
+          </form>
+          <div className="mt-6">
+            <p className="text-center text-text-muted text-sm mb-3">Or sign up with</p>
+            <div className="flex gap-3 justify-center">
+              <a href={googleUrl} className="inline-flex items-center justify-center rounded-vsparkz border border-surface-border bg-navy-800/60 px-4 py-2.5 text-sm text-text-primary hover:bg-navy-700 transition-all">
+                Google
+              </a>
+              <a href={facebookUrl} className="inline-flex items-center justify-center rounded-vsparkz border border-surface-border bg-navy-800/60 px-4 py-2.5 text-sm text-text-primary hover:bg-navy-700 transition-all">
+                Facebook
+              </a>
+            </div>
+          </div>
+          <p className="mt-6 text-center text-text-muted text-sm">
+            Already have an account? <Link to="/login" className="text-accent hover:text-accent-bright font-medium transition-colors">Sign in</Link>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
