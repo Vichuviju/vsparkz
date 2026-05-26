@@ -60,6 +60,11 @@ use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RolePermissionController;
 use App\Http\Controllers\Admin\SuperAdminController;
+use App\Http\Controllers\Admin\SupportTicketController;
+use App\Http\Controllers\Admin\SmsController;
+use App\Http\Controllers\Admin\EcommerceController;
+use App\Http\Controllers\Admin\GamificationController;
+use App\Http\Controllers\Admin\UtilityController;
 use App\Models\User;
 use App\Http\Controllers\Public\LeadController as PublicLeadController;
 use App\Http\Controllers\Public\InfluencerController as PublicInfluencerController;
@@ -292,20 +297,12 @@ Route::middleware(['auth:sanctum', 'tenant', 'subscription'])->prefix('admin')->
     Route::delete('landing-templates/{template}', [LandingTemplateController::class, 'destroy']);
     Route::post('landing-templates/{template}/activate', [LandingTemplateController::class, 'activate']);
 
-    Route::get('landing-templates/{template}/sections', [LandingSectionController::class, 'index']);
-    Route::post('landing-templates/{template}/sections', [LandingSectionController::class, 'store']);
-    Route::put('landing-sections/{section}', [LandingSectionController::class, 'update']);
-    Route::delete('landing-sections/{section}', [LandingSectionController::class, 'destroy']);
-    Route::post('landing-sections/reorder', [LandingSectionController::class, 'reorder']);
-
-    Route::get('landing-sections/{section}/blocks', [LandingBlockController::class, 'index']);
-    Route::post('landing-sections/{section}/blocks', [LandingBlockController::class, 'store']);
-    Route::put('landing-blocks/{block}', [LandingBlockController::class, 'update']);
-    Route::delete('landing-blocks/{block}', [LandingBlockController::class, 'destroy']);
-    Route::post('landing-blocks/reorder', [LandingBlockController::class, 'reorder']);
-
     // Influencers, Clients, Projects
     Route::apiResource('influencers', InfluencerController::class);
+    Route::apiResource('influencer-categories', InfluencerCategoryController::class);
+    Route::get('influencers/{influencer}/engagement', [InfluencerEngagementController::class, 'index']);
+    Route::post('influencers/{influencer}/engagement', [InfluencerEngagementController::class, 'store']);
+    Route::delete('influencers/{influencer}/engagement/{log}', [InfluencerEngagementController::class, 'destroy']);
     Route::get('clients/{client}/profile', [ClientController::class, 'profile']);
     Route::apiResource('clients', ClientController::class);
     Route::apiResource('agencies', AgencyController::class);
@@ -317,11 +314,8 @@ Route::middleware(['auth:sanctum', 'tenant', 'subscription'])->prefix('admin')->
     Route::apiResource('projects', ProjectController::class);
     Route::get('project-assignments', [ProjectAssignmentController::class, 'index']);
     Route::post('project-assignments', [ProjectAssignmentController::class, 'store']);
-    Route::post('project-assignments/bulk', [ProjectAssignmentController::class, 'storeBulk']);
     Route::delete('project-assignments/{projectAssignment}', [ProjectAssignmentController::class, 'destroy']);
     Route::get('work-dashboard', [WorkDashboardController::class, 'index']);
-    Route::get('work-dashboard/reports/work-progress', [WorkDashboardController::class, 'workProgressReport']);
-    Route::get('work-dashboard/reports/time-logged', [WorkDashboardController::class, 'timeLoggedReport']);
     Route::get('requirement-templates', [RequirementTemplateController::class, 'index']);
     Route::post('requirement-templates', [RequirementTemplateController::class, 'store']);
     Route::get('requirement-templates/{requirementTemplate}', [RequirementTemplateController::class, 'show']);
@@ -332,16 +326,11 @@ Route::middleware(['auth:sanctum', 'tenant', 'subscription'])->prefix('admin')->
     Route::get('requirement-gatherings/{requirementGathering}', [RequirementGatheringController::class, 'show']);
     Route::put('requirement-gatherings/{requirementGathering}', [RequirementGatheringController::class, 'update']);
     Route::delete('requirement-gatherings/{requirementGathering}', [RequirementGatheringController::class, 'destroy']);
-    Route::post('requirement-gatherings/{requirementGathering}/documents', [RequirementGatheringController::class, 'storeDocument']);
-    Route::delete('requirement-gatherings/{requirementGathering}/documents/{document}', [RequirementGatheringController::class, 'destroyDocument']);
     Route::get('strategy-reports', [StrategyReportController::class, 'index']);
     Route::post('strategy-reports', [StrategyReportController::class, 'store']);
     Route::get('strategy-reports/{strategyReport}', [StrategyReportController::class, 'show']);
     Route::put('strategy-reports/{strategyReport}', [StrategyReportController::class, 'update']);
     Route::delete('strategy-reports/{strategyReport}', [StrategyReportController::class, 'destroy']);
-    Route::post('strategy-reports/{strategyReport}/send', [StrategyReportController::class, 'send']);
-    Route::post('strategy-reports/{strategyReport}/approve', [StrategyReportController::class, 'approve']);
-    Route::get('strategy-reports/{strategyReport}/pdf', [StrategyReportController::class, 'downloadPdf']);
     Route::get('agreements/{agreement}/pdf', [AgreementController::class, 'downloadPdf']);
     Route::apiResource('agreements', AgreementController::class);
     Route::apiResource('content-calendar', ContentCalendarController::class)->parameters(['content_calendar' => 'contentCalendarItem']);
@@ -365,9 +354,6 @@ Route::middleware(['auth:sanctum', 'tenant', 'subscription'])->prefix('admin')->
     Route::get('deals/{id}', [DealController::class, 'show']);
     Route::put('deals/{id}', [DealController::class, 'update']);
     Route::delete('deals/{id}', [DealController::class, 'destroy']);
-
-    // DMOS: branding (read-only for frontend theming)
-    Route::get('branding', [BrandingController::class, 'show']);
 
     // DMOS: keywords, contact lists, vendors, brands, workflows, knowledge base, onboarding, automation, report templates, forms
     Route::get('keywords', [KeywordController::class, 'index']);
@@ -473,4 +459,22 @@ Route::middleware(['auth:sanctum', 'tenant', 'subscription'])->prefix('admin')->
     Route::put('/system-settings', [SettingsApiController::class, 'update']);
 
     Route::apiResource('plans', PlanController::class);
+
+    // Support Tickets
+    Route::apiResource('support-tickets', SupportTicketController::class);
+    Route::post('support-tickets/{supportTicket}/reply', [SupportTicketController::class, 'reply']);
+
+    // SMS Marketing
+    Route::apiResource('sms-campaigns', SmsController::class);
+    Route::post('sms-campaigns/{smsCampaign}/send', [SmsController::class, 'send']);
+
+    // Batch 2: Ecommerce, Gamification, Utility
+    Route::get('ecommerce/stores', [EcommerceController::class, 'index']);
+    Route::post('ecommerce/stores', [EcommerceController::class, 'store']);
+    Route::get('ecommerce/orders', [EcommerceController::class, 'orders']);
+    Route::get('gamification/badges', [GamificationController::class, 'badges']);
+    Route::post('gamification/badges', [GamificationController::class, 'storeBadge']);
+    Route::get('gamification/rewards', [GamificationController::class, 'rewards']);
+    Route::get('utilities/short-links', [UtilityController::class, 'indexLinks']);
+    Route::post('utilities/short-links', [UtilityController::class, 'storeLink']);
 });

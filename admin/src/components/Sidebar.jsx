@@ -53,6 +53,8 @@ const menuGroups = [
       { to: '/ads', label: 'Ads', end: true },
       { to: '/seo-workspace', label: 'SEO Workspace', end: true },
       { to: '/email-automation', label: 'Email Automation', end: true },
+      { to: '/sms-marketing', label: 'SMS Marketing', end: true },
+      { to: '/url-shortener', label: 'URL Shortener', end: true },
     ],
   },
   {
@@ -104,10 +106,13 @@ const menuGroups = [
       { to: '/workflows', label: 'Workflows (SOP)', end: true },
       { to: '/vendors', label: 'Vendors', end: true },
       { to: '/knowledge-base', label: 'Knowledge Base', end: true },
+      { to: '/support-tickets', label: 'Support Tickets', end: false },
       { to: '/service-packages', label: 'Productized Services', end: true },
       { to: '/brands', label: 'Brands', end: true },
       { to: '/onboarding-questionnaires', label: 'Onboarding', end: true },
       { to: '/forms', label: 'Forms', end: true },
+      { to: '/ecommerce', label: 'E-Commerce', end: true },
+      { to: '/gamification', label: 'Gamification', end: true },
     ],
   },
   {

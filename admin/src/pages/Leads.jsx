@@ -69,8 +69,20 @@ export function Leads() {
   const [statusFilter, setStatusFilter] = useState('');
   const [search, setSearch] = useState('');
   const [showConvertModal, setShowConvertModal] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [services, setServices] = useState([]);
   const [selectedLead, setSelectedLead] = useState(null);
   const [stats, setStats] = useState({ total: 0, new: 0, contacted: 0, converted: 0 });
+  const [newLead, setNewLead] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    company: '',
+    service_id: '',
+    subject: '',
+    message: '',
+    status: 'new'
+  });
 
   const fetchLeads = (page = 1) => {
     setLoading(true);
@@ -103,6 +115,10 @@ export function Leads() {
     fetchLeads();
   }, [statusFilter]);
 
+  useEffect(() => {
+    api.get('/admin/services').then(({ data }) => setServices(data.data || data));
+  }, []);
+
   const handleSearch = (e) => {
     e.preventDefault();
     fetchLeads(1);
@@ -134,6 +150,27 @@ export function Leads() {
     }
   };
 
+  const handleAddLead = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await api.post('/admin/leads', newLead);
+      setLeads(prev => [data, ...prev]);
+      setShowAddModal(false);
+      setNewLead({
+        name: '',
+        email: '',
+        phone: '',
+        company: '',
+        service_id: '',
+        subject: '',
+        message: '',
+        status: 'new'
+      });
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to add lead');
+    }
+  };
+
   const hasFilters = statusFilter || search.trim();
   const clearFilters = () => {
     setStatusFilter('');
@@ -150,16 +187,27 @@ export function Leads() {
             <h1 className="text-2xl font-bold dark:text-text-primary text-gray-900 tracking-tight">Leads Management</h1>
             <p className="mt-1 text-sm dark:text-text-muted text-gray-500">Track and convert leads to clients</p>
           </div>
-          {meta.total != null && !loading && (
-            <div className="flex items-center gap-2 text-sm dark:text-text-muted text-gray-500">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg dark:bg-navy-800/80 bg-gray-100">
-                <svg className="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                <span className="font-medium dark:text-text-primary text-gray-900">{meta.total}</span> total
-              </span>
-            </div>
-          )}
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setShowAddModal(true)}
+              className="btn-primary px-5 py-2 rounded-xl text-sm font-medium flex items-center gap-2"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+              Add Lead
+            </button>
+            {meta.total != null && !loading && (
+              <div className="flex items-center gap-2 text-sm dark:text-text-muted text-gray-500">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg dark:bg-navy-800/80 bg-gray-100">
+                  <svg className="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                  <span className="font-medium dark:text-text-primary text-gray-900">{meta.total}</span> total
+                </span>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* KPI Cards */}
@@ -416,6 +464,114 @@ export function Leads() {
                 Cancel
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Add Lead Modal */}
+      {showAddModal && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+          <div className="glass-card max-w-2xl w-full p-8 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-bold dark:text-text-primary text-gray-900">Add New Lead</h3>
+              <button onClick={() => setShowAddModal(false)} className="p-2 hover:bg-gray-100 dark:hover:bg-navy-800 rounded-lg transition-colors">
+                <svg className="w-5 h-5 dark:text-text-muted text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+            </div>
+            <form onSubmit={handleAddLead} className="space-y-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="space-y-1.5">
+                  <label className="text-sm font-medium dark:text-text-muted text-gray-700">Full Name *</label>
+                  <input
+                    type="text"
+                    required
+                    value={newLead.name}
+                    onChange={(e) => setNewLead({ ...newLead, name: e.target.value })}
+                    className="w-full px-4 py-2.5 rounded-xl border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white dark:text-text-primary text-gray-900 focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all"
+                    placeholder="John Doe"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-sm font-medium dark:text-text-muted text-gray-700">Email Address *</label>
+                  <input
+                    type="email"
+                    required
+                    value={newLead.email}
+                    onChange={(e) => setNewLead({ ...newLead, email: e.target.value })}
+                    className="w-full px-4 py-2.5 rounded-xl border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white dark:text-text-primary text-gray-900 focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all"
+                    placeholder="john@example.com"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-sm font-medium dark:text-text-muted text-gray-700">Phone Number</label>
+                  <input
+                    type="text"
+                    value={newLead.phone}
+                    onChange={(e) => setNewLead({ ...newLead, phone: e.target.value })}
+                    className="w-full px-4 py-2.5 rounded-xl border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white dark:text-text-primary text-gray-900 focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all"
+                    placeholder="+1 234 567 890"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-sm font-medium dark:text-text-muted text-gray-700">Company Name</label>
+                  <input
+                    type="text"
+                    value={newLead.company}
+                    onChange={(e) => setNewLead({ ...newLead, company: e.target.value })}
+                    className="w-full px-4 py-2.5 rounded-xl border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white dark:text-text-primary text-gray-900 focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all"
+                    placeholder="Acme Corp"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-sm font-medium dark:text-text-muted text-gray-700">Service Interested In</label>
+                  <select
+                    value={newLead.service_id}
+                    onChange={(e) => setNewLead({ ...newLead, service_id: e.target.value })}
+                    className="w-full px-4 py-2.5 rounded-xl border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white dark:text-text-primary text-gray-900 focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all appearance-none"
+                  >
+                    <option value="">Select a service</option>
+                    {services.map((service) => (
+                      <option key={service.id} value={service.id}>{service.title}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-sm font-medium dark:text-text-muted text-gray-700">Initial Status</label>
+                  <select
+                    value={newLead.status}
+                    onChange={(e) => setNewLead({ ...newLead, status: e.target.value })}
+                    className="w-full px-4 py-2.5 rounded-xl border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white dark:text-text-primary text-gray-900 focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all appearance-none"
+                  >
+                    <option value="new">New</option>
+                    <option value="contacted">Contacted</option>
+                    <option value="follow_back">Follow Back</option>
+                    <option value="hold">Hold</option>
+                  </select>
+                </div>
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-sm font-medium dark:text-text-muted text-gray-700">Message / Requirement Details</label>
+                <textarea
+                  rows={4}
+                  value={newLead.message}
+                  onChange={(e) => setNewLead({ ...newLead, message: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-xl border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white dark:text-text-primary text-gray-900 focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all resize-none"
+                  placeholder="Describe what the lead is looking for..."
+                />
+              </div>
+              <div className="flex gap-4 pt-4">
+                <button type="submit" className="flex-1 btn-primary py-3 rounded-xl font-semibold shadow-lg shadow-accent/20">
+                  Create Lead
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowAddModal(false)}
+                  className="flex-1 px-4 py-3 border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white dark:text-text-primary text-gray-900 rounded-xl font-semibold hover:bg-gray-50 transition-all"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}

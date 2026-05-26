@@ -19,6 +19,8 @@ import { ProjectDetail } from './pages/ProjectDetail';
 import { AssignProject } from './pages/AssignProject';
 import { InvoiceDetail } from './pages/InvoiceDetail';
 import { Influencers } from './pages/Influencers';
+import { InfluencerDetail } from './pages/InfluencerDetail';
+import { InfluencerCategories } from './pages/InfluencerCategories';
 import { Invoices } from './pages/Invoices';
 import { Integrations } from './pages/Integrations';
 import { Settings } from './pages/Settings';
@@ -63,6 +65,12 @@ import { AutomationWorkflows } from './pages/AutomationWorkflows';
 import { ReportTemplates } from './pages/ReportTemplates';
 import { OnboardingQuestionnaires } from './pages/OnboardingQuestionnaires';
 import { Forms } from './pages/Forms';
+import { SupportTickets } from './pages/SupportTickets';
+import { TicketDetail } from './pages/TicketDetail';
+import { SmsMarketing } from './pages/SmsMarketing';
+import { Ecommerce } from './pages/Ecommerce';
+import { Gamification } from './pages/Gamification';
+import { UrlShortener } from './pages/UrlShortener';
 
 export default function App() {
   return (
@@ -104,6 +112,8 @@ export default function App() {
               <Route path="pages/:id" element={<PageEditor />} />
               <Route path="landing-builder" element={<LandingBuilder />} />
               <Route path="influencers" element={<Influencers />} />
+              <Route path="influencers/:id" element={<InfluencerDetail />} />
+              <Route path="influencer-categories" element={<InfluencerCategories />} />
               <Route path="clients" element={<Clients />} />
               <Route path="clients/:id" element={<ClientDetail />} />
               <Route path="projects" element={<Projects />} />
@@ -138,6 +148,16 @@ export default function App() {
               <Route path="integrations" element={<Integrations />} />
               <Route path="tasks-hr" element={<TasksHR />} />
               <Route path="agencies" element={<Agencies />} />
+
+              {/* Support & SMS */}
+              <Route path="support-tickets" element={<SupportTickets />} />
+              <Route path="support-tickets/:id" element={<TicketDetail />} />
+              <Route path="sms-marketing" element={<SmsMarketing />} />
+
+              {/* Batch 2 */}
+              <Route path="ecommerce" element={<Ecommerce />} />
+              <Route path="gamification" element={<Gamification />} />
+              <Route path="url-shortener" element={<UrlShortener />} />
             </Route>
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
