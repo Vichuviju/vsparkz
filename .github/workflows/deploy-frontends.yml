@@ -49,9 +49,11 @@ jobs:
 
       - name: Combine website + admin into one site
         run: |
-          mkdir -p website/dist/admin
+          mkdir -p website/dist/admin/login
           cp -r admin/dist/* website/dist/admin/
+          cp website/dist/admin/index.html website/dist/admin/login/index.html
           touch website/dist/.nojekyll
+          touch website/dist/admin/.nojekyll
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
