@@ -73,9 +73,11 @@ import { Gamification } from './pages/Gamification';
 import { UrlShortener } from './pages/UrlShortener';
 
 export default function App() {
+  const routerBasename = import.meta.env.BASE_URL.replace(/\/$/, '') || undefined;
+
   return (
     <ThemeProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={routerBasename}>
         <AuthProvider>
           <Routes>
             <Route path="/login" element={<Login />} />

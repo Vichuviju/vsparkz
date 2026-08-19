@@ -1,11 +1,12 @@
-name: Deploy Website to GitHub Pages
+name: Deploy Frontends to GitHub Pages
 
 on:
   push:
     branches: [main]
     paths:
       - 'website/**'
-      - '.github/workflows/deploy-website.yml'
+      - 'admin/**'
+      - '.github/workflows/deploy-frontends.yml'
   workflow_dispatch:
 
 permissions:
@@ -28,23 +29,30 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: npm
-          cache-dependency-path: website/package-lock.json
 
-      - name: Install dependencies
-        working-directory: website
-        run: npm ci
-
-      - name: Build for GitHub Pages
+      - name: Install and build website
         working-directory: website
         env:
           VITE_API_URL: ${{ vars.VITE_API_URL }}
           VITE_ADMIN_URL: ${{ vars.VITE_ADMIN_URL }}
-        run: npm run build:pages
+        run: |
+          npm ci
+          npm run build:pages
+          cp dist/index.html dist/404.html
 
-      - name: SPA fallback for client-side routing
-        working-directory: website/dist
-        run: cp index.html 404.html
+      - name: Install and build admin
+        working-directory: admin
+        env:
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
+        run: |
+          npm ci
+          npm run build:pages
+          cp dist/index.html dist/404.html
+
+      - name: Combine website + admin into one site
+        run: |
+          mkdir -p website/dist/admin
+          cp -r admin/dist/* website/dist/admin/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
