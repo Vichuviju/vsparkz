@@ -1,18 +1,11 @@
+# Free-tier compatible: Docker + SQLite (no PHP runtime, no persistent disk)
 services:
   - type: web
     name: vsparkz-api
-    runtime: php
+    runtime: docker
     plan: free
-    rootDir: backend
-    buildCommand: |
-      composer install --no-dev --optimize-autoloader
-      mkdir -p /var/data
-      touch /var/data/database.sqlite
-      php artisan config:cache
-      php artisan route:cache
-      php artisan migrate --force
-      php artisan db:seed --force
-    startCommand: php artisan serve --host=0.0.0.0 --port=$PORT
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
     healthCheckPath: /api/health
     envVars:
       - key: APP_ENV
@@ -24,14 +17,10 @@ services:
       - key: DB_CONNECTION
         value: sqlite
       - key: DB_DATABASE
-        value: /var/data/database.sqlite
+        value: /var/www/database/database.sqlite
       - key: CORS_ALLOWED_ORIGINS
         value: https://vichuviju.github.io,http://localhost:5173,http://localhost:5174
       - key: FRONTEND_URL
         value: https://vichuviju.github.io/vsparkz
       - key: APP_KEY
         generateValue: true
-    disk:
-      name: vsparkz-data
-      mountPath: /var/data
-      sizeGB: 1

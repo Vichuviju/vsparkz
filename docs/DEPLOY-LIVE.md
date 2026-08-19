@@ -16,17 +16,20 @@ Host the full Vsparkz platform for free using **Render** (API + database) and **
 
 ## Step 1 — Deploy backend on Render (free)
 
+Render free tier does **not** support native PHP or disks. This repo uses **Docker + SQLite** instead.
+
 1. Sign in at [render.com](https://render.com) with your GitHub account.
-2. Click **New → Blueprint** and connect repo `Vichuviju/vsparkz`.
-3. Render reads `render.yaml` and creates **vsparkz-api** automatically.
-4. Wait for deploy to finish (~5 min). Copy your API URL, e.g. `https://vsparkz-api.onrender.com`.
+2. Click **New → Blueprint** and connect repo `Vichuviju/vsparkz` (branch `main`, path `render.yaml`).
+3. Review the Blueprint — you should see **vsparkz-api** with runtime **Docker** (no disk errors).
+4. Click **Apply** and wait for deploy (~5–10 min). Copy your API URL, e.g. `https://vsparkz-api.onrender.com`.
 
 **Or one-click:**  
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Vichuviju/vsparkz)
 
 Verify: open `https://YOUR-API.onrender.com/api/health` — should show `"database":"connected"`.
 
-> Free tier sleeps after 15 min idle. First request may take ~30 seconds to wake up.
+> Free tier sleeps after ~15 min idle (first request can take ~30s).  
+> Without a paid disk, SQLite is ephemeral — data resets on redeploy (migrate + seed run on start).
 
 ---
 
