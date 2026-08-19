@@ -51,6 +51,7 @@ jobs:
         run: |
           mkdir -p website/dist/admin
           cp -r admin/dist/* website/dist/admin/
+          touch website/dist/.nojekyll
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

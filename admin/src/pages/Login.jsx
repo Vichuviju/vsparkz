@@ -17,6 +17,7 @@ export function Login() {
 
   const apiBase = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api';
   const healthUrl = apiBase.replace(/\/api\/?$/, '') + '/api/health';
+  const asset = (file) => `${import.meta.env.BASE_URL}${String(file).replace(/^\//, '')}`;
 
   const checkBackend = async () => {
     setBackendStatus(null);
@@ -255,7 +256,7 @@ export function Login() {
           playsInline 
           className="absolute inset-0 w-full h-full object-cover object-top opacity-85 z-0"
         >
-          <source src="/PixVerse_V6_Image_Text_540P_Create_an_ultrapre.mp4" type="video/mp4" />
+          <source src={asset('PixVerse_V6_Image_Text_540P_Create_an_ultrapre.mp4')} type="video/mp4" />
         </video>
 
         {/* Dark overlay for text readability */}
@@ -263,7 +264,7 @@ export function Login() {
         
         {/* Top brand indicator */}
         <div className="flex items-center gap-3 z-10">
-          <img src="/logo/logo1.png" alt="V-Sparkz" className="h-10 w-10 object-contain" />
+          <img src={asset('logo/vsparkz_hero.png')} alt="V-Sparkz" className="h-10 w-10 object-contain" />
           <span className="text-xl font-bold tracking-tight text-white">
             V-Sparkz <span className="text-blue-400 font-semibold">Digital</span>
           </span>
@@ -501,7 +502,7 @@ export function Login() {
           {/* Logo & Mobile Brand */}
           <div className="text-center lg:text-left space-y-4">
             <div className="flex items-center justify-center lg:justify-start gap-3 mb-6">
-              <img src="/logo/logo1.png" alt="V-Sparkz" className="h-10 w-10 object-contain" />
+              <img src={asset('logo/vsparkz_hero.png')} alt="V-Sparkz" className="h-10 w-10 object-contain" />
               <span className="text-2xl font-bold tracking-tight text-slate-800">
                 V-Sparkz <span className="text-blue-600 font-semibold">Digital</span>
               </span>
