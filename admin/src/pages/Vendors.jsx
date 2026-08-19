@@ -84,7 +84,7 @@ function Vendors() {
 
   return (
     <div className="p-6">
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
         <div>
           <h1 className="text-2xl font-semibold text-text-primary">Vendors</h1>
           <p className="text-text-muted text-sm mt-1">Manage vendors, rate cards, and contracts.</p>
@@ -141,9 +141,9 @@ function Vendors() {
       )}
 
       {modal && (
-        <div className="fixed inset-0 flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm" onClick={closeModal}>
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm" onClick={closeModal}>
           <div
-            className="bg-white dark:bg-navy-800 rounded-2xl shadow-xl max-w-md w-full mx-4 p-6"
+            className="bg-white dark:bg-navy-800 rounded-2xl shadow-xl max-w-md w-full mx-4 p-6 max-h-[min(92dvh,44rem)] overflow-y-auto mx-3 sm:mx-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-lg font-semibold text-text-primary mb-4">

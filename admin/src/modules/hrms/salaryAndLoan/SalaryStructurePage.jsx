@@ -349,7 +349,7 @@ export const SalaryStructureSetup = () => {
 
             {/* Salary Edit Modal */}
             {isModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center p-4 bg-gray-900/60 z-[9999] bg-slate-900/60 backdrop-blur-sm">
+                <div className="fixed inset-0 overflow-y-auto flex items-center justify-center p-4 bg-gray-900/60 z-[9999] bg-slate-900/60 backdrop-blur-sm">
                     <div className="bg-white w-full max-w-2xl rounded-[32px] shadow-2xl animate-in zoom-in-95 duration-200 flex flex-col max-h-[90vh] overflow-hidden">
                         <form onSubmit={handleSaveSalary} className="flex flex-col h-full overflow-hidden">
                             {/* Modal Header */}
@@ -403,7 +403,7 @@ export const SalaryStructureSetup = () => {
                                         </div>
                                     </div>
 
-                                    <div className="grid grid-cols-2 gap-x-12 gap-y-6">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6">
                                         {[
                                             { label: "Basic Salary", field: "basicSalary", icon: "B" },
                                             { label: "HRA Allowance", field: "hraAllowance", icon: "H" },

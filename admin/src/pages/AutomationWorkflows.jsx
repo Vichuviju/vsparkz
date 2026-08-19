@@ -150,7 +150,7 @@ function AutomationWorkflows() {
       )}
 
       {modal === 'form' && (
-        <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm" onClick={closeModal}>
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm" onClick={closeModal}>
           <div className="glass-card rounded-2xl p-6 w-full max-w-md shadow-xl" onClick={(e) => e.stopPropagation()}>
             <h2 className="text-lg font-semibold text-text-primary mb-4">{editingWorkflow ? 'Edit workflow' : 'Add workflow'}</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -176,7 +176,7 @@ function AutomationWorkflows() {
       )}
 
       {deleteConfirm && (
-        <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm" onClick={() => setDeleteConfirm(null)}>
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm" onClick={() => setDeleteConfirm(null)}>
           <div className="glass-card rounded-2xl p-6 w-full max-w-sm shadow-xl" onClick={(e) => e.stopPropagation()}>
             <p className="text-text-primary mb-4">Delete workflow &quot;{deleteConfirm.name}&quot;? This cannot be undone.</p>
             <div className="flex gap-2">

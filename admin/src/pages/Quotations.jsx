@@ -169,7 +169,7 @@ export function Quotations() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
         <h1 className="text-2xl font-bold text-text-primary">Quotations</h1>
         <button className="btn-primary px-4 py-2" onClick={() => { setForm({ client_id: '', number: `QUO-${Date.now()}`, title: '', subtotal: 0, tax_rate: 18, tax_amount: 0, total: 0, status: 'draft', items: [] }); setShowModal(true); }}>Add Quotation</button>
       </div>
@@ -210,7 +210,7 @@ export function Quotations() {
 
       {/* Add/Edit Modal */}
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm">
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm">
           <div className="glass-card p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
             <h2 className="text-xl font-bold text-text-primary mb-4">{editing ? 'Edit' : 'Add'} Quotation</h2>
             <form onSubmit={handleSubmit}>
@@ -229,7 +229,7 @@ export function Quotations() {
                 <label className="block text-sm font-medium text-text-muted mb-1">Title</label>
                 <input className="w-full px-3 py-2 bg-navy-800/80 border border-navy-600 rounded-vsparkz text-text-primary" value={form.title} onChange={e => setForm({...form, title: e.target.value})} required />
               </div>
-              <div className="grid grid-cols-2 gap-3 mb-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
                 <div>
                   <label className="block text-sm font-medium text-text-muted mb-1">Subtotal</label>
                   <input type="number" className="w-full px-3 py-2 bg-navy-800/80 border border-navy-600 rounded-vsparkz text-text-primary" value={form.subtotal} onChange={e => setForm({...form, subtotal: parseFloat(e.target.value) || 0})} />
@@ -259,7 +259,7 @@ export function Quotations() {
 
       {/* Build from project modal */}
       {showBuildModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm">
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm">
           <div className="glass-card p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <h2 className="text-xl font-bold text-text-primary mb-4">Build Quotation from Project</h2>
             {buildLoading ? (
@@ -267,7 +267,7 @@ export function Quotations() {
             ) : buildData ? (
               <form onSubmit={handleBuildSubmit}>
                 <p className="text-sm text-text-muted mb-4">Project: <span className="text-text-primary">{buildData.project?.name}</span> · Client: <span className="text-text-primary">{buildData.client?.company_name}</span></p>
-                <div className="grid grid-cols-2 gap-3 mb-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
                   <div>
                     <label className="block text-sm font-medium text-text-muted mb-1">Time period</label>
                     <select className="w-full px-3 py-2 bg-navy-800/80 border border-navy-600 rounded-vsparkz text-text-primary" value={buildForm.time_period} onChange={e => setBuildForm(f => ({ ...f, time_period: e.target.value }))}>
@@ -284,7 +284,7 @@ export function Quotations() {
                   <input className="w-full px-3 py-2 bg-navy-800/80 border border-navy-600 rounded-vsparkz text-text-primary" value={buildForm.title} onChange={e => setBuildForm(f => ({ ...f, title: e.target.value }))} placeholder="Quotation title" />
                 </div>
                 <div className="mb-4">
-                  <div className="flex justify-between items-center mb-2">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-2">
                     <span className="text-sm font-medium text-text-muted">Line items</span>
                     <button type="button" onClick={addBuildLine} className="text-accent hover:text-accent-bright text-sm">+ Add line</button>
                   </div>
@@ -321,7 +321,7 @@ export function Quotations() {
 
       {/* Detail Modal */}
       {showDetailModal && detail && (
-        <div className="fixed inset-0 flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm">
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm">
           <div className="glass-card p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
             <h2 className="text-xl font-bold text-text-primary mb-4">Quotation Details</h2>
             <div className="space-y-3 text-sm">

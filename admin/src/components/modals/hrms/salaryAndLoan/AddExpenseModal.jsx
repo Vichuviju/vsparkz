@@ -92,7 +92,7 @@ export const AddExpenseModal = ({
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
 
           {/* Employee + Employee ID */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="space-y-2">
               <Label>Employee Name *</Label>
               <Controller
@@ -130,7 +130,7 @@ export const AddExpenseModal = ({
           </div>
 
           {/* Category + Amount */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="space-y-2">
               <Label>Expense Category *</Label>
               <Controller
@@ -169,7 +169,7 @@ export const AddExpenseModal = ({
           </div>
 
           {/* Expense Date + Payroll Month */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="space-y-2">
               <Label>Expense Date *</Label>
               <Input

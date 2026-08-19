@@ -969,7 +969,7 @@ const PayrollProcessingContent = () => {
                                                         )}
                                                     </div>
                                                     <div className="space-y-3 bg-white/50 p-4 rounded-xl border border-amber-100/50">
-                                                        <div className="grid grid-cols-3 gap-4 mb-2">
+                                                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-2">
                                                             <div className="p-2 bg-white rounded-lg text-center border border-gray-100 shadow-sm">
                                                                 <p className="text-[9px] text-gray-400 font-bold uppercase tracking-tight mb-2">Present Days</p>
                                                                 <div className="flex justify-center items-center gap-2">
@@ -1225,7 +1225,7 @@ const PayrollProcessingContent = () => {
 
             {/* Individual Payroll Modal */}
             {isIndividualModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
+                <div className="fixed inset-0 overflow-y-auto flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
                     <div className="bg-white rounded-[2rem] w-full max-w-xl shadow-2xl border border-white/20 overflow-hidden animate-in zoom-in duration-300">
                         <div className="p-8 space-y-6">
                             <div className="flex items-center justify-between">
@@ -1395,7 +1395,7 @@ const ManualOverrideModal = ({ isOpen, onClose, record, onSave, isLoading }) => 
     const estimatedLOP = Number(formData.lopDays) * perDaySalary;
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
             <div className="bg-white rounded-3xl w-full max-w-md shadow-2xl border border-white/20 overflow-hidden animate-in zoom-in duration-300">
                 <div className="p-6 space-y-6">
                     <div className="flex items-center justify-between">
@@ -1408,7 +1408,7 @@ const ManualOverrideModal = ({ isOpen, onClose, record, onSave, isLoading }) => 
                         </button>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3">
                         <div className="space-y-1.5">
                             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Absent Days</label>
                             <input 
@@ -1592,7 +1592,7 @@ const PayrollApprovalModal = ({ isOpen, onClose, action, request, onConfirm, isL
     const isReject = action === "REJECTED";
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
             <div className="bg-white rounded-[2.5rem] w-full max-w-md shadow-2xl border border-white/20 overflow-hidden animate-in zoom-in duration-300">
                 <div className="p-8 space-y-6">
                     <div className="flex items-center justify-between">

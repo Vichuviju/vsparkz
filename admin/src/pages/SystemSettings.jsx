@@ -108,7 +108,7 @@ function SystemSettings() {
         <p className="text-text-muted">Loading...</p>
       ) : (
         <div className="glass-card rounded-2xl p-5">
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
             <h2 className="font-medium text-text-primary">Group: {group}</h2>
             <button type="button" onClick={openAdd} className="btn-primary px-3 py-1.5 text-sm">
               + Add setting
@@ -150,9 +150,9 @@ function SystemSettings() {
       )}
 
       {modal && (
-        <div className="fixed inset-0 flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm" onClick={closeModal}>
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm" onClick={closeModal}>
           <div
-            className="bg-white dark:bg-navy-800 rounded-2xl shadow-xl max-w-lg w-full mx-4 p-6"
+            className="bg-white dark:bg-navy-800 rounded-2xl shadow-xl max-w-lg w-full mx-4 p-6 max-h-[min(92dvh,44rem)] overflow-y-auto mx-3 sm:mx-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-lg font-semibold text-text-primary mb-4">

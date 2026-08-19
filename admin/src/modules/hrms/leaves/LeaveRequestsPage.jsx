@@ -351,7 +351,7 @@ export const LeaveRequestsPage = () => {
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Date Range</label>
               <div className="flex gap-2">
-                <div className="flex-1 grid grid-cols-2 gap-2">
+                <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <div className="relative">
                     <input
                       type="date"
@@ -673,7 +673,7 @@ export const LeaveRequestsPage = () => {
                 )}
 
                 {/* Grid Details */}
-                <div className="grid grid-cols-2 gap-6 bg-white p-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-white p-1">
                   <div>
                     <label className="text-[10px] text-slate-400 font-black uppercase tracking-widest block mb-1.5">Type</label>
                     {(() => { 

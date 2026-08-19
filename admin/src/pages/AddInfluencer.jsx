@@ -176,7 +176,7 @@ export function AddInfluencer() {
   }
 
   return (
-    <div className="font-sans min-h-[calc(100vh-4rem)] bg-slate-50 p-4 md:p-8">
+    <div className="font-sans min-h-0">
       {/* Breadcrumb & Header */}
       <div className="mb-6">
         <div className="flex items-center gap-2 text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest">
@@ -184,9 +184,9 @@ export function AddInfluencer() {
           <ChevronRight className="w-3.5 h-3.5" />
           <span className="text-slate-800">{isEditMode ? 'Edit' : 'Add'} Influencer</span>
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">{isEditMode ? 'Edit' : 'Add'} Influencer</h1>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <button type="button" onClick={() => navigate('/influencers')} className="px-5 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-600 font-bold hover:bg-slate-50 transition-colors text-sm">
               Cancel
             </button>
@@ -252,7 +252,7 @@ export function AddInfluencer() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase tracking-wide">Gender <span className="text-red-500">*</span></label>
                 <select name="gender" value={formData.gender} onChange={handleChange} className={inputClass('gender')}>
@@ -286,7 +286,7 @@ export function AddInfluencer() {
               {errors.mobile && <span className="text-[10px] text-red-500 font-bold mt-1 block">{errors.mobile}</span>}
             </div>
             
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase tracking-wide">WhatsApp</label>
                 <input type="tel" name="whatsapp" value={formData.whatsapp} onChange={handleChange} placeholder="WhatsApp" className={inputClass('whatsapp')} />
@@ -309,7 +309,7 @@ export function AddInfluencer() {
               <textarea name="address" value={formData.address} onChange={handleChange} placeholder="Enter complete address" rows={3} className={`${inputClass('address')} resize-none`}></textarea>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase tracking-wide">Country <span className="text-red-500">*</span></label>
                 <select name="country" value={formData.country} onChange={handleChange} className={inputClass('country')}>
@@ -382,7 +382,7 @@ export function AddInfluencer() {
               </select>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase tracking-wide">Sub Category</label>
                 <select name="subCategory" value={formData.subCategory} onChange={handleChange} className={inputClass('subCategory')}>
@@ -415,7 +415,7 @@ export function AddInfluencer() {
               </select>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase tracking-wide">Added By</label>
                 <input type="text" value="Admin User" disabled className="w-full px-3 py-2 bg-slate-100 border border-slate-200 rounded-xl text-sm font-bold text-slate-500 cursor-not-allowed" />

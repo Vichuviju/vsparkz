@@ -337,7 +337,7 @@ const CorrectionModal = ({ open, onClose, initialData, onSave, allEmployees, isL
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="px-6 py-5 space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-gray-600 mb-1.5">Date *</label>
                 <input
@@ -442,7 +442,7 @@ const CorrectionModal = ({ open, onClose, initialData, onSave, allEmployees, isL
               )}
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <div className="flex items-center justify-between mb-1.5">
                   <label className="block text-xs font-semibold text-gray-600">Check-In Time *</label>

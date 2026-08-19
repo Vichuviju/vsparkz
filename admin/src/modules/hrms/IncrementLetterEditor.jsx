@@ -531,7 +531,7 @@ export const IncrementLetterEditor = () => {
                 </div>
 
                 {/* Info Section (Address & Contact Info) */}
-                <div className="grid grid-cols-2 text-[11px] text-slate-600 mt-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 text-[11px] text-slate-600 mt-4">
                     <div className="text-left">
                         <p>No.21, A.K.R Nagar, 3rd Street, Sri Devi Garden, Valasaravakkam,</p>
                         <p>Chennai-600087. PH: 044 - 4864 5464</p>

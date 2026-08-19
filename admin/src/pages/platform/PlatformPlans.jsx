@@ -131,7 +131,7 @@ export function PlatformPlans() {
 
   return (
     <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
         <h1 className="text-2xl font-bold text-text-primary">Subscription Plans</h1>
         <button type="button" onClick={openCreate} className="btn-primary px-4 py-2 text-sm">
           + Create plan
@@ -196,7 +196,7 @@ export function PlatformPlans() {
       )}
 
       {modal && (
-        <div className="fixed inset-0 flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm" onClick={closeModal}>
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm" onClick={closeModal}>
           <div
             className="bg-white dark:bg-navy-800 rounded-2xl shadow-xl max-w-md w-full mx-4 p-6 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
@@ -225,7 +225,7 @@ export function PlatformPlans() {
                   className="w-full px-3 py-2 border dark:border-navy-600 dark:bg-navy-900 rounded dark:text-text-primary"
                 />
               </div>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <div>
                   <label className="block text-sm font-medium text-text-primary mb-1">Price monthly</label>
                   <input
@@ -249,7 +249,7 @@ export function PlatformPlans() {
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                 <div>
                   <label className="block text-sm font-medium text-text-primary mb-1">Max users</label>
                   <input

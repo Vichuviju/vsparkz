@@ -14,7 +14,7 @@ function ReportPreview({ payload }) {
   return (
     <div className="space-y-6">
       {summary && (
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-cols-4 gap-3">
           {Object.entries(summary).map(([key, value]) => (
             <div key={key} className="p-3 rounded-lg dark:bg-navy-800/50 bg-gray-50">
               <div className="text-xs font-medium text-text-muted uppercase tracking-wide">{String(key).replace(/_/g, ' ')}</div>
@@ -28,7 +28,7 @@ function ReportPreview({ payload }) {
           {section.title && <h4 className="text-sm font-semibold text-text-primary mb-2">{section.title}</h4>}
           {section.content && <p className="text-sm text-text-muted whitespace-pre-wrap">{section.content}</p>}
           {section.metrics && (
-            <div className="grid grid-cols-2 gap-2 mt-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
               {Object.entries(section.metrics).map(([k, v]) => (
                 <div key={k}><span className="text-text-muted text-sm">{k}:</span> <span className="font-medium text-text-primary">{String(v)}</span></div>
               ))}
@@ -130,7 +130,7 @@ export function Reports() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
         <h1 className="text-2xl font-bold dark:text-text-primary text-gray-900">Reports</h1>
       </div>
       {error && <div className="mb-4 p-3 rounded-vsparkz bg-accent-muted/20 border border-accent-muted/40 dark:text-accent-bright text-cyan-800 text-sm">{error}</div>}
@@ -151,7 +151,7 @@ export function Reports() {
             </select>
           </div>
         )}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div><label className="block text-sm font-medium dark:text-text-muted text-gray-500 mb-1">From date</label><input type="date" value={form.from_date} onChange={(e) => setForm((f) => ({ ...f, from_date: e.target.value }))} className="w-full px-3 py-2 border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white rounded-vsparkz dark:text-text-primary text-gray-900 focus:border-accent" /></div>
           <div><label className="block text-sm font-medium dark:text-text-muted text-gray-500 mb-1">To date</label><input type="date" value={form.to_date} onChange={(e) => setForm((f) => ({ ...f, to_date: e.target.value }))} className="w-full px-3 py-2 border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white rounded-vsparkz dark:text-text-primary text-gray-900 focus:border-accent" /></div>
         </div>
@@ -185,7 +185,7 @@ export function Reports() {
       {viewReport && (
         <div className="fixed inset-0 flex items-center justify-center p-4 overflow-y-auto z-[9999] bg-slate-900/60 backdrop-blur-sm">
           <div className="glass-card max-w-3xl w-full p-6 my-8 max-h-[90vh] overflow-y-auto border dark:border-navy-600 border-gray-200">
-            <div className="flex justify-between items-center mb-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
               <h3 className="text-lg font-semibold dark:text-text-primary text-gray-900">{viewReport.title || viewReport.type} Report</h3>
               <button type="button" onClick={() => setViewReport(null)} className="dark:text-text-muted text-gray-500 dark:hover:text-text-primary hover:text-gray-900 text-2xl leading-none">×</button>
             </div>

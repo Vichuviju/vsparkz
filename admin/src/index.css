@@ -55,19 +55,28 @@ body {
 
   main img,
   main video,
-  main canvas,
-  main svg {
+  main canvas {
     max-width: 100%;
   }
 
   main :is(.glass-card, .rounded-2xl, .rounded-xl, [class*="overflow-hidden"]):has(table) {
-    overflow-x: auto;
+    overflow-x: auto !important;
     -webkit-overflow-scrolling: touch;
     max-width: 100%;
   }
 
   main table {
     min-width: 36rem;
+  }
+
+  main h1 {
+    font-size: clamp(1.25rem, 5vw, 1.875rem) !important;
+    line-height: 1.25 !important;
+    overflow-wrap: anywhere;
+  }
+
+  main .flex {
+    min-width: 0;
   }
 }
 

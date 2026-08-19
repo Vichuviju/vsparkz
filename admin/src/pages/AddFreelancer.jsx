@@ -168,7 +168,7 @@ export function AddFreelancer() {
   }
 
   return (
-    <div className="font-sans min-h-[calc(100vh-4rem)] bg-slate-50 p-4 md:p-8">
+    <div className="font-sans min-h-0">
       {/* Breadcrumb & Header */}
       <div className="mb-6">
         <div className="flex items-center gap-2 text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest">
@@ -176,9 +176,9 @@ export function AddFreelancer() {
           <ChevronRight className="w-3.5 h-3.5" />
           <span className="text-slate-800">{isEditMode ? 'Edit' : 'Add'} Freelancer</span>
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">{isEditMode ? 'Edit' : 'Add'} Freelancer</h1>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <button type="button" onClick={() => navigate('/freelancers')} className="px-5 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-600 font-bold hover:bg-slate-50 transition-colors text-sm">
               Cancel
             </button>
@@ -267,7 +267,7 @@ export function AddFreelancer() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase tracking-wide">Gender <span className="text-red-500">*</span></label>
                 <select name="gender" value={formData.gender} onChange={handleChange} className={inputClass('gender')}>
@@ -290,7 +290,7 @@ export function AddFreelancer() {
               {errors.address && <span className="text-[10px] text-red-500 font-bold block mt-1">{errors.address}</span>}
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase tracking-wide">City <span className="text-red-500">*</span></label>
                 <select name="city" value={formData.city} onChange={handleChange} className={inputClass('city')}>
@@ -311,7 +311,7 @@ export function AddFreelancer() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase tracking-wide">Country <span className="text-red-500">*</span></label>
                 <select name="country" value={formData.country} onChange={handleChange} className={inputClass('country')}>
@@ -334,7 +334,7 @@ export function AddFreelancer() {
           <h2 className="text-sm font-bold text-slate-800 mb-5 pb-3 border-b border-slate-100">Professional Details</h2>
           <div className="space-y-4">
             
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase tracking-wide">Experience (Yrs) <span className="text-red-500">*</span></label>
                 <input type="text" name="experience" value={formData.experience} onChange={handleChange} placeholder="Years" className={inputClass('experience')} />
@@ -346,7 +346,7 @@ export function AddFreelancer() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase tracking-wide">Emp. Type</label>
                 <select name="empType" value={formData.empType} onChange={handleChange} className={inputClass('empType')}>
@@ -422,7 +422,7 @@ export function AddFreelancer() {
 
             <div>
               <label className="block text-[11px] font-bold text-slate-500 mb-2.5 uppercase tracking-wide">Skill Level</label>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {['Beginner', 'Intermediate', 'Advanced', 'Expert'].map(lvl => (
                   <label key={lvl} className="flex items-center gap-2 cursor-pointer">
                     <input type="radio" name="skillLevel" value={lvl.toLowerCase()} checked={formData.skillLevel === lvl.toLowerCase()} onChange={handleChange} className="w-3.5 h-3.5 text-blue-600 border-slate-300 focus:ring-blue-500" />
@@ -495,7 +495,7 @@ export function AddFreelancer() {
 
           <h2 className="text-sm font-bold text-slate-800 mb-4 pb-2 border-b border-slate-100">Availability</h2>
           <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase tracking-wide">Daily Hours</label>
                 <select name="dailyHours" value={formData.dailyHours} onChange={handleChange} className={inputClass('dailyHours')}>
@@ -514,7 +514,7 @@ export function AddFreelancer() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase tracking-wide">Timezone</label>
                 <select name="timezone" value={formData.timezone} onChange={handleChange} className={inputClass('timezone')}>
@@ -573,7 +573,7 @@ export function AddFreelancer() {
 
       {activeStep === 3 && (
         <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 max-w-4xl animate-fade-in mx-auto">
-          <div className="flex justify-between items-center mb-5 pb-3 border-b border-slate-100">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-5 pb-3 border-b border-slate-100">
             <h2 className="text-sm font-bold text-slate-800">Dynamic Skills & Services</h2>
             <button 
               onClick={() => setSkillPricing([...skillPricing, { id: Date.now(), name: '', level: 'intermediate', billingType: 'hourly', rate: '' }])}

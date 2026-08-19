@@ -327,7 +327,7 @@ export function Invoices() {
       {/* Existing Modal logic (preserved functionality, slightly refined styling) */}
       {modal && (
         <div className="fixed inset-0 flex items-center justify-center p-4 overflow-y-auto z-[9999] bg-slate-900/60 backdrop-blur-sm">
-          <div className="bg-white max-w-lg w-full p-8 rounded-2xl shadow-xl border border-slate-100">
+          <div className="bg-white max-w-lg w-full p-8 rounded-2xl shadow-xl border border-slate-100 max-h-[min(92dvh,44rem)] overflow-y-auto mx-3 sm:mx-auto">
             <h2 className="text-xl font-black text-slate-800 mb-6">{modal === 'new' ? 'Add New Invoice' : 'Edit Invoice'}</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
@@ -341,7 +341,7 @@ export function Invoices() {
                 <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">Invoice Number *</label>
                 <input type="text" value={form.number} onChange={(e) => setForm((f) => ({ ...f, number: e.target.value }))} required className="w-full px-4 py-3 border border-slate-200 rounded-xl bg-slate-50 text-slate-800 font-bold tracking-tight focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all" />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">Subtotal</label>
                   <input type="number" step="0.01" value={form.subtotal} onChange={(e) => setForm((f) => ({ ...f, subtotal: e.target.value }))} className="w-full px-4 py-3 border border-slate-200 rounded-xl bg-slate-50 text-slate-800 font-semibold focus:border-blue-500 outline-none transition-all" />
@@ -351,7 +351,7 @@ export function Invoices() {
                   <input type="number" step="0.01" value={form.tax_rate} onChange={(e) => setForm((f) => ({ ...f, tax_rate: e.target.value }))} className="w-full px-4 py-3 border border-slate-200 rounded-xl bg-slate-50 text-slate-800 font-semibold focus:border-blue-500 outline-none transition-all" />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">Tax Amount</label>
                   <input type="number" step="0.01" value={form.tax_amount} onChange={(e) => setForm((f) => ({ ...f, tax_amount: e.target.value }))} className="w-full px-4 py-3 border border-slate-200 rounded-xl bg-slate-50 text-slate-800 font-semibold focus:border-blue-500 outline-none transition-all" />

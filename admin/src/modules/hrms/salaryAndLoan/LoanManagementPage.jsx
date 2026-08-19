@@ -566,7 +566,7 @@ export const LoanManagementPage = () => {
                                                             <div className="space-y-2 bg-white/50 p-4 rounded-xl border border-emerald-100/60">
                                                                 {(loan.repaymentInvoices || []).length > 0 ? (
                                                                     (loan.repaymentInvoices || []).map((inv, idx) => (
-                                                                        <div key={`${loan.loanId || loan.id}-inv-${idx}`} className="grid grid-cols-3 gap-2 text-[11px] border-b last:border-b-0 border-emerald-50 pb-2 last:pb-0">
+                                                                        <div key={`${loan.loanId || loan.id}-inv-${idx}`} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-[11px] border-b last:border-b-0 border-emerald-50 pb-2 last:pb-0">
                                                                             <div className="font-bold text-gray-700">{inv.month || "-"}</div>
                                                                             <div className="text-gray-500">{inv.paidAt ? new Date(inv.paidAt).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) : "-"}</div>
                                                                             <div className="font-black text-emerald-700 text-right">₹{Number(inv.amount || 0).toLocaleString('en-IN')}</div>
@@ -615,7 +615,7 @@ export const LoanManagementPage = () => {
 
             {/* Application Modal */}
             {isModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
+                <div className="fixed inset-0 overflow-y-auto flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
                     <div className="fixed inset-0 bg-gray-900/60 z-[9999] bg-slate-900/60 backdrop-blur-sm" onClick={() => setIsModalOpen(false)} />
                     <div className="bg-white rounded-3xl w-full max-w-md p-8 shadow-2xl relative z-10 animate-in fade-in zoom-in duration-300">
                         <button onClick={() => setIsModalOpen(false)} className="absolute top-6 right-6 p-2 hover:bg-gray-100 rounded-xl transition-colors text-gray-400">

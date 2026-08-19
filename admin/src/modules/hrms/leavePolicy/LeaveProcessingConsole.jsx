@@ -994,7 +994,7 @@ export const LeaveProcessingConsole = () => {
 
       {/* ── Cycle Change Confirmation Modal ── */}
       {cycleConfirmOpen && (
-        <div className="fixed inset-0 flex items-center justify-center p-4 animate-in fade-in duration-300 z-[9999] bg-slate-900/60 backdrop-blur-sm">
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center p-4 animate-in fade-in duration-300 z-[9999] bg-slate-900/60 backdrop-blur-sm">
           <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl border border-slate-100 overflow-hidden animate-in zoom-in-95 duration-200">
             <div className="p-6 text-center space-y-4">
               <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto text-amber-600">
@@ -1033,7 +1033,7 @@ export const LeaveProcessingConsole = () => {
       )}
 
       {historyDeleteTarget && (
-        <div className="fixed inset-0 flex items-center justify-center p-4 animate-in fade-in duration-300 z-[9999] bg-slate-900/60 backdrop-blur-sm">
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center p-4 animate-in fade-in duration-300 z-[9999] bg-slate-900/60 backdrop-blur-sm">
           <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl border border-slate-100 overflow-hidden animate-in zoom-in-95 duration-200">
             <div className="p-6 text-center space-y-4">
               <div className="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto text-rose-600">

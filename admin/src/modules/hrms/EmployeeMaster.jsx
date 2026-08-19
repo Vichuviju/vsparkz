@@ -277,7 +277,7 @@ export const EmployeeMaster = () => {
               <div className="py-20 text-center text-gray-400 font-medium italic">Loading organizational structure...</div>
             ) : (
               <>
-                <div className="flex justify-between items-center mb-6">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
                   <h3 className="text-lg font-bold text-gray-600 uppercase tracking-widest">Departmental Grid</h3>
                   {canCreateDept && (
                     <Button 

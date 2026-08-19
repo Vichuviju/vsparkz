@@ -184,7 +184,7 @@ export function Leads() {
       </div>
 
       {/* KPI Cards Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         <KPICard 
           label="Total Leads" 
           value={stats.total} 
@@ -469,8 +469,8 @@ export function Leads() {
 
       {/* Convert to Client Popup Overlay */}
       {showConvertModal && selectedLead && (
-        <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
-          <div className="glass-card max-w-md w-full p-6 shadow-2xl animate-fade-in">
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
+          <div className="glass-card max-w-md w-full p-6 shadow-2xl animate-fade-in max-h-[min(92dvh,44rem)] overflow-y-auto mx-3 sm:mx-auto">
             <h3 className="text-lg font-black text-slate-850 dark:text-white tracking-tight mb-2">Convert Lead to Client</h3>
             <p className="text-xs font-semibold text-slate-400 dark:text-slate-500 mb-5">
               Confirm that you wish to elevate <span className="font-bold text-slate-800 dark:text-white">{selectedLead.name}</span> to a permanent Client account.

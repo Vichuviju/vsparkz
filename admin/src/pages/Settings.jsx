@@ -222,7 +222,7 @@ function MediaLibraryModal({ onSelect, onClose }) {
         {loading ? (
           <p className="text-slate-500">Loading…</p>
         ) : (
-          <div className="grid grid-cols-4 sm:grid-cols-6 gap-2 overflow-y-auto flex-1">
+          <div className="grid grid-cols-2 lg:grid-cols-4 sm:grid-cols-6 gap-2 overflow-y-auto flex-1">
             {list.map((m) => (
               <button
                 key={m.id}

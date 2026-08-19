@@ -89,7 +89,7 @@ export function Services() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
         <h1 className="text-2xl font-bold text-text-primary">Services</h1>
         <button type="button" onClick={openCreate} className="btn-primary px-4 py-2 text-sm">Add Service</button>
       </div>
@@ -136,8 +136,8 @@ export function Services() {
         </div>
       )}
       {editing && (
-        <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
-          <div className="glass-card max-w-md w-full p-6 border border-navy-600">
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
+          <div className="glass-card max-w-md w-full p-6 border border-navy-600 max-h-[min(92dvh,44rem)] overflow-y-auto mx-3 sm:mx-auto">
             <h2 className="text-lg font-semibold text-text-primary mb-4">
               {editing === 'new' ? 'Add Service' : 'Edit Service'}
             </h2>
@@ -192,7 +192,7 @@ export function Services() {
                   <option value="recurring">Recurring</option>
                 </select>
               </div>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <div>
                   <label className="block text-sm font-medium text-text-muted mb-1">Default duration (value)</label>
                   <input

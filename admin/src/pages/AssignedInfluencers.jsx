@@ -132,7 +132,7 @@ export function AssignedInfluencers() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3 mb-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
                   <div className="bg-slate-50/50 p-3 rounded-xl border border-slate-100/60">
                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Followers</p>
                     <p className="text-sm font-black text-slate-700 mt-1">{inf.followers?.toLocaleString() || 0}</p>
@@ -160,7 +160,7 @@ export function AssignedInfluencers() {
 
       {/* Review Modal */}
       {isReviewModalOpen && selectedInfluencer && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 overflow-y-auto z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => setIsReviewModalOpen(false)}></div>
           <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-fade-in">
             <div className="p-6 border-b border-slate-100 flex items-center justify-between sticky top-0 bg-white z-20">
@@ -175,7 +175,7 @@ export function AssignedInfluencers() {
             
             <div className="p-6 space-y-8">
               {/* Reference Metrics */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Platform</p>
                   <p className="font-bold text-slate-700 mt-1 text-sm">{selectedInfluencer.platform || 'Instagram'}</p>

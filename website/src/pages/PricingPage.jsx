@@ -359,7 +359,7 @@ export default function PricingPage() {
 
       {/* Quote modal */}
       {showQuoteModal && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 overflow-y-auto bg-black/60 flex items-center justify-center z-50 p-4">
           <div className="bg-navy-800 border border-navy-600 rounded-vsparkz-lg p-6 w-full max-w-md">
             <h3 className="text-xl font-bold text-text-primary mb-4">Get a quote</h3>
             {quoteSuccess ? (

@@ -146,7 +146,7 @@ export const PayrollDashboard = () => {
                     </div>
                     
                     {salaryCompositionData.length > 0 && (
-                        <div className="mt-4 grid grid-cols-2 gap-2">
+                        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
                             {salaryCompositionData.slice(0, 4).map((item, i) => (
                                 <div key={item.name} className="flex items-center gap-2">
                                     <div className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS[i % COLORS.length] }} />

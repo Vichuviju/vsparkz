@@ -429,7 +429,7 @@ export function Clients() {
       {/* Modern Overlay Form Modal */}
       {modal && (
         <div className="fixed inset-0 flex items-center justify-center p-4 overflow-y-auto z-[9999] bg-slate-900/60 backdrop-blur-sm">
-          <div className="glass-card max-w-lg w-full p-6 my-8 border border-slate-100 dark:border-slate-800 shadow-2xl animate-fade-in">
+          <div className="glass-card max-w-lg w-full p-6 my-8 border border-slate-100 dark:border-slate-800 shadow-2xl animate-fade-in max-h-[min(92dvh,44rem)] overflow-y-auto mx-3 sm:mx-auto">
             <h2 className="text-xl font-black text-slate-800 dark:text-white tracking-tight mb-4">
               {modal === 'new' ? 'Add Client' : 'Edit Client'}
             </h2>
@@ -446,7 +446,7 @@ export function Clients() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
                   <label className="block text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-1.5">Contact Name</label>
                   <input 
@@ -467,7 +467,7 @@ export function Clients() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
                   <label className="block text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-1.5">Email</label>
                   <input 
@@ -488,7 +488,7 @@ export function Clients() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
                   <label className="block text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-1.5">Source</label>
                   <select 

@@ -632,7 +632,7 @@ export const SalaryPayoutsPage = () => {
 
             {/* Payout Confirmation Modal (Batch) */}
             {isPayoutModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-gray-900/60 p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
+                <div className="fixed inset-0 overflow-y-auto flex items-center justify-center bg-gray-900/60 p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
                     <div className="bg-white rounded-3xl w-full max-w-md shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
                         <div className="p-8 bg-gradient-to-br from-emerald-600 to-teal-700 text-white relative">
                             <h3 className="text-2xl font-black tracking-tight uppercase tracking-widest">Confirm Batch Payment</h3>
@@ -699,7 +699,7 @@ export const SalaryPayoutsPage = () => {
 
             {/* Individual Payout Modal */}
             {isIndividualModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-gray-900/60 p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
+                <div className="fixed inset-0 overflow-y-auto flex items-center justify-center bg-gray-900/60 p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
                     <div className="bg-white rounded-3xl w-full max-w-md shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
                         <div className="p-8 bg-gradient-to-br from-blue-600 to-purple-700 text-white relative">
                             <h3 className="text-2xl font-black tracking-tight uppercase tracking-widest">Individual Payout</h3>
@@ -769,7 +769,7 @@ export const SalaryPayoutsPage = () => {
 
             {/* Salary Breakdown Modal */}
             {isBreakdownModalOpen && selectedBreakdown && (
-                <div className="fixed inset-0 flex items-center justify-center bg-gray-900/60 p-4 overflow-hidden z-[9999] bg-slate-900/60 backdrop-blur-sm">
+                <div className="fixed inset-0 overflow-y-auto flex items-center justify-center bg-gray-900/60 p-4 overflow-hidden z-[9999] bg-slate-900/60 backdrop-blur-sm">
                     <div className="bg-white rounded-[32px] w-full max-w-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300 flex flex-col max-h-[90vh]">
                         {/* Modal Header (Fixed) */}
                         <div className="p-8 bg-gradient-to-br from-slate-800 to-slate-900 text-white relative flex-none">
@@ -788,7 +788,7 @@ export const SalaryPayoutsPage = () => {
                             </div>
                             
                             {/* Attendance Scorecard */}
-                            <div className="mt-8 grid grid-cols-2 gap-4">
+                            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div className="bg-white/5 border border-white/10 rounded-2xl p-4 flex items-center gap-4">
                                     <div className="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400">
                                         <Calendar size={20} />

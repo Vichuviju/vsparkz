@@ -92,7 +92,7 @@ export function Agreements() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
         <h1 className="text-2xl font-bold text-text-primary">Agreements</h1>
         <button className="btn-primary px-4 py-2" onClick={() => setShowModal(true)}>Add Agreement</button>
       </div>
@@ -131,7 +131,7 @@ export function Agreements() {
 
       {/* Add/Edit Modal */}
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm">
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm">
           <div className="glass-card p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
             <h2 className="text-xl font-bold text-text-primary mb-4">{editing ? 'Edit' : 'Add'} Agreement</h2>
             <form onSubmit={handleSubmit}>
@@ -185,7 +185,7 @@ export function Agreements() {
 
       {/* Detail Modal */}
       {showDetailModal && detail && (
-        <div className="fixed inset-0 flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm">
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm">
           <div className="glass-card p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
             <h2 className="text-xl font-bold text-text-primary mb-4">Agreement Details</h2>
             <div className="space-y-3 text-sm">

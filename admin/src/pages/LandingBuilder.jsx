@@ -322,7 +322,7 @@ export function LandingBuilder() {
 
   return (
     <div className="space-y-8">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-bold text-slate-800">Landing Page Builder</h1>
         <a
           href={previewUrl}
@@ -436,7 +436,7 @@ export function LandingBuilder() {
       {/* Section & block editor for selected template */}
       {selectedTemplate && templateDetail && (
         <div className="bg-white rounded-xl shadow border border-slate-200 p-6">
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
             <h2 className="text-lg font-semibold text-slate-800">
               Sections: {templateDetail.name}
             </h2>
@@ -619,8 +619,8 @@ function LandingSectionModal({ initial, onSave, onClose, onOpenMediaPicker }) {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
-      <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
+    <div className="fixed inset-0 overflow-y-auto flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
+      <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6 max-h-[min(92dvh,44rem)] overflow-y-auto mx-3 sm:mx-auto">
         <h3 className="text-lg font-semibold text-slate-800 mb-4">
           {initial.action === 'add' ? 'Add section' : 'Edit section'}
         </h3>
@@ -682,7 +682,7 @@ function LandingSectionModal({ initial, onSave, onClose, onOpenMediaPicker }) {
               )}
             </div>
             {background_media_id && (
-              <div className="grid grid-cols-2 gap-4 pl-2 border-l-2 border-slate-200">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pl-2 border-l-2 border-slate-200">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-1">Background position</label>
                   <select
@@ -815,7 +815,7 @@ function LandingBlockModal({ initial, onSave, onClose, onOpenMediaPicker }) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center p-4 overflow-y-auto z-[9999] bg-slate-900/60 backdrop-blur-sm">
-      <div className="bg-white rounded-xl shadow-xl max-w-lg w-full p-6 my-8">
+      <div className="bg-white rounded-xl shadow-xl max-w-lg w-full p-6 my-8 max-h-[min(92dvh,44rem)] overflow-y-auto mx-3 sm:mx-auto">
         <h3 className="text-lg font-semibold text-slate-800 mb-4">
           {initial.action === 'add' ? 'Add block' : 'Edit block'}
         </h3>
@@ -862,7 +862,7 @@ function LandingBlockModal({ initial, onSave, onClose, onOpenMediaPicker }) {
           {(type === 'image' || type === 'video') && (
             <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 space-y-4">
               <p className="text-sm font-medium text-slate-800">Image / media display – align and fit to template</p>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-1">Alignment</label>
                   <select
@@ -936,7 +936,7 @@ function LandingBlockModal({ initial, onSave, onClose, onOpenMediaPicker }) {
           )}
           {type !== 'image' && type !== 'video' && (
             <>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-1">Aspect ratio</label>
                   <select
@@ -978,7 +978,7 @@ function LandingBlockModal({ initial, onSave, onClose, onOpenMediaPicker }) {
           )}
           <div className="border-t pt-4">
             <p className="text-sm font-medium text-slate-700 mb-2">Animation</p>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs text-slate-600 mb-1">Type</label>
                 <select
@@ -1165,7 +1165,7 @@ function MediaLibraryModal({ onSelect, onClose }) {
         {loading ? (
           <p className="text-slate-500">Loading…</p>
         ) : (
-          <div className="grid grid-cols-4 sm:grid-cols-6 gap-2 overflow-y-auto flex-1">
+          <div className="grid grid-cols-2 lg:grid-cols-4 sm:grid-cols-6 gap-2 overflow-y-auto flex-1">
             {list.map((m) => (
               <button
                 key={m.id}

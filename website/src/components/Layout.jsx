@@ -112,7 +112,7 @@ export default function Layout() {
         <div className="lg:hidden fixed inset-0 z-[60]">
           <button type="button" className="absolute inset-0 bg-black/60" aria-label="Close menu" onClick={() => setMenuOpen(false)} />
           <div className="absolute right-0 top-0 h-full w-[min(20rem,88vw)] bg-[#0E2A3B] border-l border-surface-border p-5 pt-[max(1.25rem,env(safe-area-inset-top))] pb-[max(1.25rem,env(safe-area-inset-bottom))] overflow-y-auto">
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex items-center justify-between mb-6">
               <span className="font-semibold">Menu</span>
               <button type="button" className="p-2" aria-label="Close" onClick={() => setMenuOpen(false)}>
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">

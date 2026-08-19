@@ -39,8 +39,8 @@ export const ApplyPermissionModal = ({ open, setOpen, user }) => {
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm">
-      <div className="bg-white p-6 rounded-lg w-[400px] space-y-4">
+    <div className="fixed inset-0 overflow-y-auto flex items-end sm:items-center justify-center p-3 z-[9999] bg-slate-900/60 backdrop-blur-sm">
+      <div className="bg-white p-5 sm:p-6 rounded-2xl w-full max-w-md space-y-4 max-h-[min(92dvh,40rem)] overflow-y-auto mb-[env(safe-area-inset-bottom)]">
 
         <h3 className="text-lg font-semibold">Apply Permission</h3>
 
@@ -55,7 +55,7 @@ export const ApplyPermissionModal = ({ open, setOpen, user }) => {
             }
           />
 
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <input
               type="time"
               required

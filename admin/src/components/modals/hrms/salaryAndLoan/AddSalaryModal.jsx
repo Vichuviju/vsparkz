@@ -66,7 +66,7 @@ export const AddSalaryModal = ({
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
 
           {/* Employee + Employee Number */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="space-y-2">
               <Label>Employee Name *</Label>
               <Controller
@@ -99,7 +99,7 @@ export const AddSalaryModal = ({
           </div>
 
           {/* Total + Basic */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="space-y-2">
               <Label>Total Salary *</Label>
               <Input
@@ -120,7 +120,7 @@ export const AddSalaryModal = ({
 
 
           {/* Payment Type + Payment Method */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="space-y-2">
               <Label>Payment Type *</Label>
               <Controller
@@ -175,7 +175,7 @@ export const AddSalaryModal = ({
           </div>
 
           {/* From Date + To Date */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="space-y-2">
               <Label>From Date *</Label>
               <Input type="date" {...register("fromDate")} />

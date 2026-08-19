@@ -32,7 +32,7 @@ export function Agencies() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
         <h1 className="text-2xl font-bold dark:text-text-primary text-gray-900">Agencies</h1>
       </div>
       {error && (

@@ -483,7 +483,7 @@ export const PFManagementPage = () => {
                         </DialogTitle>
                     </DialogHeader>
                     <div className="space-y-4 py-4">
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <label className="text-sm font-medium text-gray-700">Employee Rate (%)</label>
                                 <input
@@ -513,7 +513,7 @@ export const PFManagementPage = () => {
                             />
                             <p className="text-xs text-gray-500">Maximum wages subject to PF contribution</p>
                         </div>
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <label className="text-sm font-medium text-gray-700">Admin Charges (%)</label>
                                 <input
@@ -603,7 +603,7 @@ const EmployeePfEditDialog = ({ employee, onClose, onSave, pfSettings }) => {
                     </DialogTitle>
                 </DialogHeader>
                 <div className="space-y-4 py-4">
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <label className="text-sm font-medium text-gray-700">
                                 UAN 
@@ -669,7 +669,7 @@ const EmployeePfEditDialog = ({ employee, onClose, onSave, pfSettings }) => {
                     {/* Projected Calculation Preview */}
                     <div className="bg-gray-50 rounded-xl p-4 space-y-2">
                         <p className="text-sm font-semibold text-gray-700">Projected Monthly PF Calculation</p>
-                        <div className="grid grid-cols-2 gap-4 text-sm">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                             <div>
                                 <p className="text-gray-500">PF Wages</p>
                                 <p className="font-semibold text-gray-900">₹{pfWages.toLocaleString()}</p>

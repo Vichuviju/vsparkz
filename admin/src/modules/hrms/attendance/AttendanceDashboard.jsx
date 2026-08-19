@@ -23,8 +23,8 @@ const CustomConfirmModal = ({ isOpen, onClose, onConfirm, date }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-white bg-opacity-30 flex items-center justify-center animate-fade-in z-[9999] bg-slate-900/60 backdrop-blur-sm">
-      <div className="bg-white rounded-xl shadow-2xl p-6 max-w-md w-full mx-4 transform transition-all duration-300 scale-100 animate-scale-in border border-gray-200">
+    <div className="fixed inset-0 overflow-y-auto bg-white bg-opacity-30 flex items-center justify-center animate-fade-in z-[9999] bg-slate-900/60 backdrop-blur-sm">
+      <div className="bg-white rounded-xl shadow-2xl p-6 max-w-md w-full mx-4 transform transition-all duration-300 scale-100 animate-scale-in border border-gray-200 max-h-[min(92dvh,44rem)] overflow-y-auto mx-3 sm:mx-auto">
         {/* Header */}
         <div className="flex items-center gap-3 mb-4">
           <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
@@ -427,7 +427,7 @@ export const AttendanceDashboard = () => {
         </div>
 
         {/* ── KPI Cards ── */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <StatCard
             icon={Users}
             label="Total Strength"

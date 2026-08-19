@@ -470,7 +470,7 @@ export const BonusAndPaymentsPage = () => {
 
             {/* Standard Distribution Modal */}
             {isModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
+                <div className="fixed inset-0 overflow-y-auto flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
                     <div className="fixed inset-0 bg-gray-900/60 z-[9999] bg-slate-900/60 backdrop-blur-sm" onClick={() => setIsModalOpen(false)} />
                     <div className="bg-white rounded-3xl w-full max-w-md p-8 shadow-2xl relative z-10 animate-in fade-in zoom-in duration-300">
                         <button onClick={() => setIsModalOpen(false)} className="absolute top-6 right-6 p-2 hover:bg-gray-100 rounded-xl transition-colors text-gray-400">
@@ -490,7 +490,7 @@ export const BonusAndPaymentsPage = () => {
                                     ))}
                                 </select>
                             </div>
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div className="space-y-1.5">
                                     <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Type</label>
                                     <select value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value })} className="w-full bg-gray-50 border-none px-4 py-2.5 rounded-xl font-bold text-sm">
@@ -518,7 +518,7 @@ export const BonusAndPaymentsPage = () => {
 
             {/* Bulk Distribution Modal */}
             {isBulkModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
+                <div className="fixed inset-0 overflow-y-auto flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
                     <div className="fixed inset-0 bg-gray-900/60 z-[9999] bg-slate-900/60 backdrop-blur-sm" onClick={() => setIsBulkModalOpen(false)} />
                     <div className="bg-white rounded-3xl w-full max-w-2xl p-8 shadow-2xl relative z-10 animate-in fade-in zoom-in duration-300">
                         <button onClick={() => setIsBulkModalOpen(false)} className="absolute top-6 right-6 p-2 hover:bg-gray-100 rounded-xl transition-colors text-gray-400">
@@ -533,7 +533,7 @@ export const BonusAndPaymentsPage = () => {
                         </div>
 
                         <form onSubmit={handleBulkSubmit} className="space-y-6">
-                            <div className="grid grid-cols-3 gap-6">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <div className="space-y-1.5">
                                     <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Selection Type</label>
                                     <div className="flex items-center gap-2 p-3 bg-gray-50 rounded-xl border-2 border-blue-500/20">
@@ -569,7 +569,7 @@ export const BonusAndPaymentsPage = () => {
                                         />
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-2 gap-2 max-h-[200px] overflow-y-auto p-2 bg-gray-50 rounded-2xl border border-gray-100 scrollbar-hide">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[200px] overflow-y-auto p-2 bg-gray-50 rounded-2xl border border-gray-100 scrollbar-hide">
                                     {filteredEmployeesForBulk.map(emp => (
                                         <label key={emp.userId} className={cn(
                                             "flex items-center gap-3 p-3 rounded-xl cursor-pointer border transition-all",

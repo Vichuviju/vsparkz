@@ -604,7 +604,7 @@ export const EssAttendance = () => {
              {/* Quick Actions */}
              <div className="bg-white rounded-[2.5rem] p-8 shadow-sm border border-slate-100">
                 <h3 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-6 ml-2">Quick Actions</h3>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                    {[
                      { label: "Apply Leave", icon: Calendar, color: "text-emerald-500", bg: "bg-emerald-50", onClick: () => navigate("/hrms/leave/apply") },
                      { label: "View Logs", icon: FileText, color: "text-blue-500", bg: "bg-blue-50", onClick: () => { setActiveTab("logs"); window.scrollTo({ top: 500, behavior: 'smooth' }); } },

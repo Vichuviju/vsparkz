@@ -49,7 +49,7 @@ export function QuotationDetail() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
         <div>
           <Link to="/quotations" className="text-sm text-text-muted hover:text-accent mb-1 inline-block">← Quotations</Link>
           <h1 className="text-2xl font-bold text-text-primary font-mono">{quotation.number}</h1>
@@ -68,7 +68,7 @@ export function QuotationDetail() {
 
       <div className="glass-card p-6 mb-6">
         <h2 className="font-semibold text-text-primary mb-3">Summary</h2>
-        <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+        <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-sm">
           <dt className="text-text-muted">Title</dt><dd className="text-text-primary">{quotation.title ?? '—'}</dd>
           <dt className="text-text-muted">Subtotal</dt><dd className="text-text-primary">{Number(quotation.subtotal ?? 0).toFixed(2)}</dd>
           <dt className="text-text-muted">Tax rate</dt><dd className="text-text-primary">{Number(quotation.tax_rate ?? 0).toFixed(1)}%</dd>

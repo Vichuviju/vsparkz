@@ -169,7 +169,7 @@ export function Dashboard() {
       </div>
 
       {/* KPI Cards Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         <KPICard 
           label="Total Leads" 
           value={totalLeads.toLocaleString()} 
@@ -257,7 +257,7 @@ export function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Visitors Overview */}
         <div className="rounded-2xl border border-slate-100 dark:border-white/10 bg-white dark:bg-slate-900/60 p-5 shadow-sm">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
             <h2 className="font-bold text-slate-800 dark:text-white text-base">Visitors Overview</h2>
             <div className="relative">
               <select className="appearance-none pl-3 pr-8 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 text-[11px] font-bold text-slate-500 rounded-xl focus:outline-none">
@@ -292,7 +292,7 @@ export function Dashboard() {
 
         {/* Revenue Trend */}
         <div className="rounded-2xl border border-slate-100 dark:border-white/10 bg-white dark:bg-slate-900/60 p-5 shadow-sm">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
             <h2 className="font-bold text-slate-800 dark:text-white text-base">Revenue Trend</h2>
             <div className="relative">
               <select className="appearance-none pl-3 pr-8 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 text-[11px] font-bold text-slate-500 rounded-xl focus:outline-none">
@@ -332,7 +332,7 @@ export function Dashboard() {
         
         {/* Conversion Rate Card (Circular Gauge) */}
         <div className="rounded-2xl border border-slate-100 dark:border-white/10 bg-white dark:bg-slate-900/60 p-5 shadow-sm flex flex-col justify-between">
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
             <h2 className="font-bold text-slate-800 dark:text-white text-base">Conversion Rate</h2>
             <div className="relative">
               <select className="appearance-none pl-3 pr-8 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 text-[11px] font-bold text-slate-500 rounded-xl focus:outline-none">
@@ -381,7 +381,7 @@ export function Dashboard() {
 
         {/* Lead Funnel Card */}
         <div className="rounded-2xl border border-slate-100 dark:border-white/10 bg-white dark:bg-slate-900/60 p-5 shadow-sm">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
             <h2 className="font-bold text-slate-800 dark:text-white text-base">Lead Funnel</h2>
             <div className="relative">
               <select className="appearance-none pl-3 pr-8 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 text-[11px] font-bold text-slate-500 rounded-xl focus:outline-none">
@@ -455,7 +455,7 @@ export function Dashboard() {
 
         {/* Traffic Sources */}
         <div className="rounded-2xl border border-slate-100 dark:border-white/10 bg-white dark:bg-slate-900/60 p-5 shadow-sm">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
             <h2 className="font-bold text-slate-800 dark:text-white text-base">Traffic Sources</h2>
             <div className="relative">
               <select className="appearance-none pl-3 pr-8 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 text-[11px] font-bold text-slate-500 rounded-xl focus:outline-none">
@@ -508,7 +508,7 @@ export function Dashboard() {
         
         {/* Top Campaigns */}
         <div className="rounded-2xl border border-slate-100 dark:border-white/10 bg-white dark:bg-slate-900/60 p-5 shadow-sm space-y-4">
-          <div className="flex justify-between items-center mb-2">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-2">
             <h2 className="font-bold text-slate-800 dark:text-white text-base">Top Campaigns</h2>
             <div className="relative">
               <select className="appearance-none pl-3 pr-8 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 text-[11px] font-bold text-slate-500 rounded-xl focus:outline-none">
@@ -565,7 +565,7 @@ export function Dashboard() {
 
         {/* Channel Performance */}
         <div className="rounded-2xl border border-slate-100 dark:border-white/10 bg-white dark:bg-slate-900/60 p-5 shadow-sm space-y-4">
-          <div className="flex justify-between items-center mb-2">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-2">
             <h2 className="font-bold text-slate-800 dark:text-white text-base">Channel Performance</h2>
             <div className="relative">
               <select className="appearance-none pl-3 pr-8 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700/60 text-[11px] font-bold text-slate-500 rounded-xl focus:outline-none">

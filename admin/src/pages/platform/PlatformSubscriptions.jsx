@@ -137,7 +137,7 @@ export function PlatformSubscriptions() {
 
   return (
     <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
         <h1 className="text-2xl font-bold text-text-primary">Subscriptions</h1>
         <button type="button" onClick={openCreate} className="btn-primary px-4 py-2 text-sm">
           + Create subscription
@@ -219,9 +219,9 @@ export function PlatformSubscriptions() {
       )}
 
       {modal && (
-        <div className="fixed inset-0 flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm" onClick={closeModal}>
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm" onClick={closeModal}>
           <div
-            className="bg-white dark:bg-navy-800 rounded-2xl shadow-xl max-w-md w-full mx-4 p-6"
+            className="bg-white dark:bg-navy-800 rounded-2xl shadow-xl max-w-md w-full mx-4 p-6 max-h-[min(92dvh,44rem)] overflow-y-auto mx-3 sm:mx-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-lg font-semibold text-text-primary mb-4">

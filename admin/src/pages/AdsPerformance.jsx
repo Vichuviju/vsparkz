@@ -19,9 +19,8 @@ function AdsPerformance() {
   }, []);
 
   return (
-    <div className="p-6">
-      <div className="mb-6 flex justify-between items-center">
-        <div>
+    <div>
+        <div className="mb-6">
           <h1 className="text-2xl font-semibold text-text-primary mb-1">Ads Performance Analytics</h1>
           <p className="text-text-muted text-sm">Aggregated metrics, spending patterns, conversion trends, and campaign details.</p>
         </div>
@@ -42,7 +41,7 @@ function AdsPerformance() {
       ) : (
         <div className="space-y-6">
           {/* Summary metrics */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             <div className="glass-card p-4 rounded-xl border dark:border-navy-700 bg-white dark:bg-navy-800/80">
               <span className="text-xs text-text-muted font-medium uppercase tracking-wider">Total Spend</span>
               <p className="text-xl font-bold text-text-primary mt-1">₹{Number(data.summary.total_spend || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>

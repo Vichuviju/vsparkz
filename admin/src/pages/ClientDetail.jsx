@@ -26,7 +26,7 @@ export function ClientDetail() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
         <div>
           <Link to="/clients" className="text-sm text-text-muted hover:text-accent mb-1 inline-block">← Clients</Link>
           <h1 className="text-2xl font-bold text-text-primary">{profile.company_name}</h1>
@@ -36,7 +36,7 @@ export function ClientDetail() {
 
       <div className="glass-card p-6 mb-6">
         <h2 className="font-semibold text-text-primary mb-3">Company</h2>
-        <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+        <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-sm">
           <dt className="text-text-muted">Contact</dt><dd className="text-text-primary">{profile.contact_name ?? '—'}</dd>
           <dt className="text-text-muted">Email</dt><dd className="text-text-primary">{profile.email ?? '—'}</dd>
           <dt className="text-text-muted">Phone</dt><dd className="text-text-primary">{profile.phone ?? '—'}</dd>
@@ -52,7 +52,7 @@ export function ClientDetail() {
         ) : (
           <ul className="divide-y divide-navy-600">
             {projects.map((p) => (
-              <li key={p.id} className="px-5 py-3 flex justify-between items-center">
+              <li key={p.id} className="px-4 sm:px-5 py-3 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
                 <span className="text-text-primary font-medium">{p.name}</span>
                 <span className="text-text-muted text-xs mr-2">{p.workflow_status?.replace(/_/g, ' ') ?? p.status}</span>
                 <Link to={`/projects/${p.id}`} className="text-accent hover:text-accent-bright text-sm">View</Link>
@@ -93,7 +93,7 @@ export function ClientDetail() {
         ) : (
           <ul className="divide-y divide-navy-600">
             {profile.quotations.map((q) => (
-              <li key={q.id} className="px-5 py-3 flex justify-between items-center">
+              <li key={q.id} className="px-4 sm:px-5 py-3 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
                 <span className="text-text-primary">{q.number} – {q.title ?? '—'}</span>
                 <span className="text-text-muted text-sm">{q.status}</span>
               </li>
@@ -109,7 +109,7 @@ export function ClientDetail() {
         ) : (
           <ul className="divide-y divide-navy-600">
             {profile.agreements.map((a) => (
-              <li key={a.id} className="px-5 py-3 flex justify-between items-center">
+              <li key={a.id} className="px-4 sm:px-5 py-3 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
                 <span className="text-text-primary">{a.title}</span>
                 <span className="text-text-muted text-sm">{a.status}</span>
               </li>

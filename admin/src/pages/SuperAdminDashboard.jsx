@@ -166,7 +166,7 @@ export function SuperAdminDashboard() {
       </div>
 
       {/* KPI Cards Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         <KPICard 
           label="Total Users" 
           value={(data?.total_users ?? 0).toLocaleString()} 
@@ -221,7 +221,7 @@ export function SuperAdminDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Users by Role */}
         <div className="rounded-2xl border border-slate-100 dark:border-white/10 bg-white dark:bg-slate-900/60 p-5 shadow-sm flex flex-col justify-between">
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
             <h2 className="font-bold text-slate-800 dark:text-white text-base">Users by Role</h2>
             <span className="text-[10px] font-bold text-slate-400 uppercase">Interactive</span>
           </div>
@@ -267,7 +267,7 @@ export function SuperAdminDashboard() {
 
         {/* Revenue Area Chart */}
         <div className="lg:col-span-2 rounded-2xl border border-slate-100 dark:border-white/10 bg-white dark:bg-slate-900/60 p-5 shadow-sm">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
             <h2 className="font-bold text-slate-800 dark:text-white text-base">Revenue (Last 6 Months)</h2>
             <span className="text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-full">↑ 22.8%</span>
           </div>
@@ -297,7 +297,7 @@ export function SuperAdminDashboard() {
 
       {/* Row 2: Agencies breakdown - Bar chart */}
       <div className="rounded-2xl border border-slate-100 dark:border-white/10 bg-white dark:bg-slate-900/60 p-5 shadow-sm">
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
           <h2 className="font-bold text-slate-800 dark:text-white text-base">Agencies Overview</h2>
           <span className="text-[10px] font-bold text-slate-400 uppercase">Cross-agency statistics</span>
         </div>

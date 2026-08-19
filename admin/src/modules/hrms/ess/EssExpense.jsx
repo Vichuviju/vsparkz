@@ -207,7 +207,7 @@ export const EssExpense = () => {
 
             {/* Modal */}
             {isModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center p-4 animate-in fade-in duration-300 z-[9999] bg-slate-900/60 backdrop-blur-sm">
+                <div className="fixed inset-0 overflow-y-auto flex items-center justify-center p-4 animate-in fade-in duration-300 z-[9999] bg-slate-900/60 backdrop-blur-sm">
                     <div className="bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
                         <div className="px-8 py-6 border-b border-slate-50 flex items-center justify-between bg-slate-50/50">
                             <div className="flex items-center gap-3">
@@ -225,7 +225,7 @@ export const EssExpense = () => {
                         </div>
 
                         <form onSubmit={handleSubmit} className="p-8 space-y-6">
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div className="space-y-2">
                                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Category</label>
                                     <select 
@@ -256,7 +256,7 @@ export const EssExpense = () => {
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div className="space-y-2">
                                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Expense Date</label>
                                     <div className="relative">

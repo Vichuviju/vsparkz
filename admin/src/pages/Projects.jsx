@@ -153,7 +153,7 @@ export function Projects() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
         <h1 className="text-2xl font-bold text-text-primary">Projects</h1>
         <div className="flex gap-2 flex-wrap">
           <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="px-3 py-2 border border-navy-600 bg-navy-800/80 rounded-vsparkz text-text-primary text-sm">
@@ -225,22 +225,22 @@ export function Projects() {
 
       {modal && (
         <div className="fixed inset-0 flex items-center justify-center p-4 overflow-y-auto z-[9999] bg-slate-900/60 backdrop-blur-sm">
-          <div className="glass-card max-w-lg w-full p-6 my-8 border border-navy-600">
+          <div className="glass-card max-w-lg w-full p-6 my-8 border border-navy-600 max-h-[min(92dvh,44rem)] overflow-y-auto mx-3 sm:mx-auto">
             <h2 className="text-lg font-semibold text-text-primary mb-4">{modal === 'new' ? 'Add project' : 'Edit project'}</h2>
             <form onSubmit={handleSubmit} className="space-y-3">
               <div><label className="block text-sm font-medium dark:text-text-muted text-gray-500 mb-1">Client *</label><select value={form.client_id} onChange={(e) => setForm((f) => ({ ...f, client_id: e.target.value }))} required className="w-full px-3 py-2 border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white rounded-vsparkz dark:text-text-primary text-gray-900"><option value="">— Select —</option>{clients.map((c) => <option key={c.id} value={c.id}>{c.company_name}</option>)}</select></div>
               <div><label className="block text-sm font-medium dark:text-text-muted text-gray-500 mb-1">Service</label><select value={form.service_id} onChange={(e) => setForm((f) => ({ ...f, service_id: e.target.value }))} className="w-full px-3 py-2 border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white rounded-vsparkz dark:text-text-primary text-gray-900"><option value="">— None —</option>{services.map((s) => <option key={s.id} value={s.id}>{s.title}</option>)}</select></div>
               <div><label className="block text-sm font-medium dark:text-text-muted text-gray-500 mb-1">Name *</label><input type="text" value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} required className="w-full px-3 py-2 border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white rounded-vsparkz dark:text-text-primary text-gray-900" /></div>
               <div><label className="block text-sm font-medium dark:text-text-muted text-gray-500 mb-1">Campaign type</label><input type="text" value={form.campaign_type} onChange={(e) => setForm((f) => ({ ...f, campaign_type: e.target.value }))} placeholder="e.g. SEO, SMM" className="w-full px-3 py-2 border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white rounded-vsparkz dark:text-text-primary text-gray-900" /></div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div><label className="block text-sm font-medium dark:text-text-muted text-gray-500 mb-1">Stage</label><input type="text" value={form.stage} onChange={(e) => setForm((f) => ({ ...f, stage: e.target.value }))} placeholder="e.g. Requirement, Execution" className="w-full px-3 py-2 border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white rounded-vsparkz dark:text-text-primary text-gray-900" /></div>
                 <div><label className="block text-sm font-medium dark:text-text-muted text-gray-500 mb-1">Status</label><select value={form.status} onChange={(e) => setForm((f) => ({ ...f, status: e.target.value }))} className="w-full px-3 py-2 border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white rounded-vsparkz dark:text-text-primary text-gray-900"><option value="active">Active</option><option value="completed">Completed</option><option value="on_hold">On hold</option></select></div>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div><label className="block text-sm font-medium dark:text-text-muted text-gray-500 mb-1">Start date</label><input type="date" value={form.start_date} onChange={(e) => setForm((f) => ({ ...f, start_date: e.target.value }))} className="w-full px-3 py-2 border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white rounded-vsparkz dark:text-text-primary text-gray-900" /></div>
                 <div><label className="block text-sm font-medium dark:text-text-muted text-gray-500 mb-1">End date</label><input type="date" value={form.end_date} onChange={(e) => setForm((f) => ({ ...f, end_date: e.target.value }))} className="w-full px-3 py-2 border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white rounded-vsparkz dark:text-text-primary text-gray-900" /></div>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div><label className="block text-sm font-medium dark:text-text-muted text-gray-500 mb-1">Next appointment</label><input type="datetime-local" value={form.next_appointment_at} onChange={(e) => setForm((f) => ({ ...f, next_appointment_at: e.target.value }))} className="w-full px-3 py-2 border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white rounded-vsparkz dark:text-text-primary text-gray-900" /></div>
                 <div><label className="block text-sm font-medium dark:text-text-muted text-gray-500 mb-1">Appointment type</label><input type="text" value={form.next_appointment_type} onChange={(e) => setForm((f) => ({ ...f, next_appointment_type: e.target.value }))} placeholder="e.g. Requirement call, Meet" className="w-full px-3 py-2 border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white rounded-vsparkz dark:text-text-primary text-gray-900" /></div>
               </div>

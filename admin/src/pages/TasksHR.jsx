@@ -43,7 +43,7 @@ export function TasksHR() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
         <h1 className="text-2xl font-bold text-slate-800">Tasks</h1>
         <div className="flex gap-2">
           <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="px-3 py-2 border border-slate-300 rounded-lg text-sm"><option value="">All</option><option value="pending">Pending</option><option value="in_progress">In progress</option><option value="completed">Completed</option></select>
@@ -71,13 +71,13 @@ export function TasksHR() {
       )}
       {modal && (
         <div className="fixed inset-0 flex items-center justify-center p-4 overflow-y-auto z-[9999] bg-slate-900/60 backdrop-blur-sm">
-          <div className="bg-white rounded-xl shadow-xl max-w-lg w-full p-6 my-8">
+          <div className="bg-white rounded-xl shadow-xl max-w-lg w-full p-6 my-8 max-h-[min(92dvh,44rem)] overflow-y-auto mx-3 sm:mx-auto">
             <h2 className="text-lg font-semibold text-slate-800 mb-4">{modal === 'new' ? 'Add task' : 'Edit task'}</h2>
             <form onSubmit={handleSubmit} className="space-y-3">
               <div><label className="block text-sm font-medium text-slate-700 mb-1">Title *</label><input type="text" value={form.title} onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))} required className="w-full px-3 py-2 border border-slate-300 rounded-lg" /></div>
               <div><label className="block text-sm font-medium text-slate-700 mb-1">Description</label><textarea value={form.description} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} rows={2} className="w-full px-3 py-2 border border-slate-300 rounded-lg" /></div>
               <div><label className="block text-sm font-medium text-slate-700 mb-1">Assignee</label><select value={form.assignee_id} onChange={(e) => setForm((f) => ({ ...f, assignee_id: e.target.value }))} className="w-full px-3 py-2 border border-slate-300 rounded-lg"><option value="">—</option>{users.map((u) => <option key={u.id} value={u.id}>{u.name}</option>)}</select></div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div><label className="block text-sm font-medium text-slate-700 mb-1">Due date</label><input type="date" value={form.due_date} onChange={(e) => setForm((f) => ({ ...f, due_date: e.target.value }))} className="w-full px-3 py-2 border border-slate-300 rounded-lg" /></div>
                 <div><label className="block text-sm font-medium text-slate-700 mb-1">Status</label><select value={form.status} onChange={(e) => setForm((f) => ({ ...f, status: e.target.value }))} className="w-full px-3 py-2 border border-slate-300 rounded-lg"><option value="pending">Pending</option><option value="in_progress">In progress</option><option value="completed">Completed</option></select></div>
               </div>

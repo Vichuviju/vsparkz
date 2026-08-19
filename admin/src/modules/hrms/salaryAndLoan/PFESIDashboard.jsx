@@ -235,7 +235,7 @@ export const PFESIDashboard = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 mb-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
             <div>
               <p className="text-[10px] text-gray-400 uppercase font-semibold tracking-wide mb-1">Employee Share</p>
               <p className="text-xl font-black text-gray-900">₹{fmt(stats.pfEE)}</p>
@@ -275,7 +275,7 @@ export const PFESIDashboard = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 mb-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
             <div>
               <p className="text-[10px] text-gray-400 uppercase font-semibold tracking-wide mb-1">Employee (0.75%)</p>
               <p className="text-xl font-black text-gray-900">₹{fmt(stats.esiEE)}</p>
@@ -420,7 +420,7 @@ export const PFESIDashboard = () => {
       {/* ── Quick Actions ───────────────────────────────────────────────── */}
       <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
         <h4 className="font-bold text-gray-900 text-sm mb-5">Quick Actions</h4>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           {quickActions.map((a, i) => (
             <button
               key={i}

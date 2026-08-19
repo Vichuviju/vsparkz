@@ -60,7 +60,7 @@ export function ServicePrices() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
         <h1 className="text-2xl font-bold text-text-primary">Service Prices</h1>
         <button className="btn-primary px-4 py-2" onClick={() => setShowModal(true)}>Add Price</button>
       </div>
@@ -98,7 +98,7 @@ export function ServicePrices() {
       )}
 
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm">
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm">
           <div className="glass-card p-6 w-full max-w-md">
             <h2 className="text-xl font-bold text-text-primary mb-4">{editing ? 'Edit' : 'Add'} Service Price</h2>
             <form onSubmit={handleSubmit}>
@@ -120,7 +120,7 @@ export function ServicePrices() {
                 <label className="block text-sm font-medium text-text-muted mb-1">Amount</label>
                 <input type="number" className="w-full px-3 py-2 bg-navy-800/80 border border-navy-600 rounded-vsparkz text-text-primary" value={form.amount} onChange={e => setForm({...form, amount: e.target.value})} required />
               </div>
-              <div className="grid grid-cols-2 gap-3 mb-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
                 <div>
                   <label className="block text-sm font-medium text-text-muted mb-1">Duration Value</label>
                   <input type="number" className="w-full px-3 py-2 bg-navy-800/80 border border-navy-600 rounded-vsparkz text-text-primary" value={form.duration_value} onChange={e => setForm({...form, duration_value: parseInt(e.target.value) || 30})} />

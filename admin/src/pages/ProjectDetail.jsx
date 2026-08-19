@@ -815,7 +815,7 @@ export function ProjectDetail() {
       {/* EDIT/DETAIL MODAL WINDOW */}
       {editingTask && (
         <div className="fixed inset-0 flex items-center justify-center p-4 animate-fade-in overflow-y-auto z-[9999] bg-slate-900/60 backdrop-blur-sm">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-lg w-full p-6 border border-slate-100 dark:border-slate-850/60 space-y-4 relative my-8">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-lg w-full p-6 border border-slate-100 dark:border-slate-850/60 space-y-4 relative my-8 max-h-[min(92dvh,44rem)] overflow-y-auto mx-3 sm:mx-auto">
             
             {/* Modal Header */}
             <div className="flex justify-between items-start">
@@ -848,7 +848,7 @@ export function ProjectDetail() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 
                 {/* Type selection */}
                 <div className="space-y-1">
@@ -880,7 +880,7 @@ export function ProjectDetail() {
 
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
                 {/* Due Date selection */}
                 <div className="space-y-1">

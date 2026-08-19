@@ -80,7 +80,7 @@ export function SubServices() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
         <h1 className="text-2xl font-bold text-text-primary">Sub-Services</h1>
         <button className="btn-primary px-4 py-2" onClick={() => setShowModal(true)}>Add Sub-Service</button>
       </div>
@@ -156,7 +156,7 @@ export function SubServices() {
                   <option value="recurring">Recurring</option>
                 </select>
               </div>
-              <div className="grid grid-cols-2 gap-3 mb-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
                 <div>
                   <label className="block text-sm font-medium text-text-muted mb-1">Average price (₹)</label>
                   <input type="number" min="0" step="0.01" className="w-full px-3 py-2 bg-navy-800/80 border border-navy-600 rounded-vsparkz text-text-primary" value={form.average_price} onChange={e => setForm({...form, average_price: e.target.value})} placeholder="In-house" />
@@ -166,7 +166,7 @@ export function SubServices() {
                   <input type="number" min="0" step="0.01" className="w-full px-3 py-2 bg-navy-800/80 border border-navy-600 rounded-vsparkz text-text-primary" value={form.freelance_price} onChange={e => setForm({...form, freelance_price: e.target.value})} placeholder="Optional" />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-3 mb-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
                 <div>
                   <label className="block text-sm font-medium text-text-muted mb-1">Duration value</label>
                   <input type="number" min="0" className="w-full px-3 py-2 bg-navy-800/80 border border-navy-600 rounded-vsparkz text-text-primary" value={form.average_duration_value} onChange={e => setForm({...form, average_duration_value: e.target.value})} placeholder="e.g. 10" />

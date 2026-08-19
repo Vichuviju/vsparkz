@@ -294,7 +294,7 @@ export function HrmsAdminDashboard() {
             {/* Quick Controls */}
             <div className="bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-sm">
                 <h3 className="text-xl font-black mb-6 uppercase tracking-widest text-slate-400">Control Panel</h3>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {quickActions.map((action, i) => (
                         <Link key={i} to={action.path} className={`${action.color} p-6 rounded-[2rem] flex flex-col items-center justify-center gap-3 transition-all hover:scale-105 active:scale-95 shadow-lg group shadow-slate-200/50`}>
                             <action.icon size={28} className="text-white stroke-[2.5px] group-hover:animate-bounce transition-transform" />
@@ -346,7 +346,7 @@ export function HrmsAdminDashboard() {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                              <div className="p-4 rounded-2xl border border-slate-100 bg-slate-50/50">
                                 <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest mb-1">Gross</p>
                                 <p className="font-black text-slate-800">

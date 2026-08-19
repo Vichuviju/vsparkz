@@ -153,7 +153,7 @@ export function PageEditor() {
 
       <form onSubmit={savePageMeta} className="bg-white rounded-xl shadow border border-slate-200 p-6 space-y-4">
         <h2 className="text-lg font-semibold text-slate-800">Page & SEO</h2>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1">Slug</label>
             <input type="text" value={pageForm.slug} onChange={(e) => setPageForm((f) => ({ ...f, slug: e.target.value }))} className="w-full px-3 py-2 border border-slate-300 rounded-lg font-mono text-sm" required />
@@ -190,7 +190,7 @@ export function PageEditor() {
       </form>
 
       <div className="bg-white rounded-xl shadow border border-slate-200 p-6">
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
           <h2 className="text-lg font-semibold text-slate-800">Sections</h2>
           <button type="button" onClick={addSection} className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 text-sm">Add section</button>
         </div>
@@ -274,8 +274,8 @@ function SectionModal({ initial, onSave, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
-      <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
+    <div className="fixed inset-0 overflow-y-auto flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
+      <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6 max-h-[min(92dvh,44rem)] overflow-y-auto mx-3 sm:mx-auto">
         <h3 className="text-lg font-semibold text-slate-800 mb-4">{initial.action === 'add' ? 'Add section' : 'Edit section'}</h3>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -349,7 +349,7 @@ function BlockModal({ initial, onSave, onClose, onOpenMediaPicker }) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center p-4 overflow-y-auto z-[9999] bg-slate-900/60 backdrop-blur-sm">
-      <div className="bg-white rounded-xl shadow-xl max-w-lg w-full p-6 my-8">
+      <div className="bg-white rounded-xl shadow-xl max-w-lg w-full p-6 my-8 max-h-[min(92dvh,44rem)] overflow-y-auto mx-3 sm:mx-auto">
         <h3 className="text-lg font-semibold text-slate-800 mb-4">{initial.action === 'add' ? 'Add block' : 'Edit block'}</h3>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -413,7 +413,7 @@ function MediaLibraryModal({ onSelect, onClose }) {
         <h3 className="text-lg font-semibold text-slate-800 mb-4">Select media</h3>
         <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search..." className="w-full px-3 py-2 border border-slate-300 rounded-lg mb-4" />
         {loading ? <p className="text-slate-500">Loading…</p> : (
-          <div className="grid grid-cols-4 sm:grid-cols-6 gap-2 overflow-y-auto flex-1">
+          <div className="grid grid-cols-2 lg:grid-cols-4 sm:grid-cols-6 gap-2 overflow-y-auto flex-1">
             {list.map((m) => (
               <button key={m.id} type="button" onClick={() => onSelect(m)} className="rounded-lg border border-slate-200 overflow-hidden hover:border-indigo-500 focus:border-indigo-500">
                 {m.mime_type?.startsWith('image/') ? (

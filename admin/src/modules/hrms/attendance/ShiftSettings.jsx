@@ -130,7 +130,7 @@ const ShiftModal = ({ open, onClose, initial, onSave }) => {
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="px-6 py-4 space-y-4">
-          <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3">
             <div className="col-span-2">
               <label className="block text-[10px] font-black text-blue-500 uppercase tracking-wider mb-1">Shift Name *</label>
               <input
@@ -242,7 +242,7 @@ const ShiftModal = ({ open, onClose, initial, onSave }) => {
                 <span className="text-[10px] font-black uppercase tracking-widest">Shift Weekend Pattern</span>
               </div>
               
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-wrap gap-1.5">
                     {DAYS.map((d) => {
                     const isToggled = (form.weeklyOffDays || []).includes(d.key);

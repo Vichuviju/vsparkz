@@ -69,7 +69,7 @@ export function SelectPlan() {
       </div>
 
       {/* Header */}
-      <div className="relative z-10 w-full p-6 flex justify-between items-center max-w-7xl mx-auto">
+      <div className="relative z-10 w-full p-4 sm:p-6 flex flex-wrap justify-between items-center gap-3 max-w-7xl mx-auto">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
             <Zap className="w-5 h-5 text-white" />
@@ -89,7 +89,7 @@ export function SelectPlan() {
       <div className="relative z-10 flex-1 flex flex-col items-center pt-12 pb-24 px-4">
         
         {isExpired && (
-          <div className="mb-8 flex items-center gap-3 px-6 py-3 bg-red-500/10 border border-red-500/20 rounded-2xl animate-bounce">
+          <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center gap-3 px-4 sm:px-6 py-3 bg-red-500/10 border border-red-500/20 rounded-2xl">
             <ShieldAlert className="w-5 h-5 text-red-400" />
             <p className="text-sm font-bold text-red-200">Your subscription has expired. Please renew to regain access.</p>
           </div>
@@ -100,7 +100,7 @@ export function SelectPlan() {
             <div className="w-24 h-24 bg-purple-500/10 border border-purple-500/30 rounded-full flex items-center justify-center mx-auto mb-6">
               <Crown className="w-10 h-10 text-purple-400" />
             </div>
-            <h1 className="text-4xl font-black text-white mb-4 tracking-tight">VIP Request Pending</h1>
+            <h1 className="text-2xl sm:text-4xl font-black text-white mb-4 tracking-tight">VIP Request Pending</h1>
             <p className="text-lg text-slate-400 font-medium leading-relaxed mb-8">
               Your request for VIP Enterprise access is currently being reviewed by our Super Admins. You will receive an email once approved.
             </p>
@@ -111,7 +111,7 @@ export function SelectPlan() {
         ) : (
           <>
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <h1 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight">Unlock the Ultimate <br className="hidden md:block"/><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Marketing OS</span></h1>
+              <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-white mb-6 tracking-tight">Unlock the Ultimate <br className="hidden md:block"/><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Marketing OS</span></h1>
               <p className="text-lg md:text-xl text-slate-400 font-medium">
                 Select a plan to access CRM, Talent Management, Landing Builders, and SEO tools.
               </p>
@@ -120,7 +120,7 @@ export function SelectPlan() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl w-full">
               
               {/* Pro Plan */}
-              <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl flex flex-col hover:border-white/20 transition-colors">
+              <div className="bg-white/5 border border-white/10 rounded-3xl p-5 sm:p-8 backdrop-blur-xl flex flex-col hover:border-white/20 transition-colors">
                 <div className="mb-6">
                   <h3 className="text-xl font-black text-white mb-2">Professional</h3>
                   <p className="text-sm text-slate-400 font-medium">Perfect for growing agencies.</p>
@@ -149,7 +149,7 @@ export function SelectPlan() {
               </div>
 
               {/* Business Plan - Highlighted */}
-              <div className="bg-gradient-to-b from-blue-600/20 to-purple-600/10 border border-blue-500/30 rounded-3xl p-8 backdrop-blur-xl flex flex-col relative transform md:-translate-y-4 shadow-2xl shadow-blue-900/20">
+              <div className="bg-gradient-to-b from-blue-600/20 to-purple-600/10 border border-blue-500/30 rounded-3xl p-5 sm:p-8 backdrop-blur-xl flex flex-col relative md:-translate-y-4 shadow-2xl shadow-blue-900/20">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 py-1.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full text-[10px] font-black text-white uppercase tracking-widest shadow-lg">
                   Most Popular
                 </div>
@@ -181,7 +181,7 @@ export function SelectPlan() {
               </div>
 
               {/* VIP Plan */}
-              <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl flex flex-col hover:border-white/20 transition-colors">
+              <div className="bg-white/5 border border-white/10 rounded-3xl p-5 sm:p-8 backdrop-blur-xl flex flex-col hover:border-white/20 transition-colors">
                 <div className="mb-6">
                   <h3 className="text-xl font-black text-white mb-2 flex items-center gap-2"><Crown className="w-5 h-5 text-amber-400" /> VIP Enterprise</h3>
                   <p className="text-sm text-slate-400 font-medium">Exclusive access, by approval only.</p>

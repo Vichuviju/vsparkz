@@ -106,7 +106,7 @@ const ConfirmDialog = ({
   cancelLabel = "Cancel",
   confirmVariant = "destructive",
 }) => (
-  <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
+  <div className="fixed inset-0 overflow-y-auto flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
     <div className="bg-white rounded-2xl shadow-2xl p-6 max-w-sm w-full space-y-4 animate-in fade-in zoom-in-95 duration-200">
       <div className="flex items-start gap-3">
         <div className="p-2 bg-rose-100 rounded-xl"><AlertTriangle size={20} className="text-rose-600" /></div>
@@ -623,7 +623,7 @@ const confirmDeletePolicy = (id) => setConfirmDelete(id);
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-2 text-center">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-center">
                     {[
                       { label: 'Annual', value: type.annualAllocation, unit: 'days' },
                       { label: 'Accrual', value: type.enableAccrual ? type.accrualRate : '—', unit: type.enableAccrual ? '/mo' : '' },
@@ -723,7 +723,7 @@ const confirmDeletePolicy = (id) => setConfirmDelete(id);
                     <span className="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Identity</span>
                   </div>
                   <div className="p-6 space-y-5">
-                    <div className="grid grid-cols-2 gap-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <Field label="Leave Name">
                         <TextInput
                           name="leaveName"
@@ -768,7 +768,7 @@ const confirmDeletePolicy = (id) => setConfirmDelete(id);
                     </div>
                   </div>
                   <div className="p-6 space-y-6">
-                    <div className="grid grid-cols-2 gap-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <Field label="Annual Grant" hint="Total days granted per year">
                         <NumericInput name="annualAllocation" value={currentPolicy.annualAllocation} onChange={handleInputChange} suffix="days" />
                       </Field>
@@ -923,7 +923,7 @@ const confirmDeletePolicy = (id) => setConfirmDelete(id);
                           </Select>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div className="space-y-2">
                               <label className="text-xs font-bold text-slate-500 uppercase">Action</label>
                               <Select 

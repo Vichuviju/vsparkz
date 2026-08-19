@@ -512,7 +512,7 @@ export const ESIManagementPage = () => {
                         </DialogTitle>
                     </DialogHeader>
                     <div className="space-y-4 py-4">
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <label className="text-sm font-medium text-gray-700">Employee Rate (%)</label>
                                 <input
@@ -701,7 +701,7 @@ const EmployeeEsiEditDialog = ({ employee, onClose, onSave, esiSettings }) => {
                         <p className="text-sm font-semibold text-gray-700">Projected Monthly ESI Calculation</p>
                         {isEligible ? (
                             <>
-                                <div className="grid grid-cols-2 gap-4 text-sm">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                                     <div>
                                         <p className="text-gray-500">ESI Wages</p>
                                         <p className="font-semibold text-gray-900">₹{projectedWages.toLocaleString()}</p>

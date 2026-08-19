@@ -207,7 +207,7 @@ export const LeaveManagementPage = () => {
 
                                         <div className="space-y-2">
                                             <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-1">Adjustment Type</label>
-                                            <div className="grid grid-cols-2 gap-2">
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                                 <button 
                                                     onClick={() => setAdjustmentData(prev => ({ ...prev, action: 'ADD' }))}
                                                     className={cn(

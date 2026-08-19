@@ -113,7 +113,7 @@ const onSubmit = async (data) => {
 
         <form
           onSubmit={handleSubmit(onSubmit, handleError)}
-          className="grid grid-cols-2 gap-4 mt-6"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6"
         >
           {/* Department Name */}
           <div className="col-span-2 space-y-2">

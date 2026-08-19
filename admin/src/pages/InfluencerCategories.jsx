@@ -58,7 +58,7 @@ export function InfluencerCategories() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
         <h1 className="text-2xl font-bold dark:text-text-primary text-gray-900">Content Categories</h1>
         <button type="button" onClick={openCreate} className="btn-primary px-4 py-2 text-sm">Add Category</button>
       </div>
@@ -91,8 +91,8 @@ export function InfluencerCategories() {
         )}
       </div>
       {modal && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-          <div className="glass-card max-w-md w-full p-6 border dark:border-navy-600 border-gray-200">
+        <div className="fixed inset-0 overflow-y-auto bg-black/60 flex items-center justify-center z-50 p-4">
+          <div className="glass-card max-w-md w-full p-6 border dark:border-navy-600 border-gray-200 max-h-[min(92dvh,44rem)] overflow-y-auto mx-3 sm:mx-auto">
             <h2 className="text-lg font-semibold dark:text-text-primary text-gray-900 mb-4">{modal === 'new' ? 'Add Category' : 'Edit Category'}</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>

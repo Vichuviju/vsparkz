@@ -87,7 +87,7 @@ export function InfluencerDetail() {
           <div className="lg:col-span-2 space-y-6">
             <div className="glass-card p-6">
               <h3 className="text-lg font-semibold dark:text-text-primary text-gray-900 mb-4">Metric Overview</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="p-3 rounded-xl bg-navy-800/50 border border-navy-600">
                   <div className="text-xs text-text-muted mb-1">Total Followers</div>
                   <div className="text-xl font-bold text-accent">{Number(influencer.followers ?? 0).toLocaleString()}</div>
@@ -136,7 +136,7 @@ export function InfluencerDetail() {
 
             <div className="glass-card p-6">
               <h3 className="text-lg font-semibold dark:text-text-primary text-gray-900 mb-4">Pricing & Notes</h3>
-              <div className="grid grid-cols-3 gap-4 mb-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
                 <div className="text-center p-3 border border-navy-600 rounded-xl bg-navy-800/30">
                   <div className="text-xs text-text-muted">Per Post</div>
                   <div className="font-bold text-text-primary">₹{Number(influencer.pricing_per_post ?? 0).toLocaleString()}</div>
@@ -239,14 +239,14 @@ export function InfluencerDetail() {
       )}
 
       {showLogModal && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-          <div className="glass-card max-w-md w-full p-6 border dark:border-navy-600 border-gray-200">
+        <div className="fixed inset-0 overflow-y-auto bg-black/60 flex items-center justify-center z-50 p-4">
+          <div className="glass-card max-w-md w-full p-6 border dark:border-navy-600 border-gray-200 max-h-[min(92dvh,44rem)] overflow-y-auto mx-3 sm:mx-auto">
             <h2 className="text-lg font-semibold dark:text-text-primary text-gray-900 mb-4">Add Weekly Engagement Log</h2>
             <form onSubmit={handleLogSubmit} className="space-y-4">
               <div><label className="block text-sm font-medium dark:text-text-muted text-gray-500 mb-1">Log Date</label><input type="date" value={logForm.log_date} onChange={(e) => setLogForm((f) => ({ ...f, log_date: e.target.value }))} required className="w-full px-3 py-2 border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white rounded-vsparkz dark:text-text-primary text-gray-900" /></div>
               <div><label className="block text-sm font-medium dark:text-text-muted text-gray-500 mb-1">Engagement Rate %</label><input type="number" step="0.01" value={logForm.engagement_rate} onChange={(e) => setLogForm((f) => ({ ...f, engagement_rate: e.target.value }))} className="w-full px-3 py-2 border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white rounded-vsparkz dark:text-text-primary text-gray-900" /></div>
               <div><label className="block text-sm font-medium dark:text-text-muted text-gray-500 mb-1">Total Followers</label><input type="number" value={logForm.followers} onChange={(e) => setLogForm((f) => ({ ...f, followers: e.target.value }))} className="w-full px-3 py-2 border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white rounded-vsparkz dark:text-text-primary text-gray-900" /></div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div><label className="block text-sm font-medium dark:text-text-muted text-gray-500 mb-1">Instagram Followers</label><input type="number" value={logForm.instagram_followers} onChange={(e) => setLogForm((f) => ({ ...f, instagram_followers: e.target.value }))} className="w-full px-3 py-2 border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white rounded-vsparkz dark:text-text-primary text-gray-900" /></div>
                 <div><label className="block text-sm font-medium dark:text-text-muted text-gray-500 mb-1">YouTube Followers</label><input type="number" value={logForm.youtube_followers} onChange={(e) => setLogForm((f) => ({ ...f, youtube_followers: e.target.value }))} className="w-full px-3 py-2 border dark:border-navy-600 border-gray-200 dark:bg-navy-800/80 bg-white rounded-vsparkz dark:text-text-primary text-gray-900" /></div>
               </div>

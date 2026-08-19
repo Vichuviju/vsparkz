@@ -119,8 +119,8 @@ export default function DashboardProjects() {
       )}
 
       {actionProject && (action === 'approve' || action === 'reject') && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="glass-card max-w-md w-full p-6">
+        <div className="fixed inset-0 overflow-y-auto bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="glass-card max-w-md w-full p-6 max-h-[min(92dvh,44rem)] overflow-y-auto mx-3 sm:mx-auto">
             <h3 className="text-lg font-semibold text-text-primary mb-4">{action === 'approve' ? 'Approve project' : 'Reject project'}</h3>
             <p className="text-text-muted text-sm mb-4">{actionProject.name}</p>
             <form onSubmit={submitAction} className="space-y-4">

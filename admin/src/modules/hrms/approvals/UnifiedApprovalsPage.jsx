@@ -930,7 +930,7 @@ const SettlementModal = ({ employeeId, onClose, onFinalize, isFinalizing }) => {
   const isPaid = data?.payroll?.paymentStatus === 'PAID';
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
+    <div className="fixed inset-0 overflow-y-auto flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
       <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={onClose} />
       <div className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
         
@@ -969,7 +969,7 @@ const SettlementModal = ({ employeeId, onClose, onFinalize, isFinalizing }) => {
                 <h4 className="text-xs font-black uppercase tracking-widest">Attendance Preview</h4>
               </div>
               
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-100">
                   <p className="text-[10px] font-black text-emerald-600 uppercase mb-1">Present</p>
                   <p className="text-2xl font-black text-emerald-700">{data?.attendance?.present}</p>

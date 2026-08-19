@@ -121,7 +121,7 @@ const PayslipPdfView = ({ payout, records, user }) => {
         <div className="h-[2px] bg-slate-900 w-full mb-8" />
 
         {/* Info Grid */}
-        <div className="grid grid-cols-2 gap-10 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 mb-8">
           <div className="space-y-4">
             <div>
               <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Employee Name</p>
@@ -397,7 +397,7 @@ export const EssPayslip = () => {
         </div>
 
         {/* KPI Row */}
-        <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
           {[
             { label: "Net Payable", value: formatIndianCurrency(netPay, 2), sub: "Latest month payout", icon: BadgeCheck, color: "text-emerald-500", bg: "bg-emerald-50", badge: "Processed" },
             { label: "Year-to-Date", value: formatIndianCurrency(ytdEarnings, 2), sub: "Total earnings in 2024", icon: TrendingUp, color: "text-blue-500", bg: "bg-blue-50", badge: "Accumulated" },

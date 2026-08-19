@@ -412,7 +412,7 @@ export const EssDashboard = () => {
                 Customize <Settings size={14} />
               </button>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
               {visibleWidgets.actions.checkIn && (
                 <QuickAction 
                     icon={Clock} 
@@ -605,7 +605,7 @@ export const EssDashboard = () => {
                         <h3 className="font-bold text-slate-800">Leave Balance Summary</h3>
                         <Link to="/hrms/leave/dashboard" className="text-xs font-bold text-blue-600">View All</Link>
                     </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-cols-4 gap-3">
                         {leaveBalance?.data?.slice(0, 4).map((l, i) => (
                             <div key={i} className="flex flex-col gap-2 p-3 bg-slate-50/50 rounded-2xl border border-slate-100">
                                 <span className={`text-[9px] font-black text-white px-1.5 py-0.5 rounded w-fit ${i % 4 === 0 ? 'bg-blue-500' : i % 4 === 1 ? 'bg-blue-500' : i % 4 === 2 ? 'bg-orange-500' : 'bg-emerald-500'}`}>{l.leaveCode || l.leaveType?.code || "LT"}</span>
@@ -781,7 +781,7 @@ export const EssDashboard = () => {
 
       {/* Customization Modal */}
       {isCustomizing && (
-        <div className="fixed inset-0 flex items-center justify-center p-4 transition-all z-[9999] bg-slate-900/60 backdrop-blur-sm">
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center p-4 transition-all z-[9999] bg-slate-900/60 backdrop-blur-sm">
             <div className="bg-white rounded-[32px] w-full max-w-2xl shadow-2xl border border-slate-100 overflow-hidden animate-in zoom-in duration-300">
                 <div className="px-8 py-6 border-b border-slate-50 flex items-center justify-between bg-slate-50/50">
                     <div>
@@ -943,7 +943,7 @@ export const EssDashboard = () => {
       {/* Request Modal */}
       <AnimatePresence>
         {isRequestModalOpen && (
-          <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
+          <div className="fixed inset-0 overflow-y-auto flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -980,7 +980,7 @@ export const EssDashboard = () => {
 
               <div className="p-8">
                 {requestStep === 1 ? (
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {[
                       { id: 'LOAN', title: 'Loan / Advance', icon: Banknote, color: 'text-blue-600', bg: 'bg-blue-50', desc: 'Salary advance or loan' },
                       { id: 'EXPENSE', title: 'Expense Claim', icon: CreditCard, color: 'text-emerald-600', bg: 'bg-emerald-50', desc: 'Travel, food, bills' },
@@ -1007,7 +1007,7 @@ export const EssDashboard = () => {
                   <div className="space-y-6">
                     {requestType === 'LOAN' && (
                       <>
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div className="space-y-2">
                             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Loan Type</label>
                             <select 
@@ -1056,7 +1056,7 @@ export const EssDashboard = () => {
 
                     {requestType === 'EXPENSE' && (
                       <>
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div className="space-y-2">
                             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Category</label>
                             <select 

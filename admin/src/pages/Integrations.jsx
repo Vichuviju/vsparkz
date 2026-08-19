@@ -172,9 +172,9 @@ export function Integrations() {
       )}
 
       {activeModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm" onClick={() => setActiveModal(null)}>
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm" onClick={() => setActiveModal(null)}>
           <div
-            className="bg-white dark:bg-navy-800 rounded-2xl shadow-xl max-w-md w-full mx-4 p-6"
+            className="bg-white dark:bg-navy-800 rounded-2xl shadow-xl max-w-md w-full mx-4 p-6 max-h-[min(92dvh,44rem)] overflow-y-auto mx-3 sm:mx-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-lg font-semibold text-text-primary mb-2">Configure {activeModal.title}</h2>

@@ -52,7 +52,7 @@ export function PricingLevels() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
         <h1 className="text-2xl font-bold text-text-primary">Pricing Levels</h1>
         <button className="btn-primary px-4 py-2" onClick={() => setShowModal(true)}>Add Level</button>
       </div>
@@ -88,7 +88,7 @@ export function PricingLevels() {
       )}
 
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm">
+        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm">
           <div className="glass-card p-6 w-full max-w-md">
             <h2 className="text-xl font-bold text-text-primary mb-4">{editing ? 'Edit' : 'Add'} Pricing Level</h2>
             <form onSubmit={handleSubmit}>

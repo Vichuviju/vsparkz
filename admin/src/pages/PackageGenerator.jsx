@@ -115,7 +115,7 @@ export function PackageGenerator() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
         <h1 className="text-2xl font-bold text-text-primary">Package Generator</h1>
         <button type="button" className="btn-primary px-4 py-2" onClick={() => { setEditing(null); setForm(defaultForm()); setShowModal(true); }}>Add Package Generator</button>
       </div>
@@ -165,7 +165,7 @@ export function PackageGenerator() {
                 <label className="block text-sm font-medium text-text-muted mb-1">Name</label>
                 <input className="w-full px-3 py-2 bg-navy-800/80 border border-navy-600 rounded-vsparkz text-text-primary" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required placeholder="e.g. Digital Marketing Pricing" />
               </div>
-              <div className="grid grid-cols-2 gap-3 mb-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
                 <div>
                   <label className="block text-sm font-medium text-text-muted mb-1">Pricing title</label>
                   <input className="w-full px-3 py-2 bg-navy-800/80 border border-navy-600 rounded-vsparkz text-text-primary" value={form.pricing_title} onChange={(e) => setForm({ ...form, pricing_title: e.target.value })} placeholder="PRICING" />
