@@ -8,6 +8,7 @@
     "dev:website": "cd website && npm run dev",
     "build:admin": "cd admin && npm run build",
     "build:website": "cd website && npm run build",
+    "build:website:pages": "cd website && npm run build:pages",
     "install:all": "npm install && cd admin && npm install && cd ../website && npm install"
   },
   "devDependencies": {

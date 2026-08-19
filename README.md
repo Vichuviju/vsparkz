@@ -11,6 +11,7 @@ Professional digital marketing agency platform: API-first Laravel backend + Reac
 | **[docs/DOCUMENTATION.md](docs/DOCUMENTATION.md)** | **Single file:** all paths, setup, running admin + website, API summary, troubleshooting |
 | **[docs/WORKFLOW-AND-MODULES.md](docs/WORKFLOW-AND-MODULES.md)** | **Workflow:** Lead → Client → Project → Quotation → Agreement → Assign Project → Portal; pricing, custom package, freelancer selection, package generator |
 | **[docs/GIT-GITHUB.md](docs/GIT-GITHUB.md)** | **Connect to GitHub:** init, remote, commit, push |
+| **[docs/DEPLOY-GITHUB-PAGES.md](docs/DEPLOY-GITHUB-PAGES.md)** | **Go live:** deploy public website on GitHub Pages |
 | **[README.md](README.md)** (this file) | Overview, quick start, links |
 | **[docs/SETUP.md](docs/SETUP.md)** | Step-by-step setup (backend + admin + website) |
 | **[docs/API.md](docs/API.md)** | Full API reference (endpoints, request/response) |
