@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { api } from '../lib/api';
+import { logoUrl } from '../lib/publicUrl';
 
 export default function ResetPassword() {
   const [searchParams] = useSearchParams();
@@ -36,7 +37,7 @@ export default function ResetPassword() {
       <div className="absolute inset-0 bg-gradient-navy" />
       <div className="w-full max-w-md relative z-10 glass-card p-8 animate-fade-in">
         <div className="flex justify-center mb-6">
-          <img src="/logo/logo1.png" alt="V-Sparkz Digital" className="h-32 w-32 object-contain" />
+          <img src={logoUrl('logo/logo1.png')} alt="V-Sparkz Digital" className="h-32 w-32 object-contain" />
         </div>
         {children}
       </div>

@@ -26,6 +26,49 @@ html.dark body {
 
 #root {
   min-height: 100vh;
+  min-height: 100dvh;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+html,
+body,
+#root {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* iPhone: stop Safari zooming inputs, make tables swipeable */
+@media (max-width: 1023px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  main img,
+  main video,
+  main canvas,
+  main svg {
+    max-width: 100%;
+  }
+
+  main :is(.glass-card, .rounded-2xl, .rounded-xl, [class*="overflow-hidden"]):has(table) {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+  }
+
+  main table {
+    min-width: 36rem;
+  }
 }
 
 /* Page animations */

@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { canAccessPath } from '../config/permissions';
-
-const defaultLogoSrc = '/logo/logo1.png';
+import { logoUrl } from '../lib/publicUrl';
 
 // Structure exactly mapping the mockup screenshot
 const SIDEBAR_SECTIONS = [
@@ -362,7 +361,7 @@ const SIDEBAR_SECTIONS = [
   }
 ];
 
-export function Sidebar() {
+export function Sidebar({ open = false, onClose }) {
   const { user, logout, branding } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -370,7 +369,7 @@ export function Sidebar() {
   
   const role = (user?.role ?? user?.effective_role ?? '').toString().trim().toLowerCase();
   const permissions = user?.permissions ?? [];
-  const logoSrc = branding?.branding?.logo_path ?? defaultLogoSrc;
+  const logoSrc = logoUrl(branding?.branding?.logo_path);
 
   // Track toggle states of accordions dynamically
   const [openGroups, setOpenGroups] = useState({});
@@ -397,11 +396,34 @@ export function Sidebar() {
 
   const handleLogout = async () => {
     await logout();
+    onClose?.();
     navigate('/login');
   };
 
+  useEffect(() => {
+    if (!open) return undefined;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
   return (
-    <aside className="w-64 flex flex-col fixed h-full bg-white dark:bg-slate-900 border-r border-slate-100 dark:border-white/10 shrink-0 z-20">
+    <>
+      {open ? (
+        <button
+          type="button"
+          className="lg:hidden fixed inset-0 z-40 bg-slate-950/50 backdrop-blur-[1px]"
+          aria-label="Close menu"
+          onClick={onClose}
+        />
+      ) : null}
+    <aside
+      className={`w-[min(17rem,88vw)] flex flex-col fixed inset-y-0 left-0 h-full bg-white dark:bg-slate-900 border-r border-slate-100 dark:border-white/10 shrink-0 z-50 lg:z-20 transform transition-transform duration-200 ease-out pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] ${
+        open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+      }`}
+    >
       
       {/* Brand Logo Header */}
       <div className="px-5 py-5 border-b border-slate-50 dark:border-slate-800 shrink-0">
@@ -450,6 +472,7 @@ export function Sidebar() {
                         key={item.to}
                         to={item.to}
                         end={item.to === '/'}
+                        onClick={onClose}
                         className={({ isActive }) =>
                           `flex items-center justify-between px-3.5 py-2 text-xs rounded-xl no-underline font-bold transition-all duration-200 ${
                             isActive
@@ -509,6 +532,7 @@ export function Sidebar() {
                               <NavLink
                                 key={sub.to}
                                 to={sub.to}
+                                onClick={onClose}
                                 className={({ isActive }) =>
                                   `block px-3 py-2 text-xs rounded-xl no-underline font-semibold transition-all ${
                                     isActive
@@ -579,5 +603,6 @@ export function Sidebar() {
       </div>
       
     </aside>
+    </>
   );
 }

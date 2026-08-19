@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { logoUrl } from '../lib/publicUrl';
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api';
 
@@ -34,7 +35,7 @@ export default function Login() {
       <div className="w-full max-w-md relative z-10">
         <div className="glass-card p-8 animate-fade-in">
           <div className="flex justify-center mb-6">
-            <img src="/logo/logo1.png" alt="V-Sparkz Digital" className="h-32 w-32 object-contain" />
+            <img src={logoUrl('logo/logo1.png')} alt="V-Sparkz Digital" className="h-32 w-32 object-contain" />
           </div>
           <h1 className="text-2xl font-bold text-text-primary text-center mb-1">Welcome back</h1>
           <p className="text-text-muted text-sm text-center mb-6">Sign in to V-Sparkz</p>

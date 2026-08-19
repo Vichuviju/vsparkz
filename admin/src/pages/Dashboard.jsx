@@ -145,14 +145,14 @@ export function Dashboard() {
       {/* Top Banner & Header Greeting */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-black text-slate-800 dark:text-white tracking-tight flex items-center gap-2">
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-800 dark:text-white tracking-tight flex items-center gap-2">
             Good Morning, {firstName}! 👋
           </h1>
           <p className="mt-1.5 text-sm font-medium text-slate-400 dark:text-slate-500">
             Your marketing performance increased <span className="text-blue-600 dark:text-blue-400 font-bold">18%</span> this month.
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-blue-100 dark:border-blue-900/30 bg-blue-50/50 dark:bg-blue-950/20 text-blue-600 dark:text-blue-400 text-xs font-bold transition-all hover:bg-blue-100/50">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 21l8.982-11.795H13.62l1.378-7.7L6 13.305h5.187L9.813 15.904z" />

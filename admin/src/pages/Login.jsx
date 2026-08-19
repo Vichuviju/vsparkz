@@ -235,7 +235,7 @@ export function Login() {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col lg:flex-row items-stretch justify-between overflow-hidden bg-slate-950 text-gray-800 relative select-none">
+    <div className="min-h-dvh w-full flex flex-col lg:flex-row items-stretch justify-between overflow-x-hidden overflow-y-auto bg-slate-950 text-gray-800 relative select-none">
       
       {/* Decorative background blurs / overlays */}
       <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] opacity-5 pointer-events-none" />
@@ -264,7 +264,7 @@ export function Login() {
         
         {/* Top brand indicator */}
         <div className="flex items-center gap-3 z-10">
-          <img src={asset('logo/vsparkz_hero.png')} alt="V-Sparkz" className="h-10 w-10 object-contain" />
+          <img src={asset('logo/logo1.png')} alt="V-Sparkz" className="h-10 w-10 object-contain" />
           <span className="text-xl font-bold tracking-tight text-white">
             V-Sparkz <span className="text-blue-400 font-semibold">Digital</span>
           </span>
@@ -496,13 +496,13 @@ export function Login() {
       </div>
 
       {/* RIGHT PANEL: Sleek Login Form and Interface */}
-      <div className="flex-1 flex items-center justify-center p-6 sm:p-12 lg:max-w-2xl bg-white shadow-2xl lg:border-l lg:border-slate-200/50 relative z-10">
+      <div className="flex-1 flex items-center justify-center p-5 sm:p-12 lg:max-w-2xl bg-white shadow-2xl lg:border-l lg:border-slate-200/50 relative z-10 min-h-dvh lg:min-h-0 pt-[max(1.25rem,env(safe-area-inset-top))] pb-[max(1.25rem,env(safe-area-inset-bottom))]">
         <div className="w-full max-w-md space-y-8">
           
           {/* Logo & Mobile Brand */}
           <div className="text-center lg:text-left space-y-4">
             <div className="flex items-center justify-center lg:justify-start gap-3 mb-6">
-              <img src={asset('logo/vsparkz_hero.png')} alt="V-Sparkz" className="h-10 w-10 object-contain" />
+              <img src={asset('logo/logo1.png')} alt="V-Sparkz" className="h-10 w-10 object-contain" />
               <span className="text-2xl font-bold tracking-tight text-slate-800">
                 V-Sparkz <span className="text-blue-600 font-semibold">Digital</span>
               </span>
