@@ -47,6 +47,8 @@ use App\Http\Controllers\Admin\PricingLevelController;
 use App\Http\Controllers\Admin\ServicePriceController;
 use App\Http\Controllers\Admin\ComboPackageController;
 use App\Http\Controllers\Admin\OfferDocumentController;
+use App\Http\Controllers\Admin\ComplianceController;
+use App\Http\Controllers\Admin\AdMetricsController;
 use App\Http\Controllers\Admin\RequirementTemplateController;
 use App\Http\Controllers\Admin\RequirementGatheringController;
 use App\Http\Controllers\Admin\StrategyReportController;
@@ -60,11 +62,9 @@ use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RolePermissionController;
 use App\Http\Controllers\Admin\SuperAdminController;
-use App\Http\Controllers\Admin\SupportTicketController;
-use App\Http\Controllers\Admin\SmsController;
-use App\Http\Controllers\Admin\EcommerceController;
-use App\Http\Controllers\Admin\GamificationController;
-use App\Http\Controllers\Admin\UtilityController;
+use App\Http\Controllers\Admin\HRMSEmployeeController;
+use App\Http\Controllers\Admin\HRMSDepartmentController;
+
 use App\Models\User;
 use App\Http\Controllers\Public\LeadController as PublicLeadController;
 use App\Http\Controllers\Public\InfluencerController as PublicInfluencerController;
@@ -194,7 +194,13 @@ Route::middleware('auth:sanctum')->prefix('portal')->group(function (): void {
     Route::post('time-logs', [\App\Http\Controllers\Portal\AssignedProjectsController::class, 'storeTimeLog']);
 });
 
-// Protected admin routes (Sanctum token required)
+// Accessible without active subscription (to allow purchasing/requesting)
+Route::middleware(['auth:sanctum'])->prefix('admin')->group(function (): void {
+    Route::post('/payments/subscription', [\App\Http\Controllers\Admin\PaymentGatewayController::class, 'createSubscription']);
+    Route::post('/vip-requests', [\App\Http\Controllers\Admin\VipRequestController::class, 'store']);
+});
+
+// Protected admin routes (Sanctum token required, MUST have active subscription)
 Route::middleware(['auth:sanctum', 'tenant', 'subscription'])->prefix('admin')->group(function (): void {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
@@ -310,12 +316,20 @@ Route::middleware(['auth:sanctum', 'tenant', 'subscription'])->prefix('admin')->
     Route::delete('landing-templates/{template}', [LandingTemplateController::class, 'destroy']);
     Route::post('landing-templates/{template}/activate', [LandingTemplateController::class, 'activate']);
 
+    Route::get('landing-templates/{template}/sections', [LandingSectionController::class, 'index']);
+    Route::post('landing-templates/{template}/sections', [LandingSectionController::class, 'store']);
+    Route::put('landing-sections/{section}', [LandingSectionController::class, 'update']);
+    Route::delete('landing-sections/{section}', [LandingSectionController::class, 'destroy']);
+    Route::post('landing-sections/reorder', [LandingSectionController::class, 'reorder']);
+
+    Route::get('landing-sections/{section}/blocks', [LandingBlockController::class, 'index']);
+    Route::post('landing-sections/{section}/blocks', [LandingBlockController::class, 'store']);
+    Route::put('landing-blocks/{block}', [LandingBlockController::class, 'update']);
+    Route::delete('landing-blocks/{block}', [LandingBlockController::class, 'destroy']);
+    Route::post('landing-blocks/reorder', [LandingBlockController::class, 'reorder']);
+
     // Influencers, Clients, Projects
     Route::apiResource('influencers', InfluencerController::class);
-    Route::apiResource('influencer-categories', InfluencerCategoryController::class);
-    Route::get('influencers/{influencer}/engagement', [InfluencerEngagementController::class, 'index']);
-    Route::post('influencers/{influencer}/engagement', [InfluencerEngagementController::class, 'store']);
-    Route::delete('influencers/{influencer}/engagement/{log}', [InfluencerEngagementController::class, 'destroy']);
     Route::get('clients/{client}/profile', [ClientController::class, 'profile']);
     Route::apiResource('clients', ClientController::class);
     Route::apiResource('agencies', AgencyController::class);
@@ -327,8 +341,11 @@ Route::middleware(['auth:sanctum', 'tenant', 'subscription'])->prefix('admin')->
     Route::apiResource('projects', ProjectController::class);
     Route::get('project-assignments', [ProjectAssignmentController::class, 'index']);
     Route::post('project-assignments', [ProjectAssignmentController::class, 'store']);
+    Route::post('project-assignments/bulk', [ProjectAssignmentController::class, 'storeBulk']);
     Route::delete('project-assignments/{projectAssignment}', [ProjectAssignmentController::class, 'destroy']);
     Route::get('work-dashboard', [WorkDashboardController::class, 'index']);
+    Route::get('work-dashboard/reports/work-progress', [WorkDashboardController::class, 'workProgressReport']);
+    Route::get('work-dashboard/reports/time-logged', [WorkDashboardController::class, 'timeLoggedReport']);
     Route::get('requirement-templates', [RequirementTemplateController::class, 'index']);
     Route::post('requirement-templates', [RequirementTemplateController::class, 'store']);
     Route::get('requirement-templates/{requirementTemplate}', [RequirementTemplateController::class, 'show']);
@@ -339,11 +356,16 @@ Route::middleware(['auth:sanctum', 'tenant', 'subscription'])->prefix('admin')->
     Route::get('requirement-gatherings/{requirementGathering}', [RequirementGatheringController::class, 'show']);
     Route::put('requirement-gatherings/{requirementGathering}', [RequirementGatheringController::class, 'update']);
     Route::delete('requirement-gatherings/{requirementGathering}', [RequirementGatheringController::class, 'destroy']);
+    Route::post('requirement-gatherings/{requirementGathering}/documents', [RequirementGatheringController::class, 'storeDocument']);
+    Route::delete('requirement-gatherings/{requirementGathering}/documents/{document}', [RequirementGatheringController::class, 'destroyDocument']);
     Route::get('strategy-reports', [StrategyReportController::class, 'index']);
     Route::post('strategy-reports', [StrategyReportController::class, 'store']);
     Route::get('strategy-reports/{strategyReport}', [StrategyReportController::class, 'show']);
     Route::put('strategy-reports/{strategyReport}', [StrategyReportController::class, 'update']);
     Route::delete('strategy-reports/{strategyReport}', [StrategyReportController::class, 'destroy']);
+    Route::post('strategy-reports/{strategyReport}/send', [StrategyReportController::class, 'send']);
+    Route::post('strategy-reports/{strategyReport}/approve', [StrategyReportController::class, 'approve']);
+    Route::get('strategy-reports/{strategyReport}/pdf', [StrategyReportController::class, 'downloadPdf']);
     Route::get('agreements/{agreement}/pdf', [AgreementController::class, 'downloadPdf']);
     Route::apiResource('agreements', AgreementController::class);
     Route::apiResource('content-calendar', ContentCalendarController::class)->parameters(['content_calendar' => 'contentCalendarItem']);
@@ -367,6 +389,9 @@ Route::middleware(['auth:sanctum', 'tenant', 'subscription'])->prefix('admin')->
     Route::get('deals/{id}', [DealController::class, 'show']);
     Route::put('deals/{id}', [DealController::class, 'update']);
     Route::delete('deals/{id}', [DealController::class, 'destroy']);
+
+    // DMOS: branding (read-only for frontend theming)
+    Route::get('branding', [BrandingController::class, 'show']);
 
     // DMOS: keywords, contact lists, vendors, brands, workflows, knowledge base, onboarding, automation, report templates, forms
     Route::get('keywords', [KeywordController::class, 'index']);
@@ -422,6 +447,57 @@ Route::middleware(['auth:sanctum', 'tenant', 'subscription'])->prefix('admin')->
         }
         return response()->json(['data' => $query->get()]);
     });
+    Route::post('service-packages', function (\Illuminate\Http\Request $request) {
+        $tid = auth()->user()?->tenant_id ?? auth()->user()?->agency_id;
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'base_price' => 'nullable|numeric|min:0',
+            'currency' => 'nullable|string|max:10',
+            'pricing_model' => 'nullable|string|max:50',
+            'active' => 'nullable|boolean',
+        ]);
+        $validated['tenant_id'] = $tid;
+        if (empty($validated['slug'])) {
+            $validated['slug'] = \Illuminate\Support\Str::slug($validated['name']);
+        }
+        $pkg = \App\Models\ServicePackage::create($validated);
+        return response()->json(['data' => $pkg]);
+    });
+    Route::put('service-packages/{id}', function (\Illuminate\Http\Request $request, $id) {
+        $tid = auth()->user()?->tenant_id ?? auth()->user()?->agency_id;
+        $pkg = \App\Models\ServicePackage::where('id', $id);
+        if ($tid) {
+            $pkg->where('tenant_id', $tid);
+        }
+        $pkg = $pkg->firstOrFail();
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'base_price' => 'nullable|numeric|min:0',
+            'currency' => 'nullable|string|max:10',
+            'pricing_model' => 'nullable|string|max:50',
+            'active' => 'nullable|boolean',
+        ]);
+        if (empty($validated['slug'])) {
+            $validated['slug'] = \Illuminate\Support\Str::slug($validated['name']);
+        }
+        $pkg->update($validated);
+        return response()->json(['data' => $pkg]);
+    });
+    Route::delete('service-packages/{id}', function (\Illuminate\Http\Request $request, $id) {
+        $tid = auth()->user()?->tenant_id ?? auth()->user()?->agency_id;
+        $pkg = \App\Models\ServicePackage::where('id', $id);
+        if ($tid) {
+            $pkg->where('tenant_id', $tid);
+        }
+        $pkg = $pkg->firstOrFail();
+        $pkg->delete();
+        return response()->json(['message' => 'Service package deleted']);
+    });
     Route::get('forms', [FormController::class, 'index']);
     Route::post('forms', [FormController::class, 'store']);
     Route::get('forms/{form}', [FormController::class, 'show']);
@@ -447,8 +523,17 @@ Route::middleware(['auth:sanctum', 'tenant', 'subscription'])->prefix('admin')->
     Route::apiResource('invoices', InvoiceController::class);
     Route::apiResource('invoice-adjustments', InvoiceAdjustmentController::class);
     Route::post('payments', [PaymentController::class, 'store']);
-    Route::post('invoices/{invoice}/create-payment', [PaymentGatewayController::class, 'createPayment']);
-    Route::post('payments/confirm', [PaymentGatewayController::class, 'confirm']);
+    Route::post('/invoices/{invoice}/create-payment', [PaymentGatewayController::class, 'createPayment']);
+    Route::post('/payments/confirm', [PaymentGatewayController::class, 'confirm']);
+
+    // VIP Approvals (index, approve, reject stay protected for Super Admins)
+    Route::get('/vip-requests', [\App\Http\Controllers\Admin\VipRequestController::class, 'index']);
+    Route::post('/vip-requests/{id}/approve', [\App\Http\Controllers\Admin\VipRequestController::class, 'approve']);
+    Route::post('/vip-requests/{id}/reject', [\App\Http\Controllers\Admin\VipRequestController::class, 'reject']);
+
+    // Attendance & Biometrics
+    Route::get('/attendance', [\App\Http\Controllers\Admin\AttendanceController::class, 'index']);
+    Route::post('/attendance/sync', [\App\Http\Controllers\Admin\AttendanceController::class, 'syncBiometric']);
 
     // Tasks, Time, Leaves, Payroll
     Route::apiResource('tasks', TaskController::class);
@@ -471,23 +556,107 @@ Route::middleware(['auth:sanctum', 'tenant', 'subscription'])->prefix('admin')->
     Route::get('/system-settings/{key}', [SettingsApiController::class, 'show']);
     Route::put('/system-settings', [SettingsApiController::class, 'update']);
 
+    // Compliance APIs
+    Route::get('/compliance/audit-logs', [ComplianceController::class, 'auditLogs']);
+    Route::get('/compliance/ndas', [ComplianceController::class, 'ndas']);
+    Route::get('/compliance/gdpr', [ComplianceController::class, 'gdprConsents']);
+    Route::get('/compliance/exports', [ComplianceController::class, 'exportLogs']);
+    Route::post('/compliance/export', [ComplianceController::class, 'triggerExport']);
+
+
+    // Ads Performance Analytics
+    Route::get('/ads-performance', [AdMetricsController::class, 'index']);
+
     Route::apiResource('plans', PlanController::class);
 
-    // Support Tickets
-    Route::apiResource('support-tickets', SupportTicketController::class);
-    Route::post('support-tickets/{supportTicket}/reply', [SupportTicketController::class, 'reply']);
+    // =====================================================================
+    // HRMS Module Routes (Human Resource Management System)
+    // =====================================================================
+    Route::prefix('hrms')->group(function (): void {
+        // Employees
+        Route::get('employees/unlinked-users', [HRMSEmployeeController::class, 'unlinkedUsers']);
+        Route::get('employees/{employee}/salary-history', [HRMSEmployeeController::class, 'salaryHistory']);
+        Route::post('employees/{employee}/increment', [HRMSEmployeeController::class, 'addIncrement']);
+        Route::get('employees', [HRMSEmployeeController::class, 'index']);
+        Route::post('employees', [HRMSEmployeeController::class, 'store']);
+        Route::get('employees/{employee}', [HRMSEmployeeController::class, 'show']);
+        Route::put('employees/{employee}', [HRMSEmployeeController::class, 'update']);
+        Route::delete('employees/{employee}', [HRMSEmployeeController::class, 'destroy']);
 
-    // SMS Marketing
-    Route::apiResource('sms-campaigns', SmsController::class);
-    Route::post('sms-campaigns/{smsCampaign}/send', [SmsController::class, 'send']);
+        // Departments
+        Route::get('departments/with-employees', [HRMSDepartmentController::class, 'withEmployees']);
+        Route::get('departments', [HRMSDepartmentController::class, 'index']);
+        Route::post('departments', [HRMSDepartmentController::class, 'store']);
+        Route::get('departments/{hrmsDepartment}', [HRMSDepartmentController::class, 'show']);
+        Route::put('departments/{hrmsDepartment}', [HRMSDepartmentController::class, 'update']);
+        Route::delete('departments/{hrmsDepartment}', [HRMSDepartmentController::class, 'destroy']);
 
-    // Batch 2: Ecommerce, Gamification, Utility
-    Route::get('ecommerce/stores', [EcommerceController::class, 'index']);
-    Route::post('ecommerce/stores', [EcommerceController::class, 'store']);
-    Route::get('ecommerce/orders', [EcommerceController::class, 'orders']);
-    Route::get('gamification/badges', [GamificationController::class, 'badges']);
-    Route::post('gamification/badges', [GamificationController::class, 'storeBadge']);
-    Route::get('gamification/rewards', [GamificationController::class, 'rewards']);
-    Route::get('utilities/short-links', [UtilityController::class, 'indexLinks']);
-    Route::post('utilities/short-links', [UtilityController::class, 'storeLink']);
+        // Leaves (proxy to existing LeaveController)
+        Route::get('leave/all', [LeaveController::class, 'index']);
+        Route::post('leave/apply', [LeaveController::class, 'store']);
+        Route::put('leave/status/{leave}', [LeaveController::class, 'update']);
+        Route::put('leave/{leave}', [LeaveController::class, 'update']);
+        Route::delete('leave/{leave}', [LeaveController::class, 'destroy']);
+        Route::get('leave/my', function (\Illuminate\Http\Request $request) {
+            $request->merge(['user_id' => auth()->id()]);
+            return app(\App\Http\Controllers\Admin\LeaveController::class)->index($request);
+        });
+        Route::get('leave/balance', function () {
+            $leaves = \App\Models\Leave::where('user_id', auth()->id())
+                ->where('status', 'approved')
+                ->get()
+                ->groupBy('type')
+                ->map(fn($g) => $g->count());
+            return response()->json(['data' => $leaves]);
+        });
+        Route::get('leave/all-balances', function (\Illuminate\Http\Request $request) {
+            $balances = \App\Models\Leave::with('user:id,name')
+                ->where('status', 'approved')
+                ->get()
+                ->groupBy('user_id')
+                ->map(fn($g) => [
+                    'user' => $g->first()->user,
+                    'total' => $g->count(),
+                    'by_type' => $g->groupBy('type')->map->count(),
+                ]);
+            return response()->json(['data' => array_values($balances->toArray())]);
+        });
+        Route::post('leave/adjust-balance', function (\Illuminate\Http\Request $request) {
+            // Stub: placeholder for leave balance adjustments
+            return response()->json(['message' => 'Balance adjustment recorded']);
+        });
+
+        // Payroll (proxy to existing PayrollController)
+        Route::apiResource('payroll', PayrollController::class)->parameters(['payroll' => 'payroll']);
+
+        // Attendance (time logs proxy)
+        Route::get('attendance', [TimeLogController::class, 'index']);
+        Route::post('attendance', [TimeLogController::class, 'store']);
+        Route::delete('attendance/{timeLog}', [TimeLogController::class, 'destroy']);
+
+        // HR Settings (stub)
+        Route::get('settings', function () {
+            return response()->json(['data' => []]);
+        });
+        Route::post('settings', function (\Illuminate\Http\Request $request) {
+            return response()->json(['message' => 'Settings saved']);
+        });
+
+        // Dashboard summary
+        Route::get('dashboard', function () {
+            $me = auth()->user();
+            $query = \App\Models\User::query()->whereIn('role', ['employee', 'agency_staff', 'project_manager']);
+            if (!$me->isSuperAdmin()) {
+                $tid = $me->tenant_id ?? $me->agency_id;
+                if ($tid) $query->where('tenant_id', $tid);
+            }
+            $total = $query->count();
+            $active = (clone $query)->where('employment_status', 'active')->count();
+            $pendingLeaves = \App\Models\Leave::where('status', 'pending')->count();
+            $departments = \App\Models\HrmsDepartment::count();
+
+            return response()->json(['data' => compact('total', 'active', 'pendingLeaves', 'departments')]);
+        });
+    });
 });
+

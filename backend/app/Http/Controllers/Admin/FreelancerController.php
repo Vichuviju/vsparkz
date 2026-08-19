@@ -12,6 +12,12 @@ class FreelancerController extends Controller
     public function index(Request $request): JsonResponse
     {
         $query = Freelancer::query()->forTenant();
+
+        // Enforcement: Employees only see their own assigned freelancers
+        $user = auth()->user();
+        if ($user && !in_array($user->role, ['super_admin', 'admin', 'hr'])) {
+            $query->where('assigned_manager', $user->id);
+        }
         if ($request->filled('is_active')) {
             $query->where('is_active', (bool) $request->is_active);
         }

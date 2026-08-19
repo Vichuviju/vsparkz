@@ -7,6 +7,7 @@ use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -40,6 +41,27 @@ class User extends Authenticatable
         'tenant_id',
         'agency_id', // alias for tenant_id (redirected in mutator; no DB column after evolve)
         'client_id',
+        // HRMS employee fields
+        'emp_code',
+        'employment_status',
+        'hrms_department_id',
+        'department',
+        'designation',
+        'phone',
+        'date_of_birth',
+        'date_of_joining',
+        'profile_image',
+        'gender',
+        'blood_group',
+        'address',
+        'emergency_contact',
+        'basic_salary',
+        'bank_account',
+        'ifsc_code',
+        'pan_number',
+        'aadhaar_number',
+        'pf_number',
+        'esi_number',
     ];
 
     /**
@@ -62,6 +84,9 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'date_of_birth' => 'date',
+            'date_of_joining' => 'date',
+            'basic_salary' => 'decimal:2',
         ];
     }
 
@@ -111,6 +136,24 @@ class User extends Authenticatable
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
+    }
+
+    /** HRMS: the department this employee belongs to. */
+    public function hrmsDepartment(): BelongsTo
+    {
+        return $this->belongsTo(HrmsDepartment::class, 'hrms_department_id');
+    }
+
+    /** HRMS: leaves applied by this user. */
+    public function leaves(): HasMany
+    {
+        return $this->hasMany(Leave::class, 'user_id');
+    }
+
+    /** HRMS: payroll records for this user. */
+    public function payrolls(): HasMany
+    {
+        return $this->hasMany(Payroll::class, 'user_id');
     }
 
     /** Effective role for API: first role slug or fallback to role column. */

@@ -166,7 +166,7 @@ export function RequirementGatherings() {
 
       {/* Add/Edit Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 flex items-center justify-center z-[9999] bg-slate-900/60 backdrop-blur-sm">
           <div className="glass-card p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
             <h2 className="text-xl font-bold text-text-primary mb-4">{editing ? 'Edit' : 'Add'} Requirement Gathering</h2>
             <form onSubmit={handleSubmit}>
@@ -236,7 +236,7 @@ export function RequirementGatherings() {
 
       {/* Detail Modal */}
       {showDetailModal && detail && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
           <div className="glass-card p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto">
             <h2 className="text-xl font-bold dark:text-text-primary text-gray-900 mb-4">Requirement Gathering Details</h2>
             <div className="space-y-3 text-sm">

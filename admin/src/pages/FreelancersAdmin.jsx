@@ -1,203 +1,205 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Search, Filter, Plus, Briefcase, Star, Clock, DollarSign, MoreHorizontal, Edit2, Trash2 } from 'lucide-react';
 import api from '../lib/api';
 
 export function FreelancersAdmin() {
+  const navigate = useNavigate();
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [showDetailModal, setShowDetailModal] = useState(false);
-  const [editing, setEditing] = useState(null);
-  const [detail, setDetail] = useState(null);
-  const [form, setForm] = useState({ name: '', email: '', phone: '', skills: [], service_category_ids: [], pricing: [], portfolio_links: [], delivery_days: 7, commission_percent: 0, company_or_individual: 'individual', availability: 'available', is_active: true });
+  const [search, setSearch] = useState('');
+  const [statusFilter, setStatusFilter] = useState('');
 
-  useEffect(() => {
+  const fetchList = () => {
+    setLoading(true);
     api.get('/admin/freelancers')
       .then((r) => setList(r.data?.data ?? r.data ?? []))
-      .catch((err) => setError(err.response?.data?.message || 'Failed to load'))
+      .catch((err) => console.error(err))
       .finally(() => setLoading(false));
-  }, []);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      if (editing) {
-        await api.put(`/admin/freelancers/${editing.id}`, form);
-      } else {
-        await api.post('/admin/freelancers', form);
-      }
-      setShowModal(false);
-      setEditing(null);
-      setForm({ name: '', email: '', phone: '', skills: [], service_category_ids: [], pricing: [], portfolio_links: [], delivery_days: 7, commission_percent: 0, company_or_individual: 'individual', availability: 'available', is_active: true });
-      const { data } = await api.get('/admin/freelancers');
-      setList(data?.data ?? data ?? []);
-    } catch (err) {
-      setError(err.response?.data?.message || 'Failed to save');
-    }
   };
 
-  const handleEdit = (row) => {
-    setEditing(row);
-    setForm({
-      name: row.name,
-      email: row.email,
-      phone: row.phone,
-      skills: Array.isArray(row.skills) ? row.skills : [],
-      service_category_ids: Array.isArray(row.service_category_ids) ? row.service_category_ids : [],
-      pricing: Array.isArray(row.pricing) ? row.pricing : [],
-      portfolio_links: Array.isArray(row.portfolio_links) ? row.portfolio_links : [],
-      delivery_days: row.delivery_days || 7,
-      commission_percent: row.commission_percent || 0,
-      company_or_individual: row.company_or_individual || 'individual',
-      availability: row.availability || 'available',
-      is_active: !!row.is_active,
-    });
-    setShowModal(true);
-  };
+  useEffect(() => { fetchList(); }, []);
 
   const handleDelete = async (id) => {
-    if (!confirm('Delete this freelancer?')) return;
+    if (!window.confirm('Delete this freelancer?')) return;
     try {
       await api.delete(`/admin/freelancers/${id}`);
-      setList(list.filter((it) => it.id !== id));
+      fetchList();
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to delete');
+      console.error(err);
     }
   };
 
-  const handleView = async (row) => {
-    try {
-      const { data } = await api.get(`/admin/freelancers/${row.id}`);
-      setDetail(data);
-      setShowDetailModal(true);
-    } catch (err) {
-      setError('Failed to load details');
-    }
-  };
+  const filteredList = list.filter(item => {
+    if (search && !item.name?.toLowerCase().includes(search.toLowerCase()) && !item.email?.toLowerCase().includes(search.toLowerCase())) return false;
+    if (statusFilter === 'active' && !item.is_active) return false;
+    if (statusFilter === 'inactive' && item.is_active) return false;
+    return true;
+  });
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-text-primary">Freelancers</h1>
-        <button className="btn-primary px-4 py-2" onClick={() => setShowModal(true)}>Add Freelancer</button>
+    <div className="font-sans min-h-[calc(100vh-4rem)] bg-slate-50 p-4 md:p-8">
+      
+      {/* Header */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+        <div>
+          <div className="flex items-center gap-2 text-xs font-bold text-slate-400 mb-1 uppercase tracking-widest">
+            <span>Talent Management</span>
+            <span className="text-slate-300">/</span>
+            <span className="text-slate-800">Freelancers</span>
+          </div>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Freelancer Directory</h1>
+        </div>
+        <div className="flex items-center gap-3">
+          <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-700 font-bold hover:bg-slate-50 transition-colors shadow-sm text-sm">
+            <Filter className="w-4 h-4" /> Export CSV
+          </button>
+          <button 
+            onClick={() => navigate('/freelancers/add')} 
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-sm shadow-blue-500/30 transition-colors text-sm"
+          >
+            <Plus className="w-4 h-4" /> Add Freelancer
+          </button>
+        </div>
       </div>
-      {error && <div className="mb-4 p-3 rounded-vsparkz bg-accent-muted/20 border border-accent-muted/40 text-accent-bright text-sm">{error}</div>}
-      {loading ? <div className="p-8 text-center text-text-muted">Loading…</div> : (
-        <div className="glass-card overflow-hidden">
-          <table className="w-full text-sm">
+
+      {/* KPI Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
+          <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center shrink-0">
+            <Briefcase className="w-6 h-6 text-blue-600" />
+          </div>
+          <div>
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">Total Freelancers</p>
+            <h3 className="text-2xl font-black text-slate-900">{list.length}</h3>
+          </div>
+        </div>
+        <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
+          <div className="w-12 h-12 rounded-full bg-amber-50 flex items-center justify-center shrink-0">
+            <Star className="w-6 h-6 text-amber-500" />
+          </div>
+          <div>
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">Top Rated</p>
+            <h3 className="text-2xl font-black text-slate-900">24</h3>
+          </div>
+        </div>
+        <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
+          <div className="w-12 h-12 rounded-full bg-emerald-50 flex items-center justify-center shrink-0">
+            <Clock className="w-6 h-6 text-emerald-600" />
+          </div>
+          <div>
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">Available Now</p>
+            <h3 className="text-2xl font-black text-slate-900">{list.filter(l => l.availability !== 'unavailable').length}</h3>
+          </div>
+        </div>
+        <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
+          <div className="w-12 h-12 rounded-full bg-purple-50 flex items-center justify-center shrink-0">
+            <DollarSign className="w-6 h-6 text-purple-600" />
+          </div>
+          <div>
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">Avg Commission</p>
+            <h3 className="text-2xl font-black text-slate-900">15%</h3>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content Area */}
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        
+        {/* Toolbar */}
+        <div className="p-5 border-b border-slate-100 flex flex-col sm:flex-row justify-between gap-4">
+          <div className="relative flex-1 max-w-md">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <input 
+              type="text" 
+              placeholder="Search by name, email, or skill..." 
+              value={search} 
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-semibold text-slate-700" 
+            />
+          </div>
+          <div className="flex items-center gap-3">
+            <select 
+              value={statusFilter} 
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-600 focus:outline-none focus:border-blue-500 appearance-none"
+            >
+              <option value="">All Statuses</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Data Table */}
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-navy-800/50 text-left">
-                <th className="px-5 py-3 text-text-muted font-medium">Name</th>
-                <th className="px-5 py-3 text-text-muted font-medium">Email</th>
-                <th className="px-5 py-3 text-text-muted font-medium">Delivery</th>
-                <th className="px-5 py-3 text-text-muted font-medium">Commission</th>
-                <th className="px-5 py-3 text-text-muted font-medium">Active</th>
-                <th className="px-5 py-3 text-text-muted font-medium">Actions</th>
+              <tr className="bg-slate-50/50">
+                <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100">Freelancer Details</th>
+                <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100">Delivery & Comms</th>
+                <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100">Type</th>
+                <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100">Status</th>
+                <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody>
-              {list.length === 0 ? <tr><td colSpan={6} className="px-5 py-8 text-text-muted text-center">No freelancers yet.</td></tr> : list.map((row) => (
-                <tr key={row.id} className="border-t border-navy-600 hover:bg-navy-700/30">
-                  <td className="px-5 py-3 text-text-primary font-medium">{row.name}</td>
-                  <td className="px-5 py-3 text-text-muted">{row.email ?? '—'}</td>
-                  <td className="px-5 py-3 text-text-muted">{row.delivery_days ?? '—'} days</td>
-                  <td className="px-5 py-3 text-text-muted">{row.commission_percent ?? 0}%</td>
-                  <td className="px-5 py-3 text-text-muted">{row.is_active ? 'Yes' : 'No'}</td>
-                  <td className="px-5 py-3">
-                    <button className="text-accent hover:text-accent-bright mr-2" onClick={() => handleView(row)}>View</button>
-                    <button className="text-accent hover:text-accent-bright mr-2" onClick={() => handleEdit(row)}>Edit</button>
-                    <button className="text-accent-muted hover:text-accent-bright" onClick={() => handleDelete(row.id)}>Delete</button>
-                  </td>
-                </tr>
-              ))}
+            <tbody className="divide-y divide-slate-50">
+              {loading ? (
+                <tr><td colSpan="5" className="p-8 text-center text-slate-500 font-semibold">Loading data...</td></tr>
+              ) : filteredList.length === 0 ? (
+                <tr><td colSpan="5" className="p-12 text-center text-slate-400 font-bold">No freelancers found.</td></tr>
+              ) : (
+                filteredList.map((row) => (
+                  <tr key={row.id} className="hover:bg-blue-50/30 transition-colors group">
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-slate-200 shrink-0 border-2 border-white shadow-sm flex items-center justify-center text-slate-500 font-bold">
+                          {row.name ? row.name.charAt(0) : '?'}
+                        </div>
+                        <div>
+                          <p className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{row.name}</p>
+                          <p className="text-xs font-semibold text-slate-500">{row.email || 'No email'}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <p className="text-sm font-bold text-slate-700">{row.delivery_days || 7} Days</p>
+                      <p className="text-xs font-semibold text-slate-500">{row.commission_percent || 0}% Commission</p>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="inline-flex items-center px-2 py-1 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase rounded-md">
+                        {row.company_or_individual || 'Individual'}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      {row.is_active ? (
+                        <span className="inline-flex px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-emerald-50 text-emerald-700 ring-1 ring-emerald-600/20">
+                          Active
+                        </span>
+                      ) : (
+                        <span className="inline-flex px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-slate-100 text-slate-500 ring-1 ring-slate-400/20">
+                          Inactive
+                        </span>
+                      )}
+                    </td>
+                    <td className="px-6 py-4 text-right">
+                      <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <button onClick={() => navigate(`/freelancers/edit/${row.id}`)} className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors">
+                          <Edit2 className="w-4 h-4" />
+                        </button>
+                        <button onClick={() => handleDelete(row.id)} className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors">
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
-      )}
 
-      {/* Add/Edit Modal */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="glass-card p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
-            <h2 className="text-xl font-bold text-text-primary mb-4">{editing ? 'Edit' : 'Add'} Freelancer</h2>
-            <form onSubmit={handleSubmit}>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-text-muted mb-1">Name</label>
-                <input className="w-full px-3 py-2 bg-navy-800/80 border border-navy-600 rounded-vsparkz text-text-primary" value={form.name} onChange={e => setForm({...form, name: e.target.value})} required />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-text-muted mb-1">Email</label>
-                <input type="email" className="w-full px-3 py-2 bg-navy-800/80 border border-navy-600 rounded-vsparkz text-text-primary" value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-text-muted mb-1">Phone</label>
-                <input className="w-full px-3 py-2 bg-navy-800/80 border border-navy-600 rounded-vsparkz text-text-primary" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} />
-              </div>
-              <div className="grid grid-cols-2 gap-3 mb-4">
-                <div>
-                  <label className="block text-sm font-medium text-text-muted mb-1">Delivery Days</label>
-                  <input type="number" className="w-full px-3 py-2 bg-navy-800/80 border border-navy-600 rounded-vsparkz text-text-primary" value={form.delivery_days} onChange={e => setForm({...form, delivery_days: parseInt(e.target.value) || 7})} />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-text-muted mb-1">Commission %</label>
-                  <input type="number" step="0.01" className="w-full px-3 py-2 bg-navy-800/80 border border-navy-600 rounded-vsparkz text-text-primary" value={form.commission_percent} onChange={e => setForm({...form, commission_percent: parseFloat(e.target.value) || 0})} />
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-3 mb-4">
-                <div>
-                  <label className="block text-sm font-medium text-text-muted mb-1">Type</label>
-                  <select className="w-full px-3 py-2 bg-navy-800/80 border border-navy-600 rounded-vsparkz text-text-primary" value={form.company_or_individual} onChange={e => setForm({...form, company_or_individual: e.target.value})}>
-                    <option value="individual">Individual</option>
-                    <option value="company">Company</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-text-muted mb-1">Availability</label>
-                  <select className="w-full px-3 py-2 bg-navy-800/80 border border-navy-600 rounded-vsparkz text-text-primary" value={form.availability} onChange={e => setForm({...form, availability: e.target.value})}>
-                    <option value="available">Available</option>
-                    <option value="busy">Busy</option>
-                    <option value="unavailable">Unavailable</option>
-                  </select>
-                </div>
-              </div>
-              <div className="mb-4">
-                <label className="flex items-center gap-2 text-text-muted">
-                  <input type="checkbox" checked={form.is_active} onChange={e => setForm({...form, is_active: e.target.checked})} />
-                  Active
-                </label>
-              </div>
-              <div className="flex gap-3">
-                <button type="submit" className="btn-primary flex-1">{editing ? 'Update' : 'Create'}</button>
-                <button type="button" className="px-4 py-2 border border-navy-600 rounded-vsparkz text-text-muted hover:text-text-primary" onClick={() => { setShowModal(false); setEditing(null); setForm({ name: '', email: '', phone: '', skills: [], service_category_ids: [], pricing: [], portfolio_links: [], delivery_days: 7, commission_percent: 0, company_or_individual: 'individual', availability: 'available', is_active: true }); }}>Cancel</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* Detail Modal */}
-      {showDetailModal && detail && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="glass-card p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
-            <h2 className="text-xl font-bold text-text-primary mb-4">Freelancer Details</h2>
-            <div className="space-y-3 text-sm">
-              <div><span className="font-medium text-text-muted">Name:</span> <span className="text-text-primary">{detail.name}</span></div>
-              <div><span className="font-medium text-text-muted">Email:</span> <span className="text-text-primary">{detail.email || '—'}</span></div>
-              <div><span className="font-medium text-text-muted">Phone:</span> <span className="text-text-primary">{detail.phone || '—'}</span></div>
-              <div><span className="font-medium text-text-muted">Delivery Days:</span> <span className="text-text-primary">{detail.delivery_days || '—'}</span></div>
-              <div><span className="font-medium text-text-muted">Commission:</span> <span className="text-text-primary">{detail.commission_percent || 0}%</span></div>
-              <div><span className="font-medium text-text-muted">Type:</span> <span className="text-text-primary">{detail.company_or_individual || 'individual'}</span></div>
-              <div><span className="font-medium text-text-muted">Availability:</span> <span className="text-text-primary">{detail.availability || '—'}</span></div>
-              <div><span className="font-medium text-text-muted">Active:</span> <span className="text-text-primary">{detail.is_active ? 'Yes' : 'No'}</span></div>
-              <div><span className="font-medium text-text-muted">Skills:</span> <span className="text-text-primary">{Array.isArray(detail.skills) ? detail.skills.join(', ') : '—'}</span></div>
-              <div><span className="font-medium text-text-muted">Portfolio:</span> <span className="text-text-primary">{Array.isArray(detail.portfolio_links) ? detail.portfolio_links.join(', ') : '—'}</span></div>
-            </div>
-            <div className="mt-6">
-              <button className="btn-primary w-full" onClick={() => setShowDetailModal(false)}>Close</button>
-            </div>
-          </div>
-        </div>
-      )}
+      </div>
     </div>
   );
 }

@@ -103,6 +103,56 @@ class WebhookController extends Controller
                 }
             }
         }
+
+        // SaaS Subscription Webhooks
+        if ($type === 'checkout.session.completed') {
+            $session = $data['data']['object'] ?? [];
+            $userId = $session['client_reference_id'] ?? null;
+            if ($userId) {
+                $user = \App\Models\User::find($userId);
+                if ($user) {
+                    $user->update([
+                        'stripe_customer_id' => $session['customer'] ?? $user->stripe_customer_id,
+                        'stripe_subscription_id' => $session['subscription'] ?? null,
+                        'subscription_status' => 'active',
+                        'plan_started_at' => now(),
+                    ]);
+                }
+            }
+        }
+
+        if ($type === 'customer.subscription.updated') {
+            $sub = $data['data']['object'] ?? [];
+            $user = \App\Models\User::where('stripe_subscription_id', $sub['id'] ?? '')->first();
+            if ($user) {
+                $user->update([
+                    'subscription_status' => ($sub['status'] ?? '') === 'active' ? 'active' : 'expired',
+                    'plan_expires_at' => isset($sub['current_period_end']) ? \Carbon\Carbon::createFromTimestamp($sub['current_period_end']) : null,
+                    'cancel_at_period_end' => $sub['cancel_at_period_end'] ?? false,
+                ]);
+            }
+        }
+
+        if ($type === 'customer.subscription.deleted') {
+            $sub = $data['data']['object'] ?? [];
+            $user = \App\Models\User::where('stripe_subscription_id', $sub['id'] ?? '')->first();
+            if ($user) {
+                $user->update([
+                    'subscription_status' => 'expired',
+                    'plan_expires_at' => now(),
+                    'stripe_subscription_id' => null,
+                ]);
+            }
+        }
+
+        if ($type === 'invoice.paid') {
+            $inv = $data['data']['object'] ?? [];
+            $user = \App\Models\User::where('stripe_customer_id', $inv['customer'] ?? '')->first();
+            if ($user) {
+                $user->update(['last_invoice_id' => $inv['id'] ?? null]);
+            }
+        }
+
         return response()->json(['status' => 'ok']);
     }
 }

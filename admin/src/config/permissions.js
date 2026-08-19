@@ -47,6 +47,7 @@ export const STAFF_BASE_PATHS = [
   '/automation',
   '/onboarding-questionnaires',
   '/forms',
+  '/hrms',
 ];
 
 // Path (prefix) -> permission slug: staff need this permission to see/access this path

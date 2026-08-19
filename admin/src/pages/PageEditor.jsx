@@ -274,7 +274,7 @@ function SectionModal({ initial, onSave, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
       <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
         <h3 className="text-lg font-semibold text-slate-800 mb-4">{initial.action === 'add' ? 'Add section' : 'Edit section'}</h3>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -348,7 +348,7 @@ function BlockModal({ initial, onSave, onClose, onOpenMediaPicker }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 overflow-y-auto">
+    <div className="fixed inset-0 flex items-center justify-center p-4 overflow-y-auto z-[9999] bg-slate-900/60 backdrop-blur-sm">
       <div className="bg-white rounded-xl shadow-xl max-w-lg w-full p-6 my-8">
         <h3 className="text-lg font-semibold text-slate-800 mb-4">{initial.action === 'add' ? 'Add block' : 'Edit block'}</h3>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -408,7 +408,7 @@ function MediaLibraryModal({ onSelect, onClose }) {
   }, [search]);
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[60] p-4 overflow-y-auto">
+    <div className="fixed inset-0 flex items-center justify-center p-4 overflow-y-auto z-[9999] bg-slate-900/60 backdrop-blur-sm">
       <div className="bg-white rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] flex flex-col p-6">
         <h3 className="text-lg font-semibold text-slate-800 mb-4">Select media</h3>
         <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search..." className="w-full px-3 py-2 border border-slate-300 rounded-lg mb-4" />

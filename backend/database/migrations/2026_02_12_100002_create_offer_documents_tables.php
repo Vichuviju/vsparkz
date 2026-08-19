@@ -31,7 +31,7 @@ return new class extends Migration
             $table->foreignId('combo_package_id')->constrained('combo_packages')->cascadeOnDelete();
             $table->unsignedSmallInteger('sort_order')->default(0);
             $table->timestamps();
-            $table->unique(['offer_document_id', 'combo_package_id']);
+            $table->unique(['offer_document_id', 'combo_package_id'], 'off_doc_combo_unique');
         });
     }
 

@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import api from '../lib/api';
+import { toast } from 'sonner';
+import { ShoppingCart, Building2, Utensils } from 'lucide-react';
 
 const LANDING_SECTION_TYPES = [
   'hero', 'logos', 'services', 'about', 'metrics', 'influencer_highlight',
@@ -109,6 +111,84 @@ export function LandingBuilder() {
       if (selectedTemplate?.id === template.id) setTemplateDetail((d) => (d ? { ...d, is_active: true } : null));
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to activate');
+    }
+  };
+
+  const handleGenerateBlueprint = async (type) => {
+    try {
+      setLoading(true);
+      const templateName = type === 'ecommerce' ? 'E-Commerce Storefront' 
+                         : type === 'company' ? 'Corporate Profile' 
+                         : 'Food Brand Landing';
+                         
+      const templateRes = await api.post('/admin/landing-templates', {
+        name: `${templateName} - ${new Date().toLocaleDateString()}`,
+        slug: `${type}-${Date.now()}`,
+        description: `Pre-built blueprint for ${type}.`,
+        is_active: false
+      });
+      
+      const newTemplate = templateRes.data?.data || templateRes.data;
+      
+      // Inject essential sections based on blueprint type
+      if (type === 'ecommerce') {
+        const sec1 = await api.post(`/admin/landing-templates/${newTemplate.id}/sections`, {
+          type: 'hero', layout_variant: 'default', is_active: true, sort_order: 0
+        });
+        const secId = sec1.data?.data?.id || sec1.data?.id;
+        if (secId) {
+          await api.post(`/admin/landing-sections/${secId}/blocks`, {
+            type: 'headline', content: { text: 'New Summer Collection' }, sort_order: 0
+          });
+          await api.post(`/admin/landing-sections/${secId}/blocks`, {
+            type: 'media', content: { text: 'Hero Image' }, media_id: null, aspect_ratio: '16:9', alignment: 'center', sort_order: 1
+          });
+        }
+        await api.post(`/admin/landing-templates/${newTemplate.id}/sections`, {
+          type: 'services', layout_variant: 'default', is_active: true, sort_order: 1
+        });
+      } else if (type === 'company') {
+        const sec1 = await api.post(`/admin/landing-templates/${newTemplate.id}/sections`, {
+          type: 'hero', layout_variant: 'centered', is_active: true, sort_order: 0
+        });
+        const secId = sec1.data?.data?.id || sec1.data?.id;
+        if (secId) {
+          await api.post(`/admin/landing-sections/${secId}/blocks`, {
+            type: 'media', content: { text: 'Corporate Background Video' }, media_id: null, aspect_ratio: '16:9', object_fit: 'cover', sort_order: 0
+          });
+          await api.post(`/admin/landing-sections/${secId}/blocks`, {
+            type: 'headline', content: { text: 'Innovating the Future' }, sort_order: 1
+          });
+        }
+        await api.post(`/admin/landing-templates/${newTemplate.id}/sections`, {
+          type: 'about', layout_variant: 'split', is_active: true, sort_order: 1
+        });
+      } else if (type === 'food') {
+        const sec1 = await api.post(`/admin/landing-templates/${newTemplate.id}/sections`, {
+          type: 'hero', layout_variant: 'right-image', is_active: true, sort_order: 0
+        });
+        const secId = sec1.data?.data?.id || sec1.data?.id;
+        if (secId) {
+          await api.post(`/admin/landing-sections/${secId}/blocks`, {
+            type: 'headline', content: { text: 'Taste the Magic' }, sort_order: 0
+          });
+          await api.post(`/admin/landing-sections/${secId}/blocks`, {
+            type: 'media', content: { text: 'Product Showcase Image' }, media_id: null, aspect_ratio: '4:3', alignment: 'right', sort_order: 1
+          });
+        }
+        await api.post(`/admin/landing-templates/${newTemplate.id}/sections`, {
+          type: 'testimonials', layout_variant: 'default', is_active: true, sort_order: 1
+        });
+      }
+      
+      toast.success(`${templateName} blueprint generated!`);
+      fetchTemplates();
+      setSelectedTemplate(newTemplate);
+    } catch (error) {
+      console.error(error);
+      toast.error('Failed to generate blueprint. Make sure the API supports template creation.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -257,9 +337,58 @@ export function LandingBuilder() {
         <div className="p-3 rounded-lg bg-red-50 text-red-700 text-sm">{error}</div>
       )}
 
+      {/* Blueprint Generator */}
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl shadow-lg border border-blue-500/50 p-6 text-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+        <h2 className="text-xl font-black mb-2 relative z-10">Generate from Blueprint</h2>
+        <p className="text-blue-100 text-sm mb-6 relative z-10 max-w-xl">
+          Instantly generate a complete, high-converting landing page structure by selecting a business blueprint below.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 relative z-10">
+          <button 
+            onClick={() => handleGenerateBlueprint('ecommerce')}
+            className="flex items-center gap-3 bg-white/10 hover:bg-white/20 border border-white/20 p-4 rounded-xl transition-all group"
+          >
+            <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+              <ShoppingCart className="w-5 h-5 text-blue-200" />
+            </div>
+            <div className="text-left">
+              <h3 className="font-bold text-white text-sm">E-Commerce Brand</h3>
+              <p className="text-[10px] text-blue-200 mt-0.5">Products, Reviews, CTA</p>
+            </div>
+          </button>
+          
+          <button 
+            onClick={() => handleGenerateBlueprint('company')}
+            className="flex items-center gap-3 bg-white/10 hover:bg-white/20 border border-white/20 p-4 rounded-xl transition-all group"
+          >
+            <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+              <Building2 className="w-5 h-5 text-indigo-200" />
+            </div>
+            <div className="text-left">
+              <h3 className="font-bold text-white text-sm">Company Profile</h3>
+              <p className="text-[10px] text-indigo-200 mt-0.5">About, Services, Team</p>
+            </div>
+          </button>
+
+          <button 
+            onClick={() => handleGenerateBlueprint('food')}
+            className="flex items-center gap-3 bg-white/10 hover:bg-white/20 border border-white/20 p-4 rounded-xl transition-all group"
+          >
+            <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+              <Utensils className="w-5 h-5 text-orange-200" />
+            </div>
+            <div className="text-left">
+              <h3 className="font-bold text-white text-sm">Food Product</h3>
+              <p className="text-[10px] text-orange-200 mt-0.5">Gallery, Testimonials, Buy</p>
+            </div>
+          </button>
+        </div>
+      </div>
+
       {/* Template selection */}
       <div className="bg-white rounded-xl shadow border border-slate-200 p-6">
-        <h2 className="text-lg font-semibold text-slate-800 mb-4">Templates</h2>
+        <h2 className="text-lg font-semibold text-slate-800 mb-4">My Saved Templates</h2>
         <p className="text-slate-600 text-sm mb-4">
           Select one template as active (shown on the public site). Edit any template to manage sections and content.
         </p>
@@ -490,7 +619,7 @@ function LandingSectionModal({ initial, onSave, onClose, onOpenMediaPicker }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
       <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
         <h3 className="text-lg font-semibold text-slate-800 mb-4">
           {initial.action === 'add' ? 'Add section' : 'Edit section'}
@@ -685,7 +814,7 @@ function LandingBlockModal({ initial, onSave, onClose, onOpenMediaPicker }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 overflow-y-auto">
+    <div className="fixed inset-0 flex items-center justify-center p-4 overflow-y-auto z-[9999] bg-slate-900/60 backdrop-blur-sm">
       <div className="bg-white rounded-xl shadow-xl max-w-lg w-full p-6 my-8">
         <h3 className="text-lg font-semibold text-slate-800 mb-4">
           {initial.action === 'add' ? 'Add block' : 'Edit block'}
@@ -1008,7 +1137,7 @@ function MediaLibraryModal({ onSelect, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[60] p-4 overflow-y-auto">
+    <div className="fixed inset-0 flex items-center justify-center p-4 overflow-y-auto z-[9999] bg-slate-900/60 backdrop-blur-sm">
       <div className="bg-white rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] flex flex-col p-6">
         <h3 className="text-lg font-semibold text-slate-800 mb-4">Select or upload media</h3>
         <div className="flex gap-2 mb-4 flex-wrap">

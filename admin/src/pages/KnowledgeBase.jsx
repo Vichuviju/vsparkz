@@ -170,7 +170,7 @@ function KnowledgeBase() {
       )}
 
       {modal === 'form' && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50" onClick={closeModal}>
+        <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm" onClick={closeModal}>
           <div className="glass-card rounded-2xl p-6 w-full max-w-md shadow-xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <h2 className="text-lg font-semibold text-text-primary mb-4">
               {editingSpace ? 'Edit knowledge space' : 'Add knowledge space'}
@@ -221,7 +221,7 @@ function KnowledgeBase() {
       )}
 
       {deleteConfirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50" onClick={() => setDeleteConfirm(null)}>
+        <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999] bg-slate-900/60 backdrop-blur-sm" onClick={() => setDeleteConfirm(null)}>
           <div className="glass-card rounded-2xl p-6 w-full max-w-sm shadow-xl" onClick={(e) => e.stopPropagation()}>
             <p className="text-text-primary mb-4">
               Delete knowledge space &quot;{deleteConfirm.name}&quot;? This cannot be undone.

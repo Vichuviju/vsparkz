@@ -242,7 +242,7 @@ export function RolesAndPermissions() {
 
       {/* Modal: Edit role permissions */}
       {editingRole && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 overflow-y-auto">
+        <div className="fixed inset-0 flex items-center justify-center p-4 overflow-y-auto z-[9999] bg-slate-900/60 backdrop-blur-sm">
           <div className="glass-card max-w-2xl w-full p-6 my-8 border dark:border-navy-600 border-gray-200">
             <h2 className="text-lg font-semibold dark:text-text-primary text-gray-900 mb-4">
               Permissions for: {editingRole.name}

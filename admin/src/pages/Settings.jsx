@@ -209,7 +209,7 @@ function MediaLibraryModal({ onSelect, onClose }) {
   }, [search]);
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[60] p-4 overflow-y-auto">
+    <div className="fixed inset-0 flex items-center justify-center p-4 overflow-y-auto z-[9999] bg-slate-900/60 backdrop-blur-sm">
       <div className="bg-white rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] flex flex-col p-6">
         <h3 className="text-lg font-semibold text-slate-800 mb-4">Select logo image</h3>
         <input

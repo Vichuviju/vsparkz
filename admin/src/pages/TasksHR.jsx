@@ -70,7 +70,7 @@ export function TasksHR() {
         </div>
       )}
       {modal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 overflow-y-auto">
+        <div className="fixed inset-0 flex items-center justify-center p-4 overflow-y-auto z-[9999] bg-slate-900/60 backdrop-blur-sm">
           <div className="bg-white rounded-xl shadow-xl max-w-lg w-full p-6 my-8">
             <h2 className="text-lg font-semibold text-slate-800 mb-4">{modal === 'new' ? 'Add task' : 'Edit task'}</h2>
             <form onSubmit={handleSubmit} className="space-y-3">

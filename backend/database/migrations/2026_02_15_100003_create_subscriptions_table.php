@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('subscriptions', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('tenant_id')->constrained('tenants')->cascadeOnDelete();
-            $table->foreignId('plan_id')->constrained('subscription_plans')->nullOnDelete();
+            $table->foreignId('plan_id')->nullable()->constrained('subscription_plans')->nullOnDelete();
             $table->string('billing_cycle', 20)->default('monthly');
             $table->timestamp('started_at')->nullable();
             $table->timestamp('expires_at')->nullable();

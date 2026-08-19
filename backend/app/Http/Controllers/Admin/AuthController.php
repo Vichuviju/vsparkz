@@ -83,17 +83,33 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', PasswordRule::defaults()],
-            'role' => 'nullable|string|in:client,freelancer,influencer',
+            'role' => 'nullable|string|in:client,freelancer,influencer,agency_admin',
+            'company_name' => 'nullable|string|max:255',
         ]);
+
+        $roleSlug = $request->role ?? 'client';
+        $tenantId = null;
+
+        // Auto-create Organization (Tenant)
+        if ($roleSlug === 'agency_admin') {
+            $companyName = $request->company_name ?? $request->name . ' Org';
+            $tenant = \App\Models\Tenant::create([
+                'name' => $companyName,
+                'company_name' => $companyName,
+                'slug' => \Illuminate\Support\Str::slug($companyName) . '-' . time(),
+                'status' => 'active',
+                'max_users' => 1, // Limited until subscription!
+            ]);
+            $tenantId = $tenant->id;
+        }
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role ?? 'client',
+            'role' => $roleSlug,
+            'tenant_id' => $tenantId,
         ]);
-
-        $roleSlug = $request->role ?? 'client';
         $role = Role::where('slug', $roleSlug)->first();
         if ($role) {
             $user->roles()->sync([$role->id]);

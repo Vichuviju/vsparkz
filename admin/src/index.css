@@ -1,102 +1,211 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Core Canvas Styles */
 body {
   margin: 0;
   min-height: 100vh;
   font-family: 'Inter', system-ui, sans-serif;
-  background: linear-gradient(180deg, #0B1F2A 0%, #132F42 40%, #1A252E 100%);
-  color: #EAF2F8;
-}
-.dark body {
-  background: linear-gradient(180deg, #0B1F2A 0%, #132F42 40%, #1A252E 100%);
-  color: #EAF2F8;
-}
-.light body {
-  background: #F9FAFB;
-  color: #111827;
+  background-color: #f8fafc; /* Premium Light Mode Canvas */
+  color: #1e293b; /* Dark Slate text */
 }
 
-/* Force theme-aware text in light mode so white text doesn't persist */
-.light .text-text-primary,
-.light [class*="text-text-primary"] {
-  color: #111827 !important;
-}
-.light .text-text-muted,
-.light [class*="text-text-muted"] {
-  color: #4b5563 !important;
-}
-.light .text-accent-bright {
-  color: #0d9488 !important;
+/* Theme classes on HTML tag */
+html.light body {
+  background-color: #f8fafc;
+  color: #1e293b;
 }
 
-/* Light mode: table headers, form inputs, borders (fixes pages that use dark-only navy classes) */
-.light [class*="bg-navy-800"] {
-  background-color: rgba(255, 255, 255, 0.95) !important;
-}
-.light input[class*="bg-navy"],
-.light select[class*="bg-navy"],
-.light textarea[class*="bg-navy"] {
-  background-color: #fff !important;
-  color: #111827 !important;
-}
-.light [class*="border-navy-600"] {
-  border-color: #e5e7eb !important;
+html.dark body {
+  background: #0f172a; /* Deep Slate dark background */
+  color: #f8fafc;
 }
 
 #root {
   min-height: 100vh;
 }
 
+/* Page animations */
+.animate-fade-in {
+  animation: fadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Global Light-Mode Mapper for elements using legacy Navy classes */
+html.light .bg-navy-950,
+html.light [class*="bg-navy-950"] {
+  background-color: #f8fafc !important;
+}
+
+html.light .bg-navy-900,
+html.light [class*="bg-navy-900"] {
+  background-color: #ffffff !important;
+}
+
+html.light .bg-navy-800,
+html.light [class*="bg-navy-800"] {
+  background-color: #ffffff !important;
+}
+
+html.light .bg-navy-700,
+html.light [class*="bg-navy-700"] {
+  background-color: #f8fafc !important;
+}
+
+html.light .border-navy-700,
+html.light .border-navy-600,
+html.light [class*="border-navy-"] {
+  border-color: #f1f5f9 !important;
+}
+
+/* Text color overrides in light mode */
+html.light .text-text-primary,
+html.light [class*="text-text-primary"],
+html.light .text-gray-100,
+html.light .text-slate-100 {
+  color: #1e293b !important;
+}
+
+html.light .text-text-muted,
+html.light [class*="text-text-muted"],
+html.light .text-gray-400,
+html.light .text-slate-400 {
+  color: #64748b !important;
+}
+
+/* Form elements styling in light mode */
+html.light input,
+html.light select,
+html.light textarea {
+  background-color: #f8fafc !important;
+  color: #1e293b !important;
+  border-color: #e2e8f0 !important;
+  border-radius: 0.75rem !important;
+  transition: all 0.2s ease;
+}
+
+html.light input:focus,
+html.light select:focus,
+html.light textarea:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1) !important;
+  background-color: #ffffff !important;
+}
+
+/* Tables visual enhancements */
+html.light table {
+  background-color: #ffffff !important;
+}
+
+html.light tr {
+  border-bottom-color: #f1f5f9 !important;
+}
+
+html.light th {
+  background-color: #f8fafc !important;
+  color: #64748b !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+html.light td {
+  color: #334155 !important;
+}
+
+/* Glass & Glass-card effects */
 .glass {
-  background: rgba(14, 42, 59, 0.6);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(31, 162, 255, 0.12);
-}
-.dark .glass {
-  background: rgba(14, 42, 59, 0.6);
-  border: 1px solid rgba(31, 162, 255, 0.12);
-}
-.light .glass {
   background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+html.dark .glass {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glass-card {
-  background: rgba(19, 47, 66, 0.7);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(31, 162, 255, 0.1);
-  border-radius: 14px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-}
-.dark .glass-card {
-  background: rgba(19, 47, 66, 0.7);
-  border: 1px solid rgba(31, 162, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-}
-.light .glass-card {
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  background: #ffffff;
+  border: 1px solid #f1f5f9;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
+html.dark .glass-card {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Buttons */
 .btn-primary {
-  background: var(--tenant-primary-color, linear-gradient(135deg, #1FA2FF 0%, #00E5FF 100%));
+  background: #3b82f6;
   color: white;
-  font-weight: 500;
-  padding: 0.5rem 1.25rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 14px rgba(31, 162, 255, 0.35);
-  transition: box-shadow 0.2s, transform 0.2s;
+  font-weight: 600;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+  transition: all 0.2s ease;
 }
-/* When tenant primary color is set, use it for primary buttons */
-:root:has([data-tenant-brand-name]) .btn-primary {
-  background: var(--tenant-primary-color);
-}
+
 .btn-primary:hover:not(:disabled) {
-  box-shadow: 0 6px 24px rgba(31, 162, 255, 0.45);
+  background: #2563eb;
   transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
 }
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Floating animations */
+@keyframes floatRotate {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+.float-rotate {
+  animation: floatRotate 6s ease-in-out infinite;
+}
+
+/* HRMS Integration Theme Bridge Rules */
+html.dark .bg-\[\#f4f4f4\] {
+  background-color: #0f172a !important; /* Deep Slate dark background */
+}
+html.dark .bg-white {
+  background-color: #1e293b !important; /* Dark card background */
+  color: #f8fafc !important;
+}
+html.dark .text-slate-800 {
+  color: #f8fafc !important;
+}
+html.dark .text-slate-700 {
+  color: #e2e8f0 !important;
+}
+html.dark .text-slate-600 {
+  color: #cbd5e1 !important;
+}
+html.dark .border-slate-100 {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+html.dark .bg-slate-50 {
+  background-color: #0f172a !important;
+}
+html.dark .bg-slate-50\/50 {
+  background-color: rgba(15, 23, 42, 0.5) !important;
+}
+

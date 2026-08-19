@@ -130,7 +130,7 @@ export function SubServices() {
       )}
 
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 overflow-y-auto py-4">
+        <div className="fixed inset-0 flex items-center justify-center overflow-y-auto py-4 z-[9999] bg-slate-900/60 backdrop-blur-sm">
           <div className="glass-card p-6 w-full max-w-md my-auto">
             <h2 className="text-xl font-bold text-text-primary mb-4">{editing ? 'Edit' : 'Add'} Sub-Service</h2>
             <form onSubmit={handleSubmit}>
