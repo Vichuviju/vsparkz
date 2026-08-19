@@ -84,9 +84,22 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-// Health check (no DB) - GET /api/health to verify backend is up
+// Health check - GET /api/health to verify backend and database
 Route::get('/health', function () {
-    return response()->json(['ok' => true, 'message' => 'Vsparkz API']);
+    $dbOk = false;
+    try {
+        \Illuminate\Support\Facades\DB::connection()->getPdo();
+        \Illuminate\Support\Facades\DB::select('select 1');
+        $dbOk = true;
+    } catch (\Throwable) {
+        $dbOk = false;
+    }
+
+    return response()->json([
+        'ok' => $dbOk,
+        'message' => $dbOk ? 'Vsparkz API' : 'Database not connected',
+        'database' => $dbOk ? 'connected' : 'disconnected',
+    ], $dbOk ? 200 : 503);
 });
 
 // Public: get published page by slug (block-based CMS)

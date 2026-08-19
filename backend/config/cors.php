@@ -1,15 +1,6 @@
 <?php
 
-$defaultOrigins = [
-    'http://localhost:5173',
-    'http://127.0.0.1:5173',
-    'http://localhost:5174',
-    'http://127.0.0.1:5174',
-];
-$envOrigins = env('CORS_ALLOWED_ORIGINS');
-if ($envOrigins) {
-    $defaultOrigins = array_filter(array_map('trim', explode(',', $envOrigins)));
-}
+$defaultOrigins = \App\Support\CorsOrigins::allowed();
 
 return [
 

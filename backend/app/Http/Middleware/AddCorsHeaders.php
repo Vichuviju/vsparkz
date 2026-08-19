@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Support\CorsOrigins;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,13 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class AddCorsHeaders
 {
-    private const ALLOWED_ORIGINS = [
-        'http://localhost:5173',
-        'http://127.0.0.1:5173',
-        'http://localhost:5174',
-        'http://127.0.0.1:5174',
-    ];
-
     public function handle(Request $request, Closure $next): Response
     {
         $path = trim($request->path(), '/');
@@ -29,9 +23,7 @@ class AddCorsHeaders
         }
 
         $origin = $request->headers->get('Origin');
-        $allowedOrigin = $origin && in_array($origin, self::ALLOWED_ORIGINS, true)
-            ? $origin
-            : self::ALLOWED_ORIGINS[0];
+        $allowedOrigin = CorsOrigins::resolve($origin);
 
         if ($request->isMethod('OPTIONS')) {
             return response('', 204)
