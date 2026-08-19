@@ -1,6 +1,6 @@
 # Go Live — Backend + Frontend
 
-Host the full Vsparkz platform for free using **Render** (API + database) and **GitHub Pages** (website + admin).
+Host the full Vsparkz platform for free using **Render** (API), **Neon** (PostgreSQL database), and **GitHub Pages** (website + admin).
 
 ---
 
@@ -10,26 +10,38 @@ Host the full Vsparkz platform for free using **Render** (API + database) and **
 |-----|-----|
 | **Public website** | https://vichuviju.github.io/vsparkz/ |
 | **Admin panel** | https://vichuviju.github.io/vsparkz/admin/ |
-| **API** | https://vsparkz-api.onrender.com/api *(your Render URL)* |
+| **API** | https://vsparkz-api.onrender.com/api |
+| **Database** | [Neon Console](https://console.neon.tech) *(after setup)* |
 
 ---
 
 ## Step 1 — Deploy backend on Render (free)
 
-Render free tier does **not** support native PHP or disks. This repo uses **Docker + SQLite** instead.
+Render free tier uses **Docker** (no native PHP, no disks).
 
-1. Sign in at [render.com](https://render.com) with your GitHub account.
-2. Click **New → Blueprint** and connect repo `Vichuviju/vsparkz` (branch `main`, path `render.yaml`).
-3. Review the Blueprint — you should see **vsparkz-api** with runtime **Docker** (no disk errors).
-4. Click **Apply** and wait for deploy (~5–10 min). Copy your API URL, e.g. `https://vsparkz-api.onrender.com`.
+1. Sign in at [render.com](https://render.com) with GitHub.
+2. **New → Blueprint** → repo `Vichuviju/vsparkz`, branch `main`, path `render.yaml`.
+3. Click **Apply** — creates **vsparkz-api** (Docker).
 
-**Or one-click:**  
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Vichuviju/vsparkz)
+Verify: `https://vsparkz-api.onrender.com/api/health`
 
-Verify: open `https://YOUR-API.onrender.com/api/health` — should show `"database":"connected"`.
+> Free tier sleeps after ~15 min idle (first request can take ~30s).
 
-> Free tier sleeps after ~15 min idle (first request can take ~30s).  
-> Without a paid disk, SQLite is ephemeral — data resets on redeploy (migrate + seed run on start).
+---
+
+## Step 1b — Connect Neon PostgreSQL (free, persistent)
+
+Without Neon, data resets on every redeploy. **Recommended for production.**
+
+1. Create free DB at https://neon.tech (no credit card).
+2. Copy the **connection string** (`postgresql://...?sslmode=require`).
+3. Render → **vsparkz-api** → **Environment** → set:
+   - `DB_CONNECTION` = `pgsql`
+   - `DB_URL` = *(paste Neon connection string)*
+   - `DB_SSLMODE` = `require`
+4. Save — Render redeploys. Check `/api/health` shows `"database":"connected"`.
+
+Full guide: **[docs/NEON-DATABASE.md](NEON-DATABASE.md)**
 
 ---
 
@@ -87,11 +99,11 @@ npm run dev            # admin :5173 + website :5174
 ## Architecture
 
 ```
-GitHub Pages (static)          Render (PHP + SQLite)
-┌─────────────────────┐        ┌──────────────────────┐
-│ /vsparkz/   website │───────▶│ vsparkz-api          │
-│ /vsparkz/admin/     │  API   │ Laravel + database   │
-└─────────────────────┘        └──────────────────────┘
+GitHub Pages (static)          Render (Docker)              Neon (PostgreSQL)
+┌─────────────────────┐        ┌──────────────────────┐     ┌─────────────────┐
+│ /vsparkz/   website │───────▶│ vsparkz-api          │────▶│ Free persistent │
+│ /vsparkz/admin/     │  API   │ Laravel API          │     │ database        │
+└─────────────────────┘        └──────────────────────┘     └─────────────────┘
 ```
 
 GitHub Pages cannot run PHP or a database — only Render (or similar) can host the backend.

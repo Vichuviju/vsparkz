@@ -12,6 +12,7 @@ Professional digital marketing agency platform: API-first Laravel backend + Reac
 | **[docs/WORKFLOW-AND-MODULES.md](docs/WORKFLOW-AND-MODULES.md)** | **Workflow:** Lead → Client → Project → Quotation → Agreement → Assign Project → Portal; pricing, custom package, freelancer selection, package generator |
 | **[docs/GIT-GITHUB.md](docs/GIT-GITHUB.md)** | **Connect to GitHub:** init, remote, commit, push |
 | **[docs/DEPLOY-LIVE.md](docs/DEPLOY-LIVE.md)** | **Go live:** host backend (Render) + frontends (GitHub Pages) |
+| **[docs/NEON-DATABASE.md](docs/NEON-DATABASE.md)** | **Free database:** connect Neon PostgreSQL to Render |
 | **[docs/DEPLOY-GITHUB-PAGES.md](docs/DEPLOY-GITHUB-PAGES.md)** | GitHub Pages details for the public website |
 | **[README.md](README.md)** (this file) | Overview, quick start, links |
 | **[docs/SETUP.md](docs/SETUP.md)** | Step-by-step setup (backend + admin + website) |
