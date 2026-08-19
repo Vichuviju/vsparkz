@@ -29,4 +29,7 @@ ENV APP_ENV=production \
 
 EXPOSE 10000
 
-CMD sh -c "php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=${PORT:-10000}"
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+CMD ["docker-entrypoint.sh"]
