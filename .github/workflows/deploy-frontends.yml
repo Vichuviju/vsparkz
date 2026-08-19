@@ -21,6 +21,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      VITE_API_URL: ${{ vars.VITE_API_URL || 'https://vsparkz-api.onrender.com/api' }}
+      VITE_ADMIN_URL: ${{ vars.VITE_ADMIN_URL || 'https://vichuviju.github.io/vsparkz/admin' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -32,9 +35,6 @@ jobs:
 
       - name: Install and build website
         working-directory: website
-        env:
-          VITE_API_URL: ${{ vars.VITE_API_URL }}
-          VITE_ADMIN_URL: ${{ vars.VITE_ADMIN_URL }}
         run: |
           npm ci
           npm run build:pages
@@ -42,8 +42,6 @@ jobs:
 
       - name: Install and build admin
         working-directory: admin
-        env:
-          VITE_API_URL: ${{ vars.VITE_API_URL }}
         run: |
           npm ci
           npm run build:pages

@@ -40,10 +40,21 @@ Verify: open `https://YOUR-API.onrender.com/api/health` — should show `"databa
 
 | Name | Value |
 |------|-------|
-| `VITE_API_URL` | `https://vsparkz-api.onrender.com/api` *(your Render URL + /api)* |
+| `VITE_API_URL` | `https://vsparkz-api.onrender.com/api` |
 | `VITE_ADMIN_URL` | `https://vichuviju.github.io/vsparkz/admin` |
 
-3. Go to **Actions → Deploy Frontends to GitHub Pages → Run workflow** (rebuild with API URL).
+> The deploy workflow already uses these URLs by default if variables are not set.
+
+3. Go to **Actions → Deploy Frontends to GitHub Pages → Run workflow** (or push to `main` to auto-deploy).
+
+### Render outbound IPs (optional)
+
+If an external service needs to allowlist Render traffic from `vsparkz-api`, use:
+
+- `74.220.48.0/24`
+- `74.220.56.0/24`
+
+These are stored in `render.yaml` as `RENDER_OUTBOUND_IP_RANGES` for reference.
 
 ---
 

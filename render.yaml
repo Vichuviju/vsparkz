@@ -20,6 +20,8 @@ services:
         value: /var/www/database/database.sqlite
       - key: CORS_ALLOWED_ORIGINS
         value: https://vichuviju.github.io,http://localhost:5173,http://localhost:5174
+      - key: RENDER_OUTBOUND_IP_RANGES
+        value: 74.220.48.0/24,74.220.56.0/24
       - key: FRONTEND_URL
         value: https://vichuviju.github.io/vsparkz
       - key: APP_KEY
