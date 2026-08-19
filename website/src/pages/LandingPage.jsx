@@ -24,10 +24,15 @@ export default function LandingPage() {
         }
       })
       .catch((err) => {
+        const isNetworkError = !err.response
+        if (isNetworkError) {
+          setData({ template: null, sections: [], fallbackPage: null })
+          return
+        }
         if (err.response?.status === 404 || err.message?.includes('landing')) {
           getPageBySlug('home')
             .then((page) => setData({ template: null, sections: [], fallbackPage: page }))
-            .catch(() => setError('Failed to load page'))
+            .catch(() => setData({ template: null, sections: [], fallbackPage: null }))
         } else {
           setError(err.response?.data?.message || 'Failed to load')
         }

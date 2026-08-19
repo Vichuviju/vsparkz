@@ -25,6 +25,8 @@ If your Laravel API is already hosted somewhere, add repository variables so the
 
 Without these, the site still loads but login, CMS pages, and forms will call `http://127.0.0.1:8000` (localhost) and fail in production.
 
+**Why:** GitHub Pages only hosts static files. The Laravel API and database must run on a server. Use [Render](https://render.com) (free tier) with the included `render.yaml` at the project root, then set `VITE_API_URL` to your Render URL, e.g. `https://vsparkz-api.onrender.com/api`.
+
 ### 3. Push the deployment files
 
 Commit and push the workflow + website config to `main`:
